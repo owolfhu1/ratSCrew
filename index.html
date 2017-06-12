@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <style>
+
+        .slap_info_content {
+            margin: auto;
+            padding: 10%;
+            text-align: center;
+            background-color: #be313b;
+            width: 100%;
+            height: 100%;
+            color: rgba(246, 246, 246, 0.78);
+        }
+        .slap_info{
+            display: none;
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            right: 0;
+            overflow: hidden;
+        }
+        .turn_text{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .player_info{
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+        .game_body{
+            width: 100%;
+            height: 100%;
+        }
+        .player_pile{
+            text-align: center;
+            position: absolute;
+            border: solid;
+            height: 20%;
+        }
+        .play_pile{
+            width: 120px;
+            height: 180px;
+            position: absolute;
+            top: 37%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            border: solid green;
+        }​
+
+    </style>
+</head>
+<body>
+    <div id="slap_info" class="slap_info"><div id="slap_info_content" class="slap_info_content"></div></div>
+    <div class="game_body" id="game_body">
+
+       <!--       test area          -->
+
+            <div class="play_pile" >
+
+            </div>
+
+    </div>
+<script>
+    let game_body = document.getElementById('game_body');
+    let socket = io();
+    let playerNumber, player1, player2, player3, player4, play_pile, turn_text, slap_info, slap_info_content, player_info;
+
+    slap_info = document.getElementById('slap_info');
+    slap_info_content = document.getElementById('slap_info_content');
+
+    socket.on('setup_login', () => {
+        //setup game_body to have login fields
+        game_body.innerHTML = `
+            <input id="user_name" type="text" value="Please enter a username">
+            <input id="password" type="password">
+            <button id="login_button">login</button>
+        `;
+        //activate button to send login emit
+        document.getElementById('login_button').addEventListener('click', () => {
+            let password = document.getElementById('password').value;
+            let user_name = document.getElementById('user_name').value;
+            socket.emit('login', [user_name, password]);
+        });
+    });
+
+    //server to console messages
+    socket.on('login', text => {
+       console.log(text);
+    });
+
+    socket.on('clear_game', () => {
+        console.log('clear game attempted');
+        play_pile.innerHTML = '';
+    });
+
+    socket.on('slap', info => {
+        //show slap divs
+        slap_info.style.display = 'block';
+        //on click hide slap divs again
+        let counter = 0;
+        slap_info_content.addEventListener('click', () => {
+            counter++;
+            if (counter > 1) {
+                slap_info.style.display = 'none';
+                counter = 0;
+            }
+        });
+        //display info from server
+        slap_info_content.innerHTML = info;
+    });
+
+    socket.on('lobby', tables => {
+        let body = `<button id="new_table" class="table_button"><br><p>new table</p><br></button>`;
+
+
+        //for each table, build a button w/ players names and
+        for (let tableId in tables) {
+
+            let table = tables[tableId];
+
+            //building table button
+            let button = `<button class="table_button" id="${tableId}">`;
+            for (let player in table)
+                if (table[player] !== null)
+                    button += `<p>${table[player].name}</p>`;
+            button += `</button>`;
+
+            //add the button to the game_body
+            body += button;
+        }
+
+        //update the html
+        game_body.innerHTML = body;
+
+        //activate table buttons
+        for (let tableId in tables)
+            document.getElementById(tableId).addEventListener('click', () => {
+                //attempt to join table
+                socket.emit('join_table', tableId);
+            });
+        document.getElementById('new_table').addEventListener('click', () => {
+            socket.emit('join_table', 'new');
+        });
+    });
+
+    socket.on('table', table => {
+        //get playerNumber
+        playerNumber = table[1];
+        game_body.innerHTML = '';
+
+        //adds html for all players at table
+        for (let key in table[0]) {
+
+            //for all non-null players
+            if (table[0][key] !== null) {
+
+                //if it is the player, give them a ready button
+                if (key === playerNumber) {
+                    game_body.innerHTML += `
+<h2>${table[0][key].name} <button id="ready_button">${table[0][key].ready}</button></h2>`;
+                } else {
+
+                    //else just display name and if they are ready
+                    game_body.innerHTML += `
+<h2> ${table[0][key].name} ${table[0][key].ready} </h2>`;
+                }
+            }
+        }
+        //activate button
+        let ready_button = document.getElementById('ready_button');
+        ready_button.addEventListener('click', () => {
+            console.log('player hit ready button' + playerNumber); //for testing remove later
+            socket.emit('ready', playerNumber );
+        });
+    });
+
+    socket.on('setup_game', () => {
+        game_body.innerHTML = `
+            <div class="turn_text" id="turn_text"></div>
+            <div class="player_info" id="player_info"></div>
+            <div class="player_pile" id="player1"></div>
+            <div class="player_pile" id="player2"></div>
+            <div class="player_pile" id="player3"></div>
+            <div class="player_pile" id="player4"></div>
+            <div class="play_pile" id="play_pile"></div>
+        `;
+
+        //get doc elements
+        player1 = document.getElementById('player1');
+        player2 = document.getElementById('player2');
+        player3 = document.getElementById('player3');
+        player4 = document.getElementById('player4');
+        play_pile = document.getElementById('play_pile');
+        turn_text = document.getElementById('turn_text');
+        player_info = document.getElementById('player_info');
+
+        //add slap event listener
+        play_pile.addEventListener('click', () =>{
+            socket.emit('slap');
+        });
+
+        //position player_pile divs
+        if (playerNumber === 'player1') {
+            player1.style = `bottom: 0px; left: 50%; margin-left: -50px;`;
+            player2.style = `bottom: 50%; left: 0px; margin-top: -50px;`;
+            player3.style = `top: 0px; left: 50%; margin-left: -50px;`;
+            player4.style = `bottom: 50%; right: 0px; margin-top: -50px;`;
+        } else if (playerNumber === 'player2') {
+            player2.style = `bottom: 0px; left: 50%; margin-left: -50px;`;
+            player3.style = `bottom: 50%; left: 0px; margin-top: -50px;`;
+            player4.style = `top: 0px; left: 50%; margin-left: -50px;`;
+            player1.style = `bottom: 50%; right: 0px; margin-top: -50px;`;
+        } else if (playerNumber === 'player3') {
+            player3.style = `bottom: 0px; left: 50%; margin-left: -50px;`;
+            player4.style = `bottom: 50%; left: 0px; margin-top: -50px;`;
+            player1.style = `top: 0px; left: 50%; margin-left: -50px;`;
+            player2.style = `bottom: 50%; right: 0px; margin-top: -50px;`;
+        } else if (playerNumber === 'player4') {
+            player4.style = `bottom: 0px; left: 50%; margin-left: -50px;`;
+            player1.style = `bottom: 50%; left: 0px; margin-top: -50px;`;
+            player2.style = `top: 0px; left: 50%; margin-left: -50px;`;
+            player3.style = `bottom: 50%; right: 0px; margin-top: -50px;`;
+        }
+    });
+
+    socket.on('game_info', game => {
+
+        if(game[playerNumber].ready && game[playerNumber].cards.length === 0)
+            socket.emit('no_cards');
+
+        for (let i = 1; i < 5; i++) {
+            let player = 'player' + i;
+
+            if (game[player].cards.length !== 0) {
+                if (playerNumber === player)
+                    document.getElementById(player).innerHTML = printActiveBack();
+                else {
+                    document.getElementById(player).innerHTML = printCardBack();
+                    document.getElementById(player).innerHTML += `
+<b style="position: absolute; z-index: 1; top: 3px; left: 3px;">${game[player].name}<br>${game[player].cards.length}</b>`;
+                }
+
+            } else document.getElementById(player).innerHTML = printNoCard();
+
+        }
+
+
+        //print player info
+        player_info.innerHTML = ``;
+        if (game[playerNumber].cards.length > 0){
+            player_info.innerHTML = `<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</h3>`;
+        }
+
+
+        //place the last played card
+        if (game.pile.length > 0) {
+            play_pile.innerHTML += printCard(game.pile[game.pile.length - 1], nextPosition());
+        }
+
+        //empty turn_text
+        turn_text.innerHTML = '';
+        //if it is client's turn
+        if (game[playerNumber].ready) {
+            turn_text.innerHTML = '<h2>your turn</h2>';
+            document.getElementById('clickable').addEventListener('click', () => {
+                socket.emit('play_card');
+            });
+
+        }
+
+    });
+
+    //this changes each time a card is put down
+    let position = 1;
+    const nextPosition = () => {
+        if (position === 1) {
+            position = 2;
+            return `position: absolute; height: 100px; width: 70px; bottom: 0px; left: 0;`;
+        } else if (position === 2) {
+            position = 3;
+            return `position: absolute; height: 100px; width: 70px; top: 0px; left: 0;`;
+        } else if (position === 3) {
+            position = 4;
+            return `position: absolute; height: 100px; width: 70px; top: 0px; right: 0;`;
+        } else if (position === 4) {
+            position = 1;
+            return `position: absolute; height: 100px; width: 70px; bottom: 0px; right: 0;`;
+        }
+    };
+
+    const printActiveBack = () => `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
+    const printNoCard = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/play_area.png" style="height : 100%;">`;
+    const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
+    const printCard = (card, position) =>
+        `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card${card[1]}${card[0]}.png" style="${position}">`;
+
+</script>
+</body>
+</html>

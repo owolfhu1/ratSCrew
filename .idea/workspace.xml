@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26d8c0cd-6e2f-43c6-bb8b-c15299e3c7ce" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -44,10 +45,10 @@
           <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="432">
-                  <caret line="436" column="16" lean-forward="false" selection-start-line="436" selection-start-column="16" selection-end-line="436" selection-end-column="16" />
+                <state relative-caret-position="368">
+                  <caret line="432" column="23" lean-forward="true" selection-start-line="432" selection-start-column="23" selection-end-line="432" selection-end-column="23" />
                   <folding>
-                    <marker date="1497266988692" expanded="true" signature="14406:14418" ph="..." />
+                    <marker date="1497267890446" expanded="true" signature="14406:14418" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -243,12 +244,12 @@
       <option name="presentableId" value="Default" />
       <updated>1496553782594</updated>
       <workItem from="1496553783745" duration="18270000" />
-      <workItem from="1496973528029" duration="80684000" />
+      <workItem from="1496973528029" duration="81350000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98954000" />
+    <option name="totallyTimeSpent" value="99620000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
@@ -280,14 +281,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/server.js</url>
-          <line>433</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="2" />
     </breakpoint-manager>
     <watches-manager />
@@ -306,7 +299,7 @@
         <state relative-caret-position="272">
           <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
-            <marker date="1497266988692" expanded="true" signature="14406:14418" ph="..." />
+            <marker date="1497267890446" expanded="true" signature="14406:14418" ph="..." />
           </folding>
         </state>
       </provider>
@@ -353,10 +346,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="436" column="16" lean-forward="false" selection-start-line="436" selection-start-column="16" selection-end-line="436" selection-end-column="16" />
+        <state relative-caret-position="368">
+          <caret line="432" column="23" lean-forward="true" selection-start-line="432" selection-start-column="23" selection-end-line="432" selection-end-column="23" />
           <folding>
-            <marker date="1497266988692" expanded="true" signature="14406:14418" ph="..." />
+            <marker date="1497267890446" expanded="true" signature="14406:14418" ph="..." />
           </folding>
         </state>
       </provider>

@@ -425,7 +425,12 @@ const takePile = (tableId, player) => {
         game[player].cards.push(card);
     }
     
-    
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
     
     //empty the pile
     game.pile = [];
@@ -434,9 +439,16 @@ const takePile = (tableId, player) => {
     for (let p in game)
         if (game.hasOwnProperty(p))
             if (p !== 'pile')
-                game[p].ready = false;
+                if (p !== 'facePlayer')
+                    if (p !== 'triesLeft')
+                        game[p].ready = false;
     
-    
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
+    //TODO look at this
     
     //give turn to player who won
     game[player].ready = true;

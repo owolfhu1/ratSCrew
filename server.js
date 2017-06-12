@@ -249,7 +249,7 @@ io.on('connection', socket => {
     
     
                 //add the card to game pile
-                game.pile.push(card);
+                game.pile.push(game[player].cards[0]);
                 //remove the card from player cards
                 game[user.playerNumber].cards.splice(0,1);
                 
@@ -331,6 +331,8 @@ io.on('connection', socket => {
                         io.to(game[player].userId).emit('game_info', game);
             }
         }
+        console.log(`player ${game[player].name} played ${card} this is the result`);
+        console.log(game.pile);
         
     });
     
@@ -431,7 +433,8 @@ const takePile = (tableId, player) => {
     //turn everyone off
     for (let p in game)
         if (game.hasOwnProperty(p))
-            game[p].ready = false;
+            if (p !== 'pile')
+                game[p].ready = false;
     
     
     
@@ -566,5 +569,8 @@ const nextPlayer = tableId => {
 
 
 
+/*TODO:
+        -why is 'ready: false' being pushed into the pile when it is won
 
+*/
 

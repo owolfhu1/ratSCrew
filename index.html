@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <script src="/socket.io/socket.io.js"></script>
@@ -64,16 +63,12 @@
 
        <!--       test area          -->
 
-            <div class="play_pile" >
-
-            </div>
-
     </div>
 <script>
     let game_body = document.getElementById('game_body');
     let socket = io();
-    let playerNumber, player1, player2, player3, player4, play_pile, turn_text, slap_info, slap_info_content, player_info;
-
+    let playerNumber, player1, player2, player3, player4, play_pile,
+        turn_text, slap_info, slap_info_content, player_info;
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
 
@@ -120,27 +115,20 @@
 
     socket.on('lobby', tables => {
         let body = `<button id="new_table" class="table_button"><br><p>new table</p><br></button>`;
-
-
         //for each table, build a button w/ players names and
         for (let tableId in tables) {
-
             let table = tables[tableId];
-
             //building table button
             let button = `<button class="table_button" id="${tableId}">`;
             for (let player in table)
                 if (table[player] !== null)
                     button += `<p>${table[player].name}</p>`;
             button += `</button>`;
-
             //add the button to the game_body
             body += button;
         }
-
         //update the html
         game_body.innerHTML = body;
-
         //activate table buttons
         for (let tableId in tables)
             document.getElementById(tableId).addEventListener('click', () => {
@@ -156,19 +144,15 @@
         //get playerNumber
         playerNumber = table[1];
         game_body.innerHTML = '';
-
         //adds html for all players at table
         for (let key in table[0]) {
-
             //for all non-null players
             if (table[0][key] !== null) {
-
                 //if it is the player, give them a ready button
                 if (key === playerNumber) {
                     game_body.innerHTML += `
 <h2>${table[0][key].name} <button id="ready_button">${table[0][key].ready}</button></h2>`;
                 } else {
-
                     //else just display name and if they are ready
                     game_body.innerHTML += `
 <h2> ${table[0][key].name} ${table[0][key].ready} </h2>`;
@@ -193,7 +177,6 @@
             <div class="player_pile" id="player4"></div>
             <div class="play_pile" id="play_pile"></div>
         `;
-
         //get doc elements
         player1 = document.getElementById('player1');
         player2 = document.getElementById('player2');
@@ -202,12 +185,10 @@
         play_pile = document.getElementById('play_pile');
         turn_text = document.getElementById('turn_text');
         player_info = document.getElementById('player_info');
-
         //add slap event listener
         play_pile.addEventListener('click', () =>{
             socket.emit('slap');
         });
-
         //position player_pile divs
         if (playerNumber === 'player1') {
             player1.style = `bottom: 0px; left: 50%; margin-left: -50px;`;
@@ -236,10 +217,8 @@
 
         if(game[playerNumber].ready && game[playerNumber].cards.length === 0)
             socket.emit('no_cards');
-
         for (let i = 1; i < 5; i++) {
             let player = 'player' + i;
-
             if (game[player].cards.length !== 0) {
                 if (playerNumber === player)
                     document.getElementById(player).innerHTML = printActiveBack();
@@ -248,24 +227,17 @@
                     document.getElementById(player).innerHTML += `
 <b style="position: absolute; z-index: 1; top: 3px; left: 3px;">${game[player].name}<br>${game[player].cards.length}</b>`;
                 }
-
             } else document.getElementById(player).innerHTML = printNoCard();
-
         }
-
-
         //print player info
         player_info.innerHTML = ``;
         if (game[playerNumber].cards.length > 0){
             player_info.innerHTML = `<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</h3>`;
         }
-
-
         //place the last played card
         if (game.pile.length > 0) {
             play_pile.innerHTML += printCard(game.pile[game.pile.length - 1], nextPosition());
         }
-
         //empty turn_text
         turn_text.innerHTML = '';
         //if it is client's turn
@@ -274,9 +246,7 @@
             document.getElementById('clickable').addEventListener('click', () => {
                 socket.emit('play_card');
             });
-
         }
-
     });
 
     //this changes each time a card is put down
@@ -296,7 +266,6 @@
             return `position: absolute; height: 100px; width: 70px; bottom: 0px; right: 0;`;
         }
     };
-
     const printActiveBack = () => `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
     const printNoCard = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/play_area.png" style="height : 100%;">`;
     const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;

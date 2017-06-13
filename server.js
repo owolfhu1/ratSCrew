@@ -71,20 +71,27 @@ io.on('connection', socket => {
             if (user.tableId in tables) {
                 let player;
                 let table = tables[user.tableId];
-                for (let key in table)
-                    if (table[key] !== null)
-                        if (table[key].userId === userId)
-                            player = key;
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    if (table[p] !== null)
+                        if (table[p].userId === userId)
+                            player = p;
+                }
                 table[player] = null;
                 //check if anyone is still at the table, update table if so, delete table if not
                 let empty = true;
-                for (let key in table) if (table[key] !== null) empty = false;
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    if (table[p] !== null) empty = false;
+                }
                 if (empty) {
                     delete tables[user.tableId];
                 } else {
-                    for (let key in table)
-                        if (table[key] !== null)
-                            io.to(table[key].userId).emit('table', [table, key]);
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (table[p] !== null)
+                            io.to(table[p].userId).emit('table', [table, p]);
+                    }
                 }
                 for (let key in lobby) io.to(key).emit('lobby', tables );
             }
@@ -105,10 +112,11 @@ io.on('connection', socket => {
             delete lobby[userId];
             for (let key in lobby) io.to(key).emit('lobby', tables );
             //emit table to players in table
-            for (let key in table)
-                if (table[key] !== null)
-                    io.to(table[key].userId).emit('table', [table, table[key].userId]);
-        
+            for (let i = 1; i < 5; i++) {
+                let p = 'player' + i;
+                if (table[p] !== null)
+                    io.to(table[p].userId).emit('table', [table, p]);
+            }
         } else {
             //join existing table
             let table = tables[tableId];
@@ -131,9 +139,11 @@ io.on('connection', socket => {
             //if the user was added
             if (added) {
                 // update table for table recipients
-                for (let key in table)
-                    if (table[key] !== null)
-                        io.to(table[key].userId).emit('table', [table, key]);
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    if (table[p] !== null)
+                        io.to(table[p].userId).emit('table', [table, p]);
+                }
                 //remove from lobby and update lobby for lobby recipients
                 delete lobby[userId];
                 for (let key in lobby) io.to(key).emit('lobby', tables );
@@ -149,15 +159,19 @@ io.on('connection', socket => {
             table[player].ready = 'ready';
         else table[player].ready = 'not ready';
         //update clients in table
-        for (let p in table)
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
             if (table[p] !== null)
                 io.to(table[p].userId).emit('table', [table, p]);
+        }
         //check if all players are ready
         let ready = 0;
-        for (let p in table)
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
             if (table[p] !== null)
                 if (table[p].ready === 'ready')
                     ready++;
+        }
         if (ready === 4) newGame(user.tableId);
     });
     
@@ -364,22 +378,26 @@ const newGame = tableId =>  {
     for (let player in lobby)
         io.to(player).emit('lobby', tables);
     //setup game for clients
-    for (let player in game) {
-        game[player].ready = false;
-        game[player].cards = [];
-        io.to(game[player].userId).emit('setup_game');
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        game[p].ready = false;
+        game[p].cards = [];
+        io.to(game[p].userId).emit('setup_game');
     }
     //make a deck
     let gameDeck = deck();
     //deal it out
-    for (let player in game)
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
         for (let i = 0; i < 13; i++) {
-            game[player].cards.push(gameDeck[0]);
-            gameDeck.splice(0,1);
+            game[p].cards.push(gameDeck[0]);
+            gameDeck.splice(0, 1);
         }
+    }
     //add playerNumber property to users
-    for (let player in game){
-        userMap[game[player].userId].playerNumber = player;
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        userMap[game[p].userId].playerNumber = p;
     }
     //add properties to game
     game.pile = [];
@@ -455,10 +473,21 @@ const map = a => {
     return a;
 };
 
-/*TODO:
+/*TODO: MAKE THIS GAME GREAT
         -add DB
         -add sound
         -make game for 2-4 players rather than just 4 players
-        -add end to game
+        -add end to game + delete finished games
+        -add form to pre-game table, use:
+          * form.addEventListener('RadioStateChange', () => { socket.emit('update_form');
+          * to keep form in sync for all players
+        -form should give options:
+          * jokers on/off
+          * double slap on/off
+          * sandwich slap on/off
+          * add to 10 slap on/off
+          * top = bottom slap on/off
+          * add 0/1/2/3 to bottom on incorrect slaps
+          * tripples = win on/off
 */
 

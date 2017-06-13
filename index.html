@@ -102,7 +102,7 @@
         slap_info.style.display = 'block';
         //on click hide slap divs again
         let counter = 0;
-        slap_info_content.addEventListener('click', () => {
+        slap_info_content.addEventListener('mousedown', () => {
             counter++;
             if (counter > 1) {
                 slap_info.style.display = 'none';
@@ -186,7 +186,7 @@
         turn_text = document.getElementById('turn_text');
         player_info = document.getElementById('player_info');
         //add slap event listener
-        play_pile.addEventListener('click', () =>{
+        play_pile.addEventListener('mousedown', () =>{//todo/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             socket.emit('slap');
         });
         //position player_pile divs

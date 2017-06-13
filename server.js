@@ -257,13 +257,14 @@ io.on('connection', socket => {
                 nextPlayer(user.tableId);
                 
                 //update
-                for (let player in game)
-                    if (game.hasOwnProperty(player))
-                        io.to(game[player].userId).emit('game_info', game);
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    io.to(game[p].userId).emit('game_info', game);
+                }
+                
+                
                 //if player is out of cards or tries
-            } else if (game.triesLeft === 1 || game[player].cards.length === 0) {
-                
-                
+            } else if (game.triesLeft === 1 || game[player].cards.length === 1) {
                 
                 //no-ones turn, wait for player to claim pile or slap
                 game[player].ready = false;
@@ -271,16 +272,13 @@ io.on('connection', socket => {
                 //add the card to game pile
                 game.pile.push(game[player].cards[0]);/////
                 //remove the card from player cards
-                game[user.playerNumber].cards.splice(0,1);
+                game[player].cards.splice(0,1);
                 
                 //update
-                for (let player in game)
-                    if (game.hasOwnProperty(player))
-                        io.to(game[player].userId).emit('game_info', game);
-                
-                
-                
-                
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    io.to(game[p].userId).emit('game_info', game);
+                }
                 
             } else { //player goes again
                 game.triesLeft--;
@@ -288,10 +286,12 @@ io.on('connection', socket => {
                 game.pile.push(game[player].cards[0]);/////
                 //remove the card from player cards
                 game[user.playerNumber].cards.splice(0,1);
+    
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    io.to(game[p].userId).emit('game_info', game);
+                }
                 
-                for (let player in game)
-                    if (game.hasOwnProperty(player))
-                        io.to(game[player].userId).emit('game_info', game);
             }
         } else {
     
@@ -313,12 +313,14 @@ io.on('connection', socket => {
                 nextPlayer(user.tableId);
         
                 //update
-                for (let player in game)
-                    if (game.hasOwnProperty(player))
-                        io.to(game[player].userId).emit('game_info', game);
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    io.to(game[p].userId).emit('game_info', game);
+                }
+                
                 //if player is out of cards or tries
             } else {
-    
+                
                 //add the card to game pile
                 game.pile.push(game[player].cards[0]);/////
                 //remove the card from player cards
@@ -326,9 +328,10 @@ io.on('connection', socket => {
                 //change turns
                 nextPlayer(user.tableId);
                 //emit game to players
-                for (let player in game)
-                    if (game.hasOwnProperty(player))
-                        io.to(game[player].userId).emit('game_info', game);
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    io.to(game[p].userId).emit('game_info', game);
+                }
             }
         }
         console.log(`player ${game[player].name} played ${card} this is the result`);
@@ -337,14 +340,15 @@ io.on('connection', socket => {
     });
     
     
-    
+    //emit from client when it is there turn and they have no cards
     socket.on('no_cards', () => {
         let game = games[user.tableId];
         nextPlayer(user.tableId);
     
-        for (let player in game)
-            if (game.hasOwnProperty(player))
-                io.to(game[player].userId).emit('game_info', game);
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
+            io.to(game[p].userId).emit('game_info', game);
+        }
         
     });
     
@@ -375,16 +379,18 @@ io.on('connection', socket => {
         //if the player has won the round
         if (game.roundOver && player === game.facePlayer) {
     
-            for (let p in game)
-                if (game.hasOwnProperty(p))
-                    io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>won the pile!</h2>`);
+            for (let i = 1; i < 5; i++) {
+                let p = 'player' + i;
+                io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>won the pile!</h2>`);
+            }
             
             takePile(user.tableId, player);
         } else {
             if(isSlapped){
-                for (let p in game)
-                    if (game.hasOwnProperty(p))
-                        io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>slapped and took<br>the pile!</h2>`);
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>slapped and took<br>the pile!</h2>`);
+                }
                 
                 takePile(user.tableId, player);
             } else {
@@ -399,10 +405,12 @@ io.on('connection', socket => {
                     if (game[player].cards.length === 0)
                         nextPlayer(user.tableId);
     
-                    for (let p in game)
-                        if (game.hasOwnProperty(p))
-                            io.to(game[p].userId).emit('slap', `
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        io.to(game[p].userId).emit('slap', `
 <h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`);
+                    }
+                    
                 }///TODO else emit 'time_out' to player here
             }
         }
@@ -418,37 +426,20 @@ const takePile = (tableId, player) => {
     let game = games[tableId];
     console.log(game.pile);
     
-    
     //push all pile cards to player cards
-    for (let card in game.pile) {
-        console.log('pushing ' + card);
-        game[player].cards.push(card);
+    for (let i = 0; i < game.pile.length; i++) {
+        console.log(`pushing ${game.pile[i]} to ${game[player].name}`);
+        game[player].cards.push(game.pile[i]);
     }
-    
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
     
     //empty the pile
     game.pile = [];
     
     //turn everyone off
-    for (let p in game)
-        if (game.hasOwnProperty(p))
-            if (p !== 'pile')
-                if (p !== 'facePlayer')
-                    if (p !== 'triesLeft')
-                        game[p].ready = false;
-    
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
-    //TODO look at this
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        game[p].ready = false;
+    }
     
     //give turn to player who won
     game[player].ready = true;
@@ -456,16 +447,11 @@ const takePile = (tableId, player) => {
     game.facePlayer = 'none';
     game.triesLeft = 0;
     
-    
-    
+    //clear pile and send game_info
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-    
-        console.log('-=> clear_game -=> game_info -=> ' + game[p].userId);
-        
         io.to(game[p].userId).emit('clear_game');
         io.to(game[p].userId).emit('game_info', game);
-       
     }
     
 };
@@ -520,9 +506,11 @@ const newGame = tableId =>  {
     game[turn].ready = true;
     
     //start game
-    for (let player in game)
-        if (game.hasOwnProperty(player))
-            io.to(game[player].userId).emit('game_info', game);
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        io.to(game[p].userId).emit('game_info', game);
+    }
+    
 };
 
 
@@ -582,7 +570,7 @@ const nextPlayer = tableId => {
 
 
 /*TODO:
-        -why is 'ready: false' being pushed into the pile when it is won
+        --why are numbers being pushed to player cards
 
 */
 

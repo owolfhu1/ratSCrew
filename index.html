@@ -12,7 +12,7 @@
             background-color: #be313b;
             width: 100%;
             height: 100%;
-            color: rgba(246, 246, 246, 0.78);
+            color: whitesmoke;
         }
         .slap_info{
             display: none;
@@ -63,12 +63,14 @@
 
        <!--       test area          -->
 
+
+
     </div>
 <script>
     let game_body = document.getElementById('game_body');
     let socket = io();
     let playerNumber, player1, player2, player3, player4, play_pile,
-        turn_text, slap_info, slap_info_content, player_info;
+        turn_text, slap_info, slap_info_content, player_info, rules;
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
 
@@ -101,13 +103,8 @@
         //show slap divs
         slap_info.style.display = 'block';
         //on click hide slap divs again
-        let counter = 0;
-        slap_info_content.addEventListener('mousedown', () => {
-            counter++;
-            if (counter > 1) {
-                slap_info.style.display = 'none';
-                counter = 0;
-            }
+        slap_info_content.addEventListener('click', () => {
+            slap_info.style.display = 'none';
         });
         //display info from server
         slap_info_content.innerHTML = info;
@@ -140,10 +137,54 @@
         });
     });
 
+    socket.on('setup_table', table => {
+        game_body.innerHTML = `
+        <form id="rules">
+            <h1>slap conditions:</h1>
+            sandwiches:
+            <input type="radio" title="sandwich" name="sandwich" value="on" checked>on
+            <input type="radio" title="sandwich" name="sandwich" value="off">off <br>
+            runs:
+            <input type="radio" title="run" name="run" value="off">off
+            <input type="radio" title="run" name="run" value="two" checked>two
+            <input type="radio" title="run" name="run" value="three">three
+            <input type="radio" title="run" name="run" value="four">four <br>
+            bottom = top:
+            <input type="radio" title="bottomTop" name="bottomTop" value="on" checked>on
+            <input type="radio" title="bottomTop" name="bottomTop" value="off">off
+            <h1>other rules:</h1>
+            jokers (can be slapped):
+            <input type="radio" title="jokers" name="jokers" value="on" checked>on
+            <input type="radio" title="jokers" name="jokers" value="off">off <br>
+            punishment for slapping:
+            <input type="radio" title="punish" name="punish" value="off">off
+            <input type="radio" title="punish" name="punish" value="one" checked>one card
+            <input type="radio" title="punish" name="punish" value="two">two cards <br>
+            timeout for slapping without cards: <br>
+            <input type="radio" title="timeout" name="timeout" value="off">off
+            <input type="radio" title="timeout" name="timeout" value="two" checked>two minutes
+            <input type="radio" title="timeout" name="timeout" value="five">five minutes
+            <input type="radio" title="timeout" name="timeout" value="forever">forever<br>
+        </form>
+        `;
+
+        rules = document.getElementById('rules');
+
+        rules.run.valueOf();/////TODO--------
+
+
+    });
+
+
     socket.on('table', table => {
         //get playerNumber
         playerNumber = table[1];
+
+        //make rules form
         game_body.innerHTML = '';
+
+
+
         //adds html for all players at table
         for (let key in table[0]) {
             //for all non-null players
@@ -186,7 +227,7 @@
         turn_text = document.getElementById('turn_text');
         player_info = document.getElementById('player_info');
         //add slap event listener
-        play_pile.addEventListener('mousedown', () =>{//todo/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        play_pile.addEventListener('mousedown', () =>{
             socket.emit('slap');
         });
         //position player_pile divs

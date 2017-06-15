@@ -28,6 +28,7 @@ let newPlayer = function (name, userId) {
     this.userId = userId;
     this.ready = 'not ready';
     this.cards = null;
+    this.pauseTill = 0;
 };
 
 let newUser = function (userId) {
@@ -276,64 +277,73 @@ io.on('connection', socket => {
         let game = games[user.tableId];
         let player = user.playerNumber;
         let cards = game.pile;
-        console.log(user.name + ' slapped the pile');
-        console.log(cards);
         let isSlapped = false;
+        let time = new Date().getTime();
         
-        //check slap conditions here: todo: add more
+        console.log('time of slap    : ' + time);
+        console.log('game paused till: ' + game.pauseTill);
+        console.log('player paused to: ' + game[player].pauseTill);
         
-        
-        
-        if (cards.length > 3){
-            if (cards[0][0] === cards[cards.length - 1][0]) isSlapped = true;
-            let l = cards.length;
-            if (isRun(cards[l-1][0], cards[l-2][0], cards[l-3][0], cards[l-4][0])) isSlapped = true;
-        }
-        
-        if (cards.length > 1) {
-            if (cards[cards.length - 1][0] === cards[cards.length - 2][0]) isSlapped = true;
-            if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10) isSlapped = true;
-        }
-        if (cards.length > 2) {
-            if (cards[cards.length - 1][0] === cards[cards.length - 3][0]) isSlapped = true;
-            if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10) isSlapped = true;
-        }
-        
-        //if the player has won the round
-        if (game.roundOver && player === game.facePlayer) {
-            for (let i = 1; i < 5; i++) {
-                let p = 'player' + i;
-                io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>won the pile!</h2>`);
-            }
-            takePile(user.tableId, player);
-        } else {
-            
-            //legit slap
-            if(isSlapped){
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>slapped and took<br>the pile!</h2>`);
+        if (time > game.pauseTill) {
+            if (time > game[player].pauseTill) {
+    
+    
+                if (cards.length > 3) {
+                    if (cards[0][0] === cards[cards.length - 1][0]) isSlapped = true;
+                    let l = cards.length;
+                    if (isRun(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0])) isSlapped = true;
                 }
-                takePile(user.tableId, player);
-            } else {
-                //illegitimate slap
-                if (game[player].cards.length !== 0) {
-                    let c = game[player].cards[0];
-                    console.log(`${c[0]} of ${c[1]} bottom piled`);
-                    //take their top card and put it at the bottom of the deck
-                    game.pile.splice(0, 0, game[player].cards.splice(0, 1)[0]);
-                    //if the user is out of cards. next player
-                    if (game[player].cards.length === 0)
-                        nextPlayer(user.tableId);
+    
+                if (cards.length > 1) {
+                    if (cards[cards.length - 1][0] === cards[cards.length - 2][0]) isSlapped = true;
+                    if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10) isSlapped = true;
+                }
+                if (cards.length > 2) {
+                    if (cards[cards.length - 1][0] === cards[cards.length - 3][0]) isSlapped = true;
+                    if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10) isSlapped = true;
+                }
+    
+                //if the player has won the round
+                if (game.roundOver && player === game.facePlayer) {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
-                        io.to(game[p].userId).emit('slap', `
-<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`);
+                        io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>won the pile!</h2>`);
                     }
-                }///TODO else emit 'time_out' to player here
+                    takePile(user.tableId, player);
+                } else {
+        
+                    //legit slap
+                    if (isSlapped) {
+                        for (let i = 1; i < 5; i++) {
+                            let p = 'player' + i;
+                            io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>slapped and took<br>the pile!</h2>`);
+                        }
+                        takePile(user.tableId, player);
+                    } else {
+                        //illegitimate slap
+                        if (game[player].cards.length !== 0) {
+                            let c = game[player].cards[0];
+                            console.log(`${c[0]} of ${c[1]} bottom piled`);
+                            //take their top card and put it at the bottom of the deck
+                            game.pile.splice(0, 0, game[player].cards.splice(0, 1)[0]);
+                            //if the user is out of cards. next player
+                            if (game[player].cards.length === 0)
+                                nextPlayer(user.tableId);
+                            for (let i = 1; i < 5; i++) {
+                                let p = 'player' + i;
+                                io.to(game[p].userId).emit('slap', `
+<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`);
+                            }
+                        } else game[player].pauseTill = time + 200000;
+                    }
+                }
+                game.pauseTill = time + 3000;
             }
         }
     });
+    
+    
+    
     
 });
 
@@ -343,10 +353,8 @@ const printCard = (card) =>
 
 const takePile = (tableId, player) => {
     let game = games[tableId];
-    console.log(game.pile);
     //push all pile cards to player cards
     for (let i = 0; i < game.pile.length; i++) {
-        console.log(`pushing ${game.pile[i]} to ${game[player].name}`);
         game[player].cards.push(game.pile[i]);
     }
     //empty the pile
@@ -404,6 +412,7 @@ const newGame = tableId =>  {
     game.facePlayer = 'none';
     game.triesLeft = 0;
     game.roundOver = false;
+    game.pauseTill = 0;
     //give a random player the first turn
     let turn = 'player' + (Math.floor(Math.random() * 4) + 1);
     game[turn].ready = true;

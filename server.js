@@ -27,6 +27,8 @@ let newTable = function () {
     this.jokers = 'on';//\\TODO//\\
     this.punish = 'one';//\\TODO//\\
     this.timeout = 'two';//\\TODO//\\
+    this.double = 'on';//\\TODO//\\
+    this.sumten = 'on';//\\TODO//\\
 };
 
 let newPlayer = function (name, userId) {
@@ -313,18 +315,22 @@ io.on('connection', socket => {
                     if (game.bottomTop = 'on')
                         if (cards[0][0] === cards[cards.length - 1][0])
                             isSlapped = true;
-                    if (cards[cards.length - 1][0] === cards[cards.length - 2][0])
-                        isSlapped = true;
-                    //if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10)
-                      //  isSlapped = true;
+                    if (game.double === 'on')
+                        if (cards[cards.length - 1][0] === cards[cards.length - 2][0])
+                            isSlapped = true;
+                    if (game.sumten === 'on')
+                        if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10)
+                            isSlapped = true;
                 }
                 
                 if (game.sandwich = 'on')
                     if (cards.length > 2) {
-                        if (cards[cards.length - 1][0] === cards[cards.length - 3][0])
-                            isSlapped = true;
-                      //  if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10)
-                        //    isSlapped = true;
+                        if (game.double === 'on')
+                            if (cards[cards.length - 1][0] === cards[cards.length - 3][0])
+                                isSlapped = true;
+                        if (game.sumten === 'on')
+                            if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10)
+                                isSlapped = true;
                     }
     
                 
@@ -371,6 +377,7 @@ io.on('connection', socket => {
     socket.on('rules', rules => {
         console.log('rules.....');
         let table;
+        //get the table:
         //table = tables[id, where tables.id.somePlayer.userId = userId]
         for (let id in tables)
             for (let i = 1; i < 5; i++) {
@@ -379,9 +386,6 @@ io.on('connection', socket => {
                     if (tables[id][player].userId === userId)
                         table = tables[id];
             }
-        
-            console.log(table);
-            console.log(rules);
             
             
         //get values from form into table
@@ -391,6 +395,8 @@ io.on('connection', socket => {
         table.jokers = rules[3];
         table.punish = rules[4];
         table.timeout = rules[5];
+        table.double = rules[6];
+        table.sumten = rules[7];
         
         //send table back to players
         for (let i = 1; i < 5; i++) {
@@ -456,9 +462,6 @@ const newGame = tableId =>  {
     } else if (game.timeout === 'forever') {
         game.timeout = 13370000; //a lot..
     }
-    
-    
-    
     
     //setup game for clients
     for (let i = 1; i < 5; i++) {

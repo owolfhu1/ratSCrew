@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="26d8c0cd-6e2f-43c6-bb8b-c15299e3c7ce" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.js" afterPath="$PROJECT_DIR$/server.js" />
     </list>
@@ -17,61 +18,25 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.3437999">
+    <splitter split-orientation="horizontal" split-proportion="0.8131985">
       <split-first>
         <leaf>
           <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="321">
-                  <caret line="226" column="28" lean-forward="false" selection-start-line="226" selection-start-column="22" selection-end-line="226" selection-end-column="28" />
+                <state relative-caret-position="176">
+                  <caret line="11" column="19" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
                   <folding>
-                    <element signature="n#head#0;n#!!top" expanded="false" />
-                    <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-                    <element signature="e#211#427#0" expanded="false" />
-                    <element signature="e#446#663#0" expanded="false" />
-                    <element signature="e#682#769#0" expanded="false" />
-                    <element signature="e#790#878#0" expanded="false" />
-                    <element signature="e#897#959#0" expanded="false" />
-                    <element signature="e#980#1107#0" expanded="false" />
-                    <element signature="e#1126#1363#0" expanded="false" />
-                    <element signature="n#div#1;n#body#0;n#!!top" expanded="false" />
-                    <element signature="e#1999#2616#0" expanded="false" />
-                    <element signature="e#2398#2608#0" expanded="false" />
-                    <element signature="e#2684#2717#0" expanded="false" />
-                    <element signature="e#2755#2841#0" expanded="false" />
-                    <element signature="e#2875#3187#0" expanded="false" />
-                    <element signature="e#3043#3100#0" expanded="false" />
-                    <element signature="e#3224#4346#0" expanded="false" />
-                    <element signature="e#4094#4201#0" expanded="false" />
-                    <element signature="e#4281#4338#0" expanded="false" />
-                    <element signature="e#8917#11344#0" expanded="false" />
-                    <element signature="e#9873#9917#0" expanded="false" />
-                    <element signature="e#9996#10303#0" expanded="false" />
-                    <element signature="e#10341#10648#0" expanded="false" />
-                    <element signature="e#10686#10993#0" expanded="false" />
-                    <element signature="e#11031#11338#0" expanded="false" />
-                    <element signature="e#11383#12935#0" expanded="false" />
-                    <element signature="e#11537#12156#0" expanded="false" />
-                    <element signature="e#11627#12082#0" expanded="false" />
-                    <element signature="e#11778#12068#0" expanded="false" />
-                    <element signature="e#12269#12411#0" expanded="false" />
-                    <element signature="e#12483#12589#0" expanded="false" />
-                    <element signature="e#12721#12929#0" expanded="false" />
-                    <element signature="e#12860#12917#0" expanded="false" />
-                    <element signature="e#13330#13956#0" expanded="false" />
-                    <element signature="e#13360#13489#0" expanded="false" />
-                    <element signature="e#13515#13641#0" expanded="false" />
-                    <element signature="e#13667#13794#0" expanded="false" />
-                    <element signature="e#13820#13950#0" expanded="false" />
-                    <marker date="1497728405782" expanded="true" signature="4538:6938" ph="..." />
-                    <marker date="1497728405782" expanded="true" signature="7501:7502" ph="..." />
-                    <marker date="1497728405782" expanded="true" signature="7501:7575" ph="..." />
-                    <marker date="1497728405782" expanded="false" signature="11938:11979" ph="..." />
-                    <marker date="1497728405782" expanded="false" signature="11938:11990" ph="..." />
-                    <marker date="1497728405782" expanded="false" signature="14086:14100" ph="..." />
-                    <marker date="1497728405782" expanded="false" signature="14214:14228" ph="..." />
-                    <marker date="1497728405782" expanded="false" signature="14344:14358" ph="..." />
+                    <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+                    <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+                    <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+                    <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+                    <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+                    <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+                    <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+                    <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+                    <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+                    <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -84,8 +49,8 @@
           <file leaf-file-name="server.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/server.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="458">
-                  <caret line="334" column="4" lean-forward="true" selection-start-line="334" selection-start-column="4" selection-end-line="334" selection-end-column="4" />
+                <state relative-caret-position="306">
+                  <caret line="306" column="39" lean-forward="true" selection-start-line="306" selection-start-column="39" selection-end-line="306" selection-end-column="39" />
                   <folding>
                     <element signature="e#0#54#0" expanded="false" />
                     <element signature="e#1064#1148#0" expanded="false" />
@@ -117,26 +82,9 @@
                     <element signature="e#10337#10465#0" expanded="false" />
                     <element signature="e#10603#10825#0" expanded="false" />
                     <element signature="e#10715#10819#0" expanded="false" />
-                    <element signature="e#16122#16824#0" expanded="false" />
-                    <element signature="e#16244#16298#0" expanded="false" />
-                    <element signature="e#16396#16464#0" expanded="false" />
-                    <element signature="e#16680#16822#0" expanded="false" />
-                    <element signature="e#17609#17755#0" expanded="false" />
-                    <element signature="e#17862#18028#0" expanded="false" />
-                    <element signature="e#17931#18022#0" expanded="false" />
-                    <element signature="e#18102#18189#0" expanded="false" />
-                    <element signature="e#18373#18465#0" expanded="false" />
-                    <element signature="e#19019#19177#0" expanded="false" />
-                    <element signature="e#19060#19175#0" expanded="false" />
-                    <element signature="e#19210#19930#0" expanded="false" />
-                    <element signature="e#19285#19389#0" expanded="false" />
-                    <element signature="e#19419#19523#0" expanded="false" />
-                    <element signature="e#19553#19657#0" expanded="false" />
-                    <element signature="e#19687#19791#0" expanded="false" />
-                    <element signature="e#19960#20170#0" expanded="false" />
-                    <element signature="e#20190#20285#0" expanded="false" />
-                    <element signature="e#20288#20929#0" expanded="false" />
-                    <marker date="1497728405775" expanded="false" signature="16066:16078" ph="..." />
+                    <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+                    <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+                    <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
                   </folding>
                 </state>
               </provider>
@@ -176,7 +124,6 @@
       <find>in</find>
       <find>console</find>
       <find>TODO</find>
-      <find>in</find>
       <find>game_b</find>
       <find>'table'</find>
       <find>double</find>
@@ -192,8 +139,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/server.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -372,7 +319,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="148882000" />
+    <option name="totallyTimeSpent" value="150274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1924" height="1056" extended-state="1" />
@@ -384,17 +331,28 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1874311" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1874311" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27894157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1874311" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27894157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32996276" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,52 +379,16 @@
         <state relative-caret-position="1664">
           <caret line="104" column="53" lean-forward="false" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
           <folding>
-            <element signature="n#head#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-            <element signature="e#211#427#0" expanded="false" />
-            <element signature="e#446#663#0" expanded="false" />
-            <element signature="e#682#769#0" expanded="false" />
-            <element signature="e#790#878#0" expanded="false" />
-            <element signature="e#897#959#0" expanded="false" />
-            <element signature="e#980#1107#0" expanded="false" />
-            <element signature="e#1126#1363#0" expanded="false" />
-            <element signature="n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="e#1999#2616#0" expanded="false" />
-            <element signature="e#2398#2608#0" expanded="false" />
-            <element signature="e#2684#2717#0" expanded="false" />
-            <element signature="e#2755#2841#0" expanded="false" />
-            <element signature="e#2875#3187#0" expanded="false" />
-            <element signature="e#3043#3100#0" expanded="false" />
-            <element signature="e#3224#4346#0" expanded="false" />
-            <element signature="e#4094#4201#0" expanded="false" />
-            <element signature="e#4281#4338#0" expanded="false" />
-            <element signature="e#8917#11344#0" expanded="false" />
-            <element signature="e#9873#9917#0" expanded="false" />
-            <element signature="e#9996#10303#0" expanded="false" />
-            <element signature="e#10341#10648#0" expanded="false" />
-            <element signature="e#10686#10993#0" expanded="false" />
-            <element signature="e#11031#11338#0" expanded="false" />
-            <element signature="e#11383#12935#0" expanded="false" />
-            <element signature="e#11537#12156#0" expanded="false" />
-            <element signature="e#11627#12082#0" expanded="false" />
-            <element signature="e#11778#12068#0" expanded="false" />
-            <element signature="e#12269#12411#0" expanded="false" />
-            <element signature="e#12483#12589#0" expanded="false" />
-            <element signature="e#12721#12929#0" expanded="false" />
-            <element signature="e#12860#12917#0" expanded="false" />
-            <element signature="e#13330#13956#0" expanded="false" />
-            <element signature="e#13360#13489#0" expanded="false" />
-            <element signature="e#13515#13641#0" expanded="false" />
-            <element signature="e#13667#13794#0" expanded="false" />
-            <element signature="e#13820#13950#0" expanded="false" />
-            <marker date="1497728405782" expanded="true" signature="4538:6938" ph="..." />
-            <marker date="1497728405782" expanded="true" signature="7501:7502" ph="..." />
-            <marker date="1497728405782" expanded="true" signature="7501:7575" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="11938:11979" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="11938:11990" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14086:14100" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14214:14228" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14344:14358" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
           </folding>
         </state>
       </provider>
@@ -506,26 +428,9 @@
             <element signature="e#10337#10465#0" expanded="false" />
             <element signature="e#10603#10825#0" expanded="false" />
             <element signature="e#10715#10819#0" expanded="false" />
-            <element signature="e#16122#16824#0" expanded="false" />
-            <element signature="e#16244#16298#0" expanded="false" />
-            <element signature="e#16396#16464#0" expanded="false" />
-            <element signature="e#16680#16822#0" expanded="false" />
-            <element signature="e#17609#17755#0" expanded="false" />
-            <element signature="e#17862#18028#0" expanded="false" />
-            <element signature="e#17931#18022#0" expanded="false" />
-            <element signature="e#18102#18189#0" expanded="false" />
-            <element signature="e#18373#18465#0" expanded="false" />
-            <element signature="e#19019#19177#0" expanded="false" />
-            <element signature="e#19060#19175#0" expanded="false" />
-            <element signature="e#19210#19930#0" expanded="false" />
-            <element signature="e#19285#19389#0" expanded="false" />
-            <element signature="e#19419#19523#0" expanded="false" />
-            <element signature="e#19553#19657#0" expanded="false" />
-            <element signature="e#19687#19791#0" expanded="false" />
-            <element signature="e#19960#20170#0" expanded="false" />
-            <element signature="e#20190#20285#0" expanded="false" />
-            <element signature="e#20288#20929#0" expanded="false" />
-            <marker date="1497728405775" expanded="false" signature="16066:16078" ph="..." />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
           </folding>
         </state>
       </provider>
@@ -573,26 +478,9 @@
             <element signature="e#10337#10465#0" expanded="false" />
             <element signature="e#10603#10825#0" expanded="false" />
             <element signature="e#10715#10819#0" expanded="false" />
-            <element signature="e#16122#16824#0" expanded="false" />
-            <element signature="e#16244#16298#0" expanded="false" />
-            <element signature="e#16396#16464#0" expanded="false" />
-            <element signature="e#16680#16822#0" expanded="false" />
-            <element signature="e#17609#17755#0" expanded="false" />
-            <element signature="e#17862#18028#0" expanded="false" />
-            <element signature="e#17931#18022#0" expanded="false" />
-            <element signature="e#18102#18189#0" expanded="false" />
-            <element signature="e#18373#18465#0" expanded="false" />
-            <element signature="e#19019#19177#0" expanded="false" />
-            <element signature="e#19060#19175#0" expanded="false" />
-            <element signature="e#19210#19930#0" expanded="false" />
-            <element signature="e#19285#19389#0" expanded="false" />
-            <element signature="e#19419#19523#0" expanded="false" />
-            <element signature="e#19553#19657#0" expanded="false" />
-            <element signature="e#19687#19791#0" expanded="false" />
-            <element signature="e#19960#20170#0" expanded="false" />
-            <element signature="e#20190#20285#0" expanded="false" />
-            <element signature="e#20288#20929#0" expanded="false" />
-            <marker date="1497728405775" expanded="false" signature="16066:16078" ph="..." />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
           </folding>
         </state>
       </provider>
@@ -602,52 +490,16 @@
         <state relative-caret-position="624">
           <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
           <folding>
-            <element signature="n#head#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-            <element signature="e#211#427#0" expanded="false" />
-            <element signature="e#446#663#0" expanded="false" />
-            <element signature="e#682#769#0" expanded="false" />
-            <element signature="e#790#878#0" expanded="false" />
-            <element signature="e#897#959#0" expanded="false" />
-            <element signature="e#980#1107#0" expanded="false" />
-            <element signature="e#1126#1363#0" expanded="false" />
-            <element signature="n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="e#1999#2616#0" expanded="false" />
-            <element signature="e#2398#2608#0" expanded="false" />
-            <element signature="e#2684#2717#0" expanded="false" />
-            <element signature="e#2755#2841#0" expanded="false" />
-            <element signature="e#2875#3187#0" expanded="false" />
-            <element signature="e#3043#3100#0" expanded="false" />
-            <element signature="e#3224#4346#0" expanded="false" />
-            <element signature="e#4094#4201#0" expanded="false" />
-            <element signature="e#4281#4338#0" expanded="false" />
-            <element signature="e#8917#11344#0" expanded="false" />
-            <element signature="e#9873#9917#0" expanded="false" />
-            <element signature="e#9996#10303#0" expanded="false" />
-            <element signature="e#10341#10648#0" expanded="false" />
-            <element signature="e#10686#10993#0" expanded="false" />
-            <element signature="e#11031#11338#0" expanded="false" />
-            <element signature="e#11383#12935#0" expanded="false" />
-            <element signature="e#11537#12156#0" expanded="false" />
-            <element signature="e#11627#12082#0" expanded="false" />
-            <element signature="e#11778#12068#0" expanded="false" />
-            <element signature="e#12269#12411#0" expanded="false" />
-            <element signature="e#12483#12589#0" expanded="false" />
-            <element signature="e#12721#12929#0" expanded="false" />
-            <element signature="e#12860#12917#0" expanded="false" />
-            <element signature="e#13330#13956#0" expanded="false" />
-            <element signature="e#13360#13489#0" expanded="false" />
-            <element signature="e#13515#13641#0" expanded="false" />
-            <element signature="e#13667#13794#0" expanded="false" />
-            <element signature="e#13820#13950#0" expanded="false" />
-            <marker date="1497728405782" expanded="true" signature="4538:6938" ph="..." />
-            <marker date="1497728405782" expanded="true" signature="7501:7502" ph="..." />
-            <marker date="1497728405782" expanded="true" signature="7501:7575" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="11938:11979" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="11938:11990" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14086:14100" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14214:14228" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14344:14358" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
           </folding>
         </state>
       </provider>
@@ -740,65 +592,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="226" column="28" lean-forward="false" selection-start-line="226" selection-start-column="22" selection-end-line="226" selection-end-column="28" />
-          <folding>
-            <element signature="n#head#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
-            <element signature="e#211#427#0" expanded="false" />
-            <element signature="e#446#663#0" expanded="false" />
-            <element signature="e#682#769#0" expanded="false" />
-            <element signature="e#790#878#0" expanded="false" />
-            <element signature="e#897#959#0" expanded="false" />
-            <element signature="e#980#1107#0" expanded="false" />
-            <element signature="e#1126#1363#0" expanded="false" />
-            <element signature="n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="e#1999#2616#0" expanded="false" />
-            <element signature="e#2398#2608#0" expanded="false" />
-            <element signature="e#2684#2717#0" expanded="false" />
-            <element signature="e#2755#2841#0" expanded="false" />
-            <element signature="e#2875#3187#0" expanded="false" />
-            <element signature="e#3043#3100#0" expanded="false" />
-            <element signature="e#3224#4346#0" expanded="false" />
-            <element signature="e#4094#4201#0" expanded="false" />
-            <element signature="e#4281#4338#0" expanded="false" />
-            <element signature="e#8917#11344#0" expanded="false" />
-            <element signature="e#9873#9917#0" expanded="false" />
-            <element signature="e#9996#10303#0" expanded="false" />
-            <element signature="e#10341#10648#0" expanded="false" />
-            <element signature="e#10686#10993#0" expanded="false" />
-            <element signature="e#11031#11338#0" expanded="false" />
-            <element signature="e#11383#12935#0" expanded="false" />
-            <element signature="e#11537#12156#0" expanded="false" />
-            <element signature="e#11627#12082#0" expanded="false" />
-            <element signature="e#11778#12068#0" expanded="false" />
-            <element signature="e#12269#12411#0" expanded="false" />
-            <element signature="e#12483#12589#0" expanded="false" />
-            <element signature="e#12721#12929#0" expanded="false" />
-            <element signature="e#12860#12917#0" expanded="false" />
-            <element signature="e#13330#13956#0" expanded="false" />
-            <element signature="e#13360#13489#0" expanded="false" />
-            <element signature="e#13515#13641#0" expanded="false" />
-            <element signature="e#13667#13794#0" expanded="false" />
-            <element signature="e#13820#13950#0" expanded="false" />
-            <marker date="1497728405782" expanded="true" signature="4538:6938" ph="..." />
-            <marker date="1497728405782" expanded="true" signature="7501:7502" ph="..." />
-            <marker date="1497728405782" expanded="true" signature="7501:7575" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="11938:11979" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="11938:11990" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14086:14100" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14214:14228" ph="..." />
-            <marker date="1497728405782" expanded="false" signature="14344:14358" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="334" column="4" lean-forward="true" selection-start-line="334" selection-start-column="4" selection-end-line="334" selection-end-column="4" />
+        <state relative-caret-position="178">
+          <caret line="313" column="39" lean-forward="true" selection-start-line="313" selection-start-column="39" selection-end-line="313" selection-end-column="39" />
           <folding>
             <element signature="e#0#54#0" expanded="false" />
             <element signature="e#1064#1148#0" expanded="false" />
@@ -830,26 +627,584 @@
             <element signature="e#10337#10465#0" expanded="false" />
             <element signature="e#10603#10825#0" expanded="false" />
             <element signature="e#10715#10819#0" expanded="false" />
-            <element signature="e#16122#16824#0" expanded="false" />
-            <element signature="e#16244#16298#0" expanded="false" />
-            <element signature="e#16396#16464#0" expanded="false" />
-            <element signature="e#16680#16822#0" expanded="false" />
-            <element signature="e#17609#17755#0" expanded="false" />
-            <element signature="e#17862#18028#0" expanded="false" />
-            <element signature="e#17931#18022#0" expanded="false" />
-            <element signature="e#18102#18189#0" expanded="false" />
-            <element signature="e#18373#18465#0" expanded="false" />
-            <element signature="e#19019#19177#0" expanded="false" />
-            <element signature="e#19060#19175#0" expanded="false" />
-            <element signature="e#19210#19930#0" expanded="false" />
-            <element signature="e#19285#19389#0" expanded="false" />
-            <element signature="e#19419#19523#0" expanded="false" />
-            <element signature="e#19553#19657#0" expanded="false" />
-            <element signature="e#19687#19791#0" expanded="false" />
-            <element signature="e#19960#20170#0" expanded="false" />
-            <element signature="e#20190#20285#0" expanded="false" />
-            <element signature="e#20288#20929#0" expanded="false" />
-            <marker date="1497728405775" expanded="false" signature="16066:16078" ph="..." />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="23" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1664">
+          <caret line="104" column="53" lean-forward="false" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+            <element signature="e#1064#1148#0" expanded="false" />
+            <element signature="e#1366#2324#0" expanded="false" />
+            <element signature="e#1805#2051#0" expanded="false" />
+            <element signature="e#2187#2318#0" expanded="false" />
+            <element signature="e#2366#3721#0" expanded="false" />
+            <element signature="e#2522#3683#0" expanded="false" />
+            <element signature="e#2564#3673#0" expanded="false" />
+            <element signature="e#2688#2888#0" expanded="false" />
+            <element signature="e#3102#3221#0" expanded="false" />
+            <element signature="e#3249#3317#0" expanded="false" />
+            <element signature="e#3323#3585#0" expanded="false" />
+            <element signature="e#3373#3567#0" expanded="false" />
+            <element signature="e#6038#6784#0" expanded="false" />
+            <element signature="e#6331#6472#0" expanded="false" />
+            <element signature="e#6825#10495#0" expanded="false" />
+            <element signature="e#7028#9055#0" expanded="false" />
+            <element signature="e#7118#7937#0" expanded="false" />
+            <element signature="e#7795#7923#0" expanded="false" />
+            <element signature="e#8004#8574#0" expanded="false" />
+            <element signature="e#8415#8543#0" expanded="false" />
+            <element signature="e#8580#9045#0" expanded="false" />
+            <element signature="e#8903#9031#0" expanded="false" />
+            <element signature="e#9061#10489#0" expanded="false" />
+            <element signature="e#9151#10023#0" expanded="false" />
+            <element signature="e#9828#9956#0" expanded="false" />
+            <element signature="e#10029#10479#0" expanded="false" />
+            <element signature="e#10337#10465#0" expanded="false" />
+            <element signature="e#10603#10825#0" expanded="false" />
+            <element signature="e#10715#10819#0" expanded="false" />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+            <element signature="e#1064#1148#0" expanded="false" />
+            <element signature="e#1366#2324#0" expanded="false" />
+            <element signature="e#1805#2051#0" expanded="false" />
+            <element signature="e#2187#2318#0" expanded="false" />
+            <element signature="e#2366#3721#0" expanded="false" />
+            <element signature="e#2522#3683#0" expanded="false" />
+            <element signature="e#2564#3673#0" expanded="false" />
+            <element signature="e#2688#2888#0" expanded="false" />
+            <element signature="e#3102#3221#0" expanded="false" />
+            <element signature="e#3249#3317#0" expanded="false" />
+            <element signature="e#3323#3585#0" expanded="false" />
+            <element signature="e#3373#3567#0" expanded="false" />
+            <element signature="e#6038#6784#0" expanded="false" />
+            <element signature="e#6331#6472#0" expanded="false" />
+            <element signature="e#6825#10495#0" expanded="false" />
+            <element signature="e#7028#9055#0" expanded="false" />
+            <element signature="e#7118#7937#0" expanded="false" />
+            <element signature="e#7795#7923#0" expanded="false" />
+            <element signature="e#8004#8574#0" expanded="false" />
+            <element signature="e#8415#8543#0" expanded="false" />
+            <element signature="e#8580#9045#0" expanded="false" />
+            <element signature="e#8903#9031#0" expanded="false" />
+            <element signature="e#9061#10489#0" expanded="false" />
+            <element signature="e#9151#10023#0" expanded="false" />
+            <element signature="e#9828#9956#0" expanded="false" />
+            <element signature="e#10029#10479#0" expanded="false" />
+            <element signature="e#10337#10465#0" expanded="false" />
+            <element signature="e#10603#10825#0" expanded="false" />
+            <element signature="e#10715#10819#0" expanded="false" />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram/C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$</OriginalElement>
+          <nodes>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/application.js#Router#274;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#View#485;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#compileETag#557;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#compileQueryParser#614;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#compileTrust#672;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#debug#432;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#deprecate#709;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#finalhandler#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#flatten#753;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#http#515;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#merge#793;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#methods#308;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#middleware#342;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#query#389;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#resolve#839;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#setPrototypeOf#868;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/array-flatten/array-flatten.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/client.js#debug#80;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/client.js#parser#38;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/client.js#url#130;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/engine.io/lib/engine.io.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/express.js#EventEmitter#233;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#Route#349;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#Router#388;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#index.js#1513;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#mixin#269;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#proto#311;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#query.js#1465;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#req#422;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#res#454;</node>
+            <node x="" y="">$PROJECT_DIR$/index.html</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/debug/src/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/fresh/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/escape-html/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/proxy-addr/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/object-assign/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/vary/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/index.js#Adapter#434;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#Client#314;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#Emitter#358;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#Namespace#394;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#client#207;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#clientVersion#265;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#debug#520;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#engine#172;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#exists#142;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#http#38;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#parser#478;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#path#105;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#read#73;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#url#570;</node>
+            <node x="" y="">mime;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/etag/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/encodeurl/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/depd/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/statuses/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/parseurl/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/qs/lib/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/content-disposition/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/merge-descriptors/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/type-is/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-adapter/index.js</node>
+            <node x="" y="">sign;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/setprototypeof/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/methods/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/path-to-regexp/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/router/index.js#Layer#262;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#Route#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#debug#364;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#deprecate#412;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#flatten#456;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#methods#294;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#mixin#328;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#parseUrl#496;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#setPrototypeOf#532;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/serve-static/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/range-parser/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-client/lib/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-parser/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/index.js#express.js#198;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/finalhandler/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/content-type/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/utils-merge/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/accepts/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/on-finished/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/cookie/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/middleware/init.js#setPrototypeOf#230;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/router/layer.js#debug#274;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/layer.js#pathRegexp#230;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/namespace.js#Emitter#82;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/namespace.js#Socket#38;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/namespace.js#debug#160;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/namespace.js#parser#118;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-client/package.json#version#4257;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/middleware/query.js#parseUrl#218;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/middleware/query.js#qs#254;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/request.js#accepts#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#deprecate#264;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#fresh#401;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#http#373;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#isIP#315;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#parse#473;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#parseRange#431;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#proxyaddr#506;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#typeis#340;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/response.js#contentDisposition#194;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#cookie#793;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#deprecate#251;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#encodeUrl#295;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#escapeHtml#333;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#http#374;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#isAbsolute#415;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#merge#554;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#normalizeType#651;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#normalizeTypes#706;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#onFinished#450;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#path#491;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#send#825;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#setCharset#758;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#sign#597;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#statuses#519;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#vary#931;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/router/route.js#Layer#324;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/route.js#debug#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/route.js#flatten#284;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/route.js#methods#356;</node>
+            <node x="" y="">$PROJECT_DIR$/server.js#app#58;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/server.js#http#97;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/server.js#io#130;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/socket.js#Emitter#48;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#assign#202;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#debug#152;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#parser#84;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#url#126;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/utils.js#basename#426;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#compileETag#3446;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#compileQueryParser#3996;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#compileTrust#4646;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#contentDisposition#198;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#contentType#255;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#deprecate#298;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#etag#456;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#flatten#342;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#isAbsolute#1308;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#mime#389;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#normalizeType#1915;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#normalizeTypes#2193;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#proxyaddr#484;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#qs#523;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#querystring#547;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#setCharset#5243;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/view.js#__express#1569;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#debug#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#fs#304;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#path#276;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#utils#328;</node>
+            <node x="" y="">/socket.io/socket.io.js</node>
+            <node x="" y="">EventEmitter;</node>
+            <node x="" y="">existsSync;readFileSync;</node>
+            <node x="" y="">Server;</node>
+            <node x="" y="">https://code.jquery.com/jquery-1.11.1.js</node>
+            <node x="" y="">__express;</node>
+            <node x="" y="">isIP;</node>
+            <node x="" y="">basename;resolve;</node>
+            <node x="" y="">querystring</node>
+            <node x="" y="">url</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.5299352750809061" x="608.0" y="691.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>Details</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4677">
+          <caret line="11" column="38" lean-forward="false" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="23" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="326" column="1" lean-forward="false" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+            <element signature="e#1064#1148#0" expanded="false" />
+            <element signature="e#1366#2324#0" expanded="false" />
+            <element signature="e#1805#2051#0" expanded="false" />
+            <element signature="e#2187#2318#0" expanded="false" />
+            <element signature="e#2366#3721#0" expanded="false" />
+            <element signature="e#2522#3683#0" expanded="false" />
+            <element signature="e#2564#3673#0" expanded="false" />
+            <element signature="e#2688#2888#0" expanded="false" />
+            <element signature="e#3102#3221#0" expanded="false" />
+            <element signature="e#3249#3317#0" expanded="false" />
+            <element signature="e#3323#3585#0" expanded="false" />
+            <element signature="e#3373#3567#0" expanded="false" />
+            <element signature="e#6038#6784#0" expanded="false" />
+            <element signature="e#6331#6472#0" expanded="false" />
+            <element signature="e#6825#10495#0" expanded="false" />
+            <element signature="e#7028#9055#0" expanded="false" />
+            <element signature="e#7118#7937#0" expanded="false" />
+            <element signature="e#7795#7923#0" expanded="false" />
+            <element signature="e#8004#8574#0" expanded="false" />
+            <element signature="e#8415#8543#0" expanded="false" />
+            <element signature="e#8580#9045#0" expanded="false" />
+            <element signature="e#8903#9031#0" expanded="false" />
+            <element signature="e#9061#10489#0" expanded="false" />
+            <element signature="e#9151#10023#0" expanded="false" />
+            <element signature="e#9828#9956#0" expanded="false" />
+            <element signature="e#10029#10479#0" expanded="false" />
+            <element signature="e#10337#10465#0" expanded="false" />
+            <element signature="e#10603#10825#0" expanded="false" />
+            <element signature="e#10715#10819#0" expanded="false" />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1664">
+          <caret line="104" column="53" lean-forward="false" selection-start-line="104" selection-start-column="53" selection-end-line="104" selection-end-column="53" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+            <element signature="e#1064#1148#0" expanded="false" />
+            <element signature="e#1366#2324#0" expanded="false" />
+            <element signature="e#1805#2051#0" expanded="false" />
+            <element signature="e#2187#2318#0" expanded="false" />
+            <element signature="e#2366#3721#0" expanded="false" />
+            <element signature="e#2522#3683#0" expanded="false" />
+            <element signature="e#2564#3673#0" expanded="false" />
+            <element signature="e#2688#2888#0" expanded="false" />
+            <element signature="e#3102#3221#0" expanded="false" />
+            <element signature="e#3249#3317#0" expanded="false" />
+            <element signature="e#3323#3585#0" expanded="false" />
+            <element signature="e#3373#3567#0" expanded="false" />
+            <element signature="e#6038#6784#0" expanded="false" />
+            <element signature="e#6331#6472#0" expanded="false" />
+            <element signature="e#6825#10495#0" expanded="false" />
+            <element signature="e#7028#9055#0" expanded="false" />
+            <element signature="e#7118#7937#0" expanded="false" />
+            <element signature="e#7795#7923#0" expanded="false" />
+            <element signature="e#8004#8574#0" expanded="false" />
+            <element signature="e#8415#8543#0" expanded="false" />
+            <element signature="e#8580#9045#0" expanded="false" />
+            <element signature="e#8903#9031#0" expanded="false" />
+            <element signature="e#9061#10489#0" expanded="false" />
+            <element signature="e#9151#10023#0" expanded="false" />
+            <element signature="e#9828#9956#0" expanded="false" />
+            <element signature="e#10029#10479#0" expanded="false" />
+            <element signature="e#10337#10465#0" expanded="false" />
+            <element signature="e#10603#10825#0" expanded="false" />
+            <element signature="e#10715#10819#0" expanded="false" />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+            <element signature="e#1064#1148#0" expanded="false" />
+            <element signature="e#1366#2324#0" expanded="false" />
+            <element signature="e#1805#2051#0" expanded="false" />
+            <element signature="e#2187#2318#0" expanded="false" />
+            <element signature="e#2366#3721#0" expanded="false" />
+            <element signature="e#2522#3683#0" expanded="false" />
+            <element signature="e#2564#3673#0" expanded="false" />
+            <element signature="e#2688#2888#0" expanded="false" />
+            <element signature="e#3102#3221#0" expanded="false" />
+            <element signature="e#3249#3317#0" expanded="false" />
+            <element signature="e#3323#3585#0" expanded="false" />
+            <element signature="e#3373#3567#0" expanded="false" />
+            <element signature="e#6038#6784#0" expanded="false" />
+            <element signature="e#6331#6472#0" expanded="false" />
+            <element signature="e#6825#10495#0" expanded="false" />
+            <element signature="e#7028#9055#0" expanded="false" />
+            <element signature="e#7118#7937#0" expanded="false" />
+            <element signature="e#7795#7923#0" expanded="false" />
+            <element signature="e#8004#8574#0" expanded="false" />
+            <element signature="e#8415#8543#0" expanded="false" />
+            <element signature="e#8580#9045#0" expanded="false" />
+            <element signature="e#8903#9031#0" expanded="false" />
+            <element signature="e#9061#10489#0" expanded="false" />
+            <element signature="e#9151#10023#0" expanded="false" />
+            <element signature="e#9828#9956#0" expanded="false" />
+            <element signature="e#10029#10479#0" expanded="false" />
+            <element signature="e#10337#10465#0" expanded="false" />
+            <element signature="e#10603#10825#0" expanded="false" />
+            <element signature="e#10715#10819#0" expanded="false" />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="39" column="8" lean-forward="false" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JavaScript-modules-diagram/C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JavaScript-modules-diagram</ID>
+          <OriginalElement>$PROJECT_DIR$</OriginalElement>
+          <nodes>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/application.js#Router#274;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#View#485;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#compileETag#557;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#compileQueryParser#614;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#compileTrust#672;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#debug#432;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#deprecate#709;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#finalhandler#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#flatten#753;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#http#515;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#merge#793;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#methods#308;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#middleware#342;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#query#389;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#resolve#839;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/application.js#setPrototypeOf#868;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/array-flatten/array-flatten.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/client.js#debug#80;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/client.js#parser#38;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/client.js#url#130;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/engine.io/lib/engine.io.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/express.js#EventEmitter#233;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#Route#349;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#Router#388;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#index.js#1513;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#mixin#269;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#proto#311;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#query.js#1465;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#req#422;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/express.js#res#454;</node>
+            <node x="" y="">$PROJECT_DIR$/index.html</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/debug/src/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/fresh/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/escape-html/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/proxy-addr/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/object-assign/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/vary/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/index.js#Adapter#434;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#Client#314;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#Emitter#358;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#Namespace#394;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#client#207;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#clientVersion#265;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#debug#520;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#engine#172;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#exists#142;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#http#38;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#parser#478;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#path#105;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#read#73;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/index.js#url#570;</node>
+            <node x="" y="">mime;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/etag/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/encodeurl/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/depd/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/statuses/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/parseurl/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/qs/lib/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/content-disposition/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/merge-descriptors/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/type-is/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-adapter/index.js</node>
+            <node x="" y="">sign;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/setprototypeof/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/methods/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/path-to-regexp/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/router/index.js#Layer#262;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#Route#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#debug#364;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#deprecate#412;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#flatten#456;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#methods#294;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#mixin#328;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#parseUrl#496;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/index.js#setPrototypeOf#532;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/serve-static/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/range-parser/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-client/lib/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-parser/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/index.js#express.js#198;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/finalhandler/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/content-type/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/utils-merge/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/accepts/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/on-finished/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/cookie/index.js</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/middleware/init.js#setPrototypeOf#230;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/router/layer.js#debug#274;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/layer.js#pathRegexp#230;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/namespace.js#Emitter#82;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/namespace.js#Socket#38;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/namespace.js#debug#160;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/namespace.js#parser#118;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io-client/package.json#version#4257;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/middleware/query.js#parseUrl#218;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/middleware/query.js#qs#254;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/request.js#accepts#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#deprecate#264;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#fresh#401;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#http#373;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#isIP#315;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#parse#473;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#parseRange#431;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#proxyaddr#506;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/request.js#typeis#340;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/response.js#contentDisposition#194;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#cookie#793;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#deprecate#251;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#encodeUrl#295;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#escapeHtml#333;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#http#374;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#isAbsolute#415;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#merge#554;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#normalizeType#651;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#normalizeTypes#706;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#onFinished#450;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#path#491;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#send#825;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#setCharset#758;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#sign#597;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#statuses#519;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/response.js#vary#931;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/router/route.js#Layer#324;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/route.js#debug#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/route.js#flatten#284;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/router/route.js#methods#356;</node>
+            <node x="" y="">$PROJECT_DIR$/server.js#app#58;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/server.js#http#97;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/server.js#io#130;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/socket.io/lib/socket.js#Emitter#48;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#assign#202;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#debug#152;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#parser#84;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/socket.io/lib/socket.js#url#126;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/utils.js#basename#426;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#compileETag#3446;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#compileQueryParser#3996;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#compileTrust#4646;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#contentDisposition#198;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#contentType#255;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#deprecate#298;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#etag#456;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#flatten#342;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#isAbsolute#1308;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#mime#389;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#normalizeType#1915;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#normalizeTypes#2193;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#proxyaddr#484;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#qs#523;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#querystring#547;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/utils.js#setCharset#5243;</node>
+            <node x="" y="">$PROJECT_DIR$/node_modules/express/lib/view.js#__express#1569;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#debug#230;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#fs#304;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#path#276;C:/Users/Orion Wolf-Hubbard/WebstormProjects/RatScrew/node_modules/express/lib/view.js#utils#328;</node>
+            <node x="" y="">/socket.io/socket.io.js</node>
+            <node x="" y="">EventEmitter;</node>
+            <node x="" y="">existsSync;readFileSync;</node>
+            <node x="" y="">Server;</node>
+            <node x="" y="">https://code.jquery.com/jquery-1.11.1.js</node>
+            <node x="" y="">__express;</node>
+            <node x="" y="">isIP;</node>
+            <node x="" y="">basename;resolve;</node>
+            <node x="" y="">querystring</node>
+            <node x="" y="">url</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="0.5299352750809061" x="608.0" y="691.0" />
+          <SelectedNodes />
+          <Categories>
+            <Category>All</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>Details</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="306" column="39" lean-forward="true" selection-start-line="306" selection-start-column="39" selection-end-line="306" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#54#0" expanded="false" />
+            <element signature="e#1064#1148#0" expanded="false" />
+            <element signature="e#1366#2324#0" expanded="false" />
+            <element signature="e#1805#2051#0" expanded="false" />
+            <element signature="e#2187#2318#0" expanded="false" />
+            <element signature="e#2366#3721#0" expanded="false" />
+            <element signature="e#2522#3683#0" expanded="false" />
+            <element signature="e#2564#3673#0" expanded="false" />
+            <element signature="e#2688#2888#0" expanded="false" />
+            <element signature="e#3102#3221#0" expanded="false" />
+            <element signature="e#3249#3317#0" expanded="false" />
+            <element signature="e#3323#3585#0" expanded="false" />
+            <element signature="e#3373#3567#0" expanded="false" />
+            <element signature="e#6038#6784#0" expanded="false" />
+            <element signature="e#6331#6472#0" expanded="false" />
+            <element signature="e#6825#10495#0" expanded="false" />
+            <element signature="e#7028#9055#0" expanded="false" />
+            <element signature="e#7118#7937#0" expanded="false" />
+            <element signature="e#7795#7923#0" expanded="false" />
+            <element signature="e#8004#8574#0" expanded="false" />
+            <element signature="e#8415#8543#0" expanded="false" />
+            <element signature="e#8580#9045#0" expanded="false" />
+            <element signature="e#8903#9031#0" expanded="false" />
+            <element signature="e#9061#10489#0" expanded="false" />
+            <element signature="e#9151#10023#0" expanded="false" />
+            <element signature="e#9828#9956#0" expanded="false" />
+            <element signature="e#10029#10479#0" expanded="false" />
+            <element signature="e#10337#10465#0" expanded="false" />
+            <element signature="e#10603#10825#0" expanded="false" />
+            <element signature="e#10715#10819#0" expanded="false" />
+            <marker date="1497738343475" expanded="true" signature="16095:16107" ph="..." />
+            <marker date="1497738343475" expanded="false" signature="20219:20314" ph="{...}" />
+            <marker date="1497738343475" expanded="false" signature="20317:20958" ph="/*...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="19" lean-forward="false" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
+          <folding>
+            <marker date="1497739480133" expanded="true" signature="4864:7264" ph="..." />
+            <marker date="1497739480133" expanded="true" signature="12264:12316" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="13655:14281" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13685:13814" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13840:13966" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="13992:14119" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14145:14275" ph="{...}" />
+            <marker date="1497739480133" expanded="false" signature="14411:14425" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14539:14553" ph="..." />
+            <marker date="1497739480133" expanded="false" signature="14669:14683" ph="..." />
           </folding>
         </state>
       </provider>

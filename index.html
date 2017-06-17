@@ -5,14 +5,23 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <style>
 
+
+        .slap_image {
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            margin-top: -50px;
+            margin-left: -50px;
+        }
+
         .slap_info_content {
             margin: auto;
             padding: 10%;
             text-align: center;
-            background-color: #be313b;
+            background-color: transparent;
             width: 100%;
             height: 100%;
-            color: whitesmoke;
+            color: #f51300;
         }
         .slap_info{
             display: none;
@@ -100,14 +109,36 @@
     });
 
     socket.on('slap', info => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //show slap divs
         slap_info.style.display = 'block';
+        //display info from server
+        slap_info_content.innerHTML = info;
+        slap_info_content.innerHTML += `<image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"/>`;
+
+
         //on click hide slap divs again
         slap_info_content.addEventListener('click', () => {
             slap_info.style.display = 'none';
         });
-        //display info from server
-        slap_info_content.innerHTML = info;
+
     });
 
     socket.on('lobby', tables => {
@@ -323,7 +354,6 @@
         }
 
     });
-
     //this changes each time a card is put down
     let position = 1;
     const nextPosition = () => {

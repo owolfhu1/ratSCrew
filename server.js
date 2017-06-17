@@ -300,9 +300,9 @@ io.on('connection', socket => {
         if (time > game.pauseTill) {
             if (time > game[player].pauseTill) {
     
-                
-                if (cards[cards.length - 1][1] === 'joker')
-                    isSlapped = true;
+                if (cards.length > 0)
+                    if (cards[cards.length - 1][1] === 'joker')
+                        isSlapped = true;
                 
                 if (game.run !== 'off')
                     if (cards.length > 3) {

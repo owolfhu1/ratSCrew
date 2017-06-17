@@ -76,6 +76,8 @@
 
     </div>
 <script>
+    const SLAP = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.mp3');
+    const alertSound = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/sound.mp3');
     let game_body = document.getElementById('game_body');
     let socket = io();
     let playerNumber, player1, player2, player3, player4, play_pile,
@@ -112,7 +114,8 @@
 
 
 
-
+        //play slap sound
+        SLAP.play();
 
 
 
@@ -199,10 +202,12 @@
             jokers (can be slapped):
             <input type="radio" title="jokers" name="jokers" id="jokerson" value="on" checked>on
             <input type="radio" title="jokers" name="jokers" id="jokersoff" value="off">off <br>
+            <div style="display: none">
             punishment for slapping:
             <input type="radio" title="punish" name="punish" id="punishoff" value="off">off
             <input type="radio" title="punish" name="punish" id="punishone" value="one" checked>one card
             <input type="radio" title="punish" name="punish" id="punishtwo" value="two">two cards <br>
+            </div>
             timeout for slapping without cards: <br>
             <input type="radio" title="timeout" name="timeout" id="timeoutoff" value="off">off
             <input type="radio" title="timeout" name="timeout" id="timeouttwo" value="two" checked>two minutes
@@ -339,6 +344,7 @@
         turn_text.innerHTML = '';
         //if it is client's turn
         if (game[playerNumber].ready) {
+            alertSound.play();
             turn_text.innerHTML = '<h2>your turn</h2>';
             document.getElementById('clickable').addEventListener('click', () => {
                 socket.emit('play_card');

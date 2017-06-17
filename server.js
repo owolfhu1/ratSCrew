@@ -304,10 +304,24 @@ io.on('connection', socket => {
                     if (cards[cards.length - 1][1] === 'joker')
                         isSlapped = true;
                 
-                if (game.run !== 'off')
+                if (game.run === 'four')
                     if (cards.length > 3) {
                         let l = cards.length;
-                        if (isRun(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0]))
+                        if (is4Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0]))
+                            isSlapped = true;
+                    }
+    
+                if (game.run === 'three')
+                    if (cards.length > 2) {
+                        let l = cards.length;
+                        if (is3Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0]))
+                            isSlapped = true;
+                    }
+    
+                if (game.run === 'two')
+                    if (cards.length > 1) {
+                        let l = cards.length;
+                        if (is2Run(cards[l - 1][0], cards[l - 2][0]))
                             isSlapped = true;
                     }
     
@@ -557,13 +571,30 @@ const nextPlayer = tableId => {
     if (game[next].cards.length === 0) nextPlayer(tableId);
 };
 
-const isRun = (a,b,c,d) => {
+const is4Run = (a,b,c,d) => {
     let bool = false;
     a = map(a); b = map(b); c = map(c); d = map(d);
     if (a === b+1 && b === c+1 && c === d+1) bool = true;
     if (d === c+1 && c === b+1 && b === a+1) bool = true;
     return bool;
 };
+
+const is3Run = (a,b,c) => {
+    let bool = false;
+    a = map(a); b = map(b); c = map(c);
+    if (a === b+1 && b === c+1) bool = true;
+    if (c === b+1 && b === a+1) bool = true;
+    return bool;
+};
+
+const is2Run = (a,b) => {
+    let bool = false;
+    a = map(a); b = map(b);
+    if (a === b+1) bool = true;
+    if (b === a+1) bool = true;
+    return bool;
+};
+
 
 const map = a => {
     if (a === 13) a = 11;

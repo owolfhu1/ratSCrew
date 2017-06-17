@@ -21,11 +21,12 @@ let newTable = function () {
     this.player2 = null;
     this.player3 = null;
     this.player4 = null;
-    this.pile = [];
-    this.facePlayer = 'none';
-    this.triesLeft = 0;
-    this.roundOver = false;
-    this.pauseTill = 0;
+    this.sandwich = 'on';//\\TODO//\\
+    this.run = 'two';//\\TODO//\\
+    this.bottomTop = 'on';//\\TODO//\\
+    this.jokers = 'on';//\\TODO//\\
+    this.punish = 'one';//\\TODO//\\
+    this.timeout = 'two';//\\TODO//\\
 };
 
 let newPlayer = function (name, userId) {
@@ -352,6 +353,38 @@ io.on('connection', socket => {
         }
     });
     
+    socket.on('rules', rules => {
+        console.log('rules.....');
+        let table;
+        //table = tables[id, where tables.id.somePlayer.userId = userId]
+        for (let id in tables)
+            for (let i = 1; i < 5; i++) {
+                let player = 'player' + i;
+                if (tables[id][player] !== null)
+                    if (tables[id][player].userId === userId)
+                        table = tables[id];
+            }
+        
+            console.log(table);
+            console.log(rules);
+            
+            
+        //get values from form into table
+        table.sandwich = rules[0];
+        table.run = rules[1];
+        table.bottomTop = rules[2];
+        table.jokers = rules[3];
+        table.punish = rules[4];
+        table.timeout = rules[5];
+        
+        //send table back to players
+        for (let i = 1; i < 5; i++) {
+            let player = 'player' + i;
+            if (table[player] !== null)
+                io.to(table[player].userId).emit('rules', table);
+        }
+    });
+    
 });
 
 //for displaying card on miss-slaps
@@ -392,6 +425,11 @@ const newGame = tableId =>  {
     //update lobby
     for (let player in lobby)
         io.to(player).emit('lobby', tables);
+    game.pile = [];
+    game.facePlayer = 'none';
+    game.triesLeft = 0;
+    game.roundOver = false;
+    game.pauseTill = 0;
     //setup game for clients
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;

@@ -109,6 +109,14 @@ io.on('connection', socket => {
             let table = tables[tableId];
             user.tableId = tableId;
             table.player1 = new newPlayer(user.name, userId);
+            
+            
+            
+            
+            
+            
+            
+            
             //remove user from lobby and update lobby
             delete lobby[userId];
             for (let key in lobby) io.to(key).emit('lobby', tables );
@@ -341,9 +349,6 @@ io.on('connection', socket => {
             }
         }
     });
-    
-    
-    
     
 });
 

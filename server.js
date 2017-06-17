@@ -339,7 +339,11 @@ io.on('connection', socket => {
                 if (game.roundOver && player === game.facePlayer) {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
-                        io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>won the pile!</h2>`);
+                        if (game[p].userId !== userId)
+                            io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>won the pile!</h2>`, true] );
+                        else io.to(userId).emit('slap', [`<h2>${user.name}<br>won the pile!</h2>`, false] );
+                        
+                        
                     }
                     takePile(user.tableId, player);
                 } else {
@@ -348,7 +352,13 @@ io.on('connection', socket => {
                     if (isSlapped) {
                         for (let i = 1; i < 5; i++) {
                             let p = 'player' + i;
-                            io.to(game[p].userId).emit('slap', `<h2>${user.name}<br>slapped and took<br>the pile!</h2>`);
+    
+                            if (game[p].userId !== userId)
+                                io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, true] );
+                            else io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, false] );
+                            
+                            
+                            
                         }
                         takePile(user.tableId, player);
                     } else {
@@ -363,8 +373,12 @@ io.on('connection', socket => {
                                 nextPlayer(user.tableId);
                             for (let i = 1; i < 5; i++) {
                                 let p = 'player' + i;
-                                io.to(game[p].userId).emit('slap', `
-<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`);
+                                if (game[p].userId !== userId)
+                                    io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, true] );
+                                else io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, false] );
+                                
+                                
+                                
                             }
                         } else game[player].pauseTill = time + game.timeout;
                     }

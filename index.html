@@ -70,7 +70,7 @@
     let game_body = document.getElementById('game_body');
     let socket = io();
     let playerNumber, player1, player2, player3, player4, play_pile,
-        turn_text, slap_info, slap_info_content, player_info, rules;
+        turn_text, slap_info, slap_info_content, player_info, rules, players;
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
 
@@ -117,9 +117,11 @@
             let table = tables[tableId];
             //building table button
             let button = `<button class="table_button" id="${tableId}">`;
-            for (let player in table)
-                if (table[player] !== null)
-                    button += `<p>${table[player].name}</p>`;
+            for (let i = 1; i < 5; i++) {
+                let p = 'player' + i;
+                if (table[p] !== null)
+                    button += `<p>${table[p].name}</p>`;
+            }
             button += `</button>`;
             //add the button to the game_body
             body += button;
@@ -137,7 +139,9 @@
         });
     });
 
-    socket.on('setup_table', table => {
+    socket.on('setup_table', player => {
+        //get playerNumber
+        playerNumber = player;
         game_body.innerHTML = `
         <div id="players"></div>
         <form id="rules">
@@ -168,36 +172,26 @@
             <input type="radio" title="timeout" name="timeout" value="forever">forever<br>
         </form>
         `;
-
         rules = document.getElementById('rules');
-
-        rules.run.valueOf();/////TODO--------
-
-
+        players = document.getElementById('players');
     });
 
-
     socket.on('table', table => {
-        //get playerNumber
-        playerNumber = table[1];
-
         //make rules form
-        game_body.innerHTML = '';
-
-
-
+        players.innerHTML = '';
         //adds html for all players at table
-        for (let key in table[0]) {
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
             //for all non-null players
-            if (table[0][key] !== null) {
+            if (table[p] !== null) {
                 //if it is the player, give them a ready button
-                if (key === playerNumber) {
-                    game_body.innerHTML += `
-<h2>${table[0][key].name} <button id="ready_button">${table[0][key].ready}</button></h2>`;
+                if (p === playerNumber) {
+                    players.innerHTML += `
+<h2>${table[p].name} <button id="ready_button">${table[p].ready}</button></h2>`;
                 } else {
                     //else just display name and if they are ready
-                    game_body.innerHTML += `
-<h2> ${table[0][key].name} ${table[0][key].ready} </h2>`;
+                    players.innerHTML += `
+<h2> ${table[p].name} ${table[p].ready} </h2>`;
                 }
             }
         }

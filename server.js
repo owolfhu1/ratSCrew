@@ -21,6 +21,11 @@ let newTable = function () {
     this.player2 = null;
     this.player3 = null;
     this.player4 = null;
+    this.pile = [];
+    this.facePlayer = 'none';
+    this.triesLeft = 0;
+    this.roundOver = false;
+    this.pauseTill = 0;
 };
 
 let newPlayer = function (name, userId) {
@@ -48,6 +53,7 @@ io.on('connection', socket => {
         if (loginInfo[NAME] in passwordMap) {
             if (passwordMap[loginInfo[NAME]] === loginInfo[PASS]) {
                 userMap[userId].name = loginInfo[NAME];
+                console.log(`${loginInfo[NAME]} logging in`);
             } else {
                 //resend 'login_setup' on fail TODO make this better...
                 io.to(userId).emit('login_setup');
@@ -109,17 +115,11 @@ io.on('connection', socket => {
             let table = tables[tableId];
             user.tableId = tableId;
             table.player1 = new newPlayer(user.name, userId);
-            
-            
-            
-            
-            
-            
-            
-            
             //remove user from lobby and update lobby
             delete lobby[userId];
             for (let key in lobby) io.to(key).emit('lobby', tables );
+            //setup table wait area for player
+            io.to(userId).emit('setup_table', 'player1');
             //emit table to players in table
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
@@ -135,6 +135,8 @@ io.on('connection', socket => {
                 let seat = 'player' + i;
                 //if that player is null
                 if (table[seat] === null) {
+                    //setup table wait area for player
+                    io.to(userId).emit('setup_table', seat);
                     //add the player
                     user.tableId = tableId;
                     table[seat] = new newPlayer(user.name, userId);
@@ -142,7 +144,7 @@ io.on('connection', socket => {
                     added = true;
                     delete lobby[userId];
                     //exit the loop
-                    i = 420;
+                    i = 42;
                 }
             }
             //if the user was added
@@ -151,7 +153,7 @@ io.on('connection', socket => {
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
                     if (table[p] !== null)
-                        io.to(table[p].userId).emit('table', [table, p]);
+                        io.to(table[p].userId).emit('table', table);
                 }
                 //remove from lobby and update lobby for lobby recipients
                 delete lobby[userId];
@@ -171,7 +173,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
             if (table[p] !== null)
-                io.to(table[p].userId).emit('table', [table, p]);
+                io.to(table[p].userId).emit('table', table);
         }
         //check if all players are ready
         let ready = 0;
@@ -412,12 +414,6 @@ const newGame = tableId =>  {
         let p = 'player' + i;
         userMap[game[p].userId].playerNumber = p;
     }
-    //add properties to game
-    game.pile = [];
-    game.facePlayer = 'none';
-    game.triesLeft = 0;
-    game.roundOver = false;
-    game.pauseTill = 0;
     //give a random player the first turn
     let turn = 'player' + (Math.floor(Math.random() * 4) + 1);
     game[turn].ready = true;

@@ -298,22 +298,37 @@ io.on('connection', socket => {
         if (time > game.pauseTill) {
             if (time > game[player].pauseTill) {
     
-    
-                if (cards.length > 3) {
-                    if (cards[0][0] === cards[cards.length - 1][0]) isSlapped = true;
-                    let l = cards.length;
-                    if (isRun(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0])) isSlapped = true;
-                }
+                
+                if (cards[cards.length - 1][1] === 'joker')
+                    isSlapped = true;
+                
+                if (game.run !== 'off')
+                    if (cards.length > 3) {
+                        let l = cards.length;
+                        if (isRun(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0]))
+                            isSlapped = true;
+                    }
     
                 if (cards.length > 1) {
-                    if (cards[cards.length - 1][0] === cards[cards.length - 2][0]) isSlapped = true;
-                    if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10) isSlapped = true;
+                    if (game.bottomTop = 'on')
+                        if (cards[0][0] === cards[cards.length - 1][0])
+                            isSlapped = true;
+                    if (cards[cards.length - 1][0] === cards[cards.length - 2][0])
+                        isSlapped = true;
+                    //if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10)
+                      //  isSlapped = true;
                 }
-                if (cards.length > 2) {
-                    if (cards[cards.length - 1][0] === cards[cards.length - 3][0]) isSlapped = true;
-                    if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10) isSlapped = true;
-                }
+                
+                if (game.sandwich = 'on')
+                    if (cards.length > 2) {
+                        if (cards[cards.length - 1][0] === cards[cards.length - 3][0])
+                            isSlapped = true;
+                      //  if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10)
+                        //    isSlapped = true;
+                    }
     
+                
+                
                 //if the player has won the round
                 if (game.roundOver && player === game.facePlayer) {
                     for (let i = 1; i < 5; i++) {
@@ -345,7 +360,7 @@ io.on('connection', socket => {
                                 io.to(game[p].userId).emit('slap', `
 <h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`);
                             }
-                        } else game[player].pauseTill = time + 200000;
+                        } else game[player].pauseTill = time + game.timeout;
                     }
                 }
                 game.pauseTill = time + 3000;
@@ -430,6 +445,21 @@ const newGame = tableId =>  {
     game.triesLeft = 0;
     game.roundOver = false;
     game.pauseTill = 0;
+    
+    if (game.timeout === 'off') {
+        game.timeout = 0;
+        
+    } else if (game.timeout === 'two') {
+        game.timeout = 1000 * 60 * 2;
+    } else if (game.timeout === 'five') {
+        game.timeout = 1000 * 60 * 5;
+    } else if (game.timeout === 'forever') {
+        game.timeout = 13370000; //a lot..
+    }
+    
+    
+    
+    
     //setup game for clients
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
@@ -438,7 +468,7 @@ const newGame = tableId =>  {
         io.to(game[p].userId).emit('setup_game');
     }
     //make a deck
-    let gameDeck = deck();
+    let gameDeck = deck(game.jokers);
     //deal it out
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
@@ -462,7 +492,7 @@ const newGame = tableId =>  {
     }
 };
 
-const deck = () => {
+const deck = (jokers) => {
     let deckReturn = [];
     const deckValues = [
         [1,2,3,4,5,6,7,8,9,10,13,14,15],
@@ -472,6 +502,10 @@ const deck = () => {
         for (let s = 0; s < deckValues[1].length; s++) {
             deckReturn.push([deckValues[0][v], deckValues[1][s]]);
         }
+    if (jokers === 'on') {
+        deckReturn.push([11, 'joker']);
+        deckReturn.push([11, 'joker']);
+    }
     shuffle(deckReturn);
     return deckReturn;
 };

@@ -5,72 +5,42 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <style>
 
-
-        .slap_image {
-            position: absolute;
-            top: 30%;
-            left: 40%;
-            margin-top: -50px;
-            margin-left: -50px;
-        }
-
-        .slap_info_content {
-            margin: auto;
-            padding: 5px;
-            background-color: transparent;
-            width: 100%;
-            height: 100%;
-            color: #f51300;
-        }
-        .slap_info{
-            display: none;
-            position: absolute;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            right: 0;
-            overflow: hidden;
-        }
-        .turn_text{
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-        .player_info{
-            position: absolute;
-            bottom: 0;
-            right: 0;
-        }
-        .game_body{
-            width: 100%;
-            height: 100%;
-        }
-        .player_pile{
-            text-align: center;
-            position: absolute;
-            border: solid;
-            height: 20%;
-        }
-        .play_pile{
-            width: 120px;
-            height: 180px;
-            position: absolute;
-            top: 37%;
-            left: 50%;
-            margin-top: -50px;
-            margin-left: -50px;
-            border: dashed green;
-            border-radius: 20px;
-        }​
+        .chat{  position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 30%;  }
+        .chat_body{  width: 100%; height: 100px; background: whitesmoke;
+            border: dashed purple; overflow-y: scroll; }
+        .chat_input{ width: 100%; top: 100px; }
+        .slap_image {  position: absolute;  top: 30%;  left: 40%;  margin-top: -50px;  margin-left: -50px;  }
+        .slap_info_content {  margin: auto;  padding: 5px;  background-color: transparent;
+            width: 100%;  height: 100%;  color: #f51300; }
+        .slap_info{  display: none;  position: absolute;  z-index: 1;  width: 100%;  height: 100%;
+            top: 0;  right: 0;  overflow: hidden;  }
+        .turn_text{  position: absolute;  bottom: 0;  left: 0;  }
+        .player_info{  position: absolute;  bottom: 0;  right: 0;  }
+        .game_body{  width: 100%;  height: 100%;  }
+        .player_pile{  text-align: center;  position: absolute;  border: solid;  height: 20%;  }
+        .play_pile{  width: 120px;  height: 180px;  position: absolute;  top: 37%;  left: 50%;
+            margin-top: -50px;  margin-left: -50px;  border: dashed green;  border-radius: 20px;  }​
 
     </style>
 </head>
 <body>
-    <div id="slap_info" class="slap_info"><div id="slap_info_content" class="slap_info_content"></div></div>
+    <div id="slap_info" class="slap_info">
+        <div id="slap_info_content" class="slap_info_content">
+        </div>
+    </div>
+    <div id="chat" class="chat">
+        <div id="chat_body" class="chat_body">
+
+            <p>this is a long paraghragh that i will use to teest if the lines overlap</p>
+            <p>this is a long paraghragh that i will use to teest if the lines overlap</p>
+            <p>this is a long paraghragh that i will use to teest if the lines overlap</p>
+
+        </div>
+        <input title="chat_input" id="chat_input" class="chat_input"/>
+    </div>
     <div class="game_body" id="game_body">
 
-       <!--       test area          -->
+       <!--  test area  -->
 
 
 
@@ -81,15 +51,36 @@
     let game_body = document.getElementById('game_body');
     let socket = io();
     let playerNumber, player1, player2, player3, player4, play_pile,
-        turn_text, slap_info, slap_info_content, player_info, rules, players;
+        turn_text, slap_info, slap_info_content, player_info, rules, players,  chat_body, chat_input, name = 'GUEST';
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
+    chat_body = document.getElementById('chat_body');
+    chat_input = document.getElementById('chat_input');
+
+    //send chat to server on enter key press
+    chat_input.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            let text = chat_input.value;
+            chat_input.value = '';
+            socket.emit('chat', `<p>${name}: ${text}</p>`);
+        }
+    });
+
+    //get name from server when you log in
+    socket.on('set_name', x => {name = x;});
+
+    //display chat from server
+    socket.on('chat', text => {
+        chat_body.innerHTML += text;
+        chat_body.scrollTop = chat_body.scrollHeight;
+    });
 
     socket.on('setup_login', () => {
         //setup game_body to have login fields
         game_body.innerHTML = `
-            <input id="user_name" type="text" value="Please enter a username">
-            <input id="password" type="password">
+            <input id="user_name" type="text" value="Please enter a username"><br>
+            <input id="password" type="password"><br>
             <button id="login_button">login</button>
         `;
         //activate button to send login emit

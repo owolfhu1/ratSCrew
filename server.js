@@ -40,7 +40,7 @@ let newPlayer = function (name, userId) {
 };
 
 let newUser = function (userId) {
-    this.name = 'no input';
+    this.name = 'GUEST';
     this.tableId = 'none';
     this.userId = userId;
 };
@@ -51,31 +51,34 @@ io.on('connection', socket => {
     userMap[userId] = new newUser(userId);
     let user = userMap[userId];
     
+    socket.on('chat', text => { for (let id in userMap) io.to(id).emit('chat',text); });
+    
     socket.on('login', loginInfo => {
         let NAME = 0, PASS = 1;
         if (loginInfo[NAME] in passwordMap) {
             if (passwordMap[loginInfo[NAME]] === loginInfo[PASS]) {
                 userMap[userId].name = loginInfo[NAME];
-                console.log(`${loginInfo[NAME]} logging in`);
+                for (let id in userMap) io.to(id).emit('chat',`<p>${loginInfo[NAME]} logging in</p>`);
             } else {
                 //resend 'login_setup' on fail TODO make this better...
                 io.to(userId).emit('login_setup');
             }
         } else {
             //if username doesn't already exist add it and login
-            console.log(`${loginInfo[NAME]} logging in`);
+            for (let id in userMap) io.to(id).emit('chat',`<p>${loginInfo[NAME]} logging in</p>`);
             passwordMap[loginInfo[NAME]] = loginInfo[PASS];
             userMap[userId].name = loginInfo[NAME];
         }
         //if the user's name has been changed, they are logged in, emit 'lobby_setup'
-        if (userMap[userId].name !== 'no input') {
+        if (userMap[userId].name !== 'GUEST') {
+            io.to(userId).emit('set_name', userMap[userId].name);
             lobby[userId] = userMap[userId].name;
             for (let key in lobby) io.to(key).emit('lobby', tables );
         }
     });
     
     socket.on('disconnect', () => {
-        console.log(`user ${userMap[userId].name} logging off`);
+        for (let id in userMap) io.to(id).emit('chat', `<p>${userMap[userId].name} logging off</p>`);
         //if the user has joined a table, remove them
         if(user.tableId !== 'none'){
             if (user.tableId in tables) {
@@ -281,7 +284,6 @@ io.on('connection', socket => {
             if (game[p].cards.length === 0)
                 counter++
         }
-        console.log(`players with no cards: ${counter}`);
         if (counter === 3 )
             endGame(user.tableId);
     });
@@ -302,10 +304,6 @@ io.on('connection', socket => {
         let cards = game.pile;
         //let isSlapped = false;
         let time = new Date().getTime();
-        
-        console.log('time of slap    : ' + time);
-        console.log('game paused till: ' + game.pauseTill);
-        console.log('player paused to: ' + game[player].pauseTill);
         
         if (time > game.pauseTill) {
             if (time > game[player].pauseTill) {
@@ -339,7 +337,6 @@ io.on('connection', socket => {
                         //illegitimate slap
                         if (game[player].cards.length !== 0) {
                             let c = game[player].cards[0];
-                            console.log(`${c[0]} of ${c[1]} bottom piled`);
                             //take their top card and put it at the bottom of the deck
                             game.pile.splice(0, 0, game[player].cards.splice(0, 1)[0]);
                             //if the user is out of cards. next player
@@ -366,13 +363,11 @@ io.on('connection', socket => {
             if (game[p].cards.length === 0)
                 counter++
         }
-        console.log(`players with no cards: ${counter}`);
         if (counter === 3 )
             endGame(user.tableId);
     });
     
     socket.on('rules', rules => {
-        console.log('rules.....');
         let table;
         //get the table:
         //table = tables[id, where tables.id.somePlayer.userId = userId]

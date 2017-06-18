@@ -329,8 +329,10 @@ io.on('connection', socket => {
                             let p = 'player' + i;
     
                             if (game[p].userId !== userId)
-                                io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, true] );
-                            else io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, false] );
+                                io.to(game[p].userId).emit(
+                                    'slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, true] );
+                            else io.to(game[p].userId).emit(
+                                'slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, false] );
                         }
                         takePile(user.tableId, player);
                     } else {
@@ -346,8 +348,10 @@ io.on('connection', socket => {
                             for (let i = 1; i < 5; i++) {
                                 let p = 'player' + i;
                                 if (game[p].userId !== userId)
-                                    io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, true] );
-                                else io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, false] );
+                                    io.to(game[p].userId).emit('slap', [`
+<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, true] );
+                                else io.to(game[p].userId).emit('slap', [`
+<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, false] );
                             }
                         } else game[player].pauseTill = time + game.timeout;
                     }
@@ -652,6 +656,7 @@ const map = a => {
 
 
 /*TODO:
+        -add chat
         -add DB
         -make game for 2-4 players rather than just 4 players
         -form doesn't sync after players are put back in table lobby

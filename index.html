@@ -135,7 +135,8 @@
         //display info from server
         slap_info_content.innerHTML = info[0];
         if (info[1])
-            slap_info_content.innerHTML += `<image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"/>`;
+            slap_info_content.innerHTML += `
+<image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"/>`;
 
 
         //on click hide slap divs again
@@ -328,14 +329,16 @@
                 else {
                     document.getElementById(player).innerHTML = printCardBack();
                     document.getElementById(player).innerHTML += `
-<b style="position: absolute; z-index: 1; top: 3px; left: 3px;">${game[player].name}<br>${game[player].cards.length}</b>`;
+<b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
+${game[player].name}<br>${game[player].cards.length}</b>`;
                 }
             } else document.getElementById(player).innerHTML = printNoCard();
         }
         //print player info
         player_info.innerHTML = ``;
         if (game[playerNumber].cards.length > 0){
-            player_info.innerHTML = `<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</h3>`;
+            player_info.innerHTML = `
+<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</h3>`;
         }
         //place the last played card
         if (game.pile.length > 0) {
@@ -379,7 +382,8 @@
             return `position: absolute; height: 100px; width: 70px; bottom: 0px; right: 0;`;
         }
     };
-    const printActiveBack = () => `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
+    const printActiveBack = () =>
+        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
     const printNoCard = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/play_area.png" style="height : 100%;">`;
     const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
     const printCard = (card, position) =>

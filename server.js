@@ -21,14 +21,14 @@ let newTable = function () {
     this.player2 = null;
     this.player3 = null;
     this.player4 = null;
-    this.sandwich = 'on';//\\TODO//\\
-    this.run = 'two';//\\TODO//\\
-    this.bottomTop = 'on';//\\TODO//\\
-    this.jokers = 'on';//\\TODO//\\
-    this.punish = 'one';//\\TODO//\\
-    this.timeout = 'two';//\\TODO//\\
-    this.double = 'on';//\\TODO//\\
-    this.sumten = 'on';//\\TODO//\\
+    this.sandwich = 'on';
+    this.run = 'two';
+    this.bottomTop = 'on';
+    this.jokers = 'on';
+    this.punish = 'one';
+    this.timeout = 'two';
+    this.double = 'on';
+    this.sumten = 'on';
 };
 
 let newPlayer = function (name, userId) {
@@ -651,7 +651,7 @@ const map = a => {
 
 
 /*TODO:
-        -add chat
+        -
         -add DB
         -make game for 2-4 players rather than just 4 players
         -form doesn't sync after players are put back in table lobby

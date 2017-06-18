@@ -47,10 +47,10 @@ let newUser = function (userId) {
 
 io.on('connection', socket => {
     let userId = socket.id;
-    
     io.to(userId).emit('setup_login');
     userMap[userId] = new newUser(userId);
     let user = userMap[userId];
+    
     socket.on('login', loginInfo => {
         let NAME = 0, PASS = 1;
         if (loginInfo[NAME] in passwordMap) {
@@ -274,6 +274,16 @@ io.on('connection', socket => {
                 }
             }
         }
+        //check if game is over (3 players have no cards)
+        let counter = 0;
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
+            if (game[p].cards.length === 0)
+                counter++
+        }
+        console.log(`players with no cards: ${counter}`);
+        if (counter === 3 )
+            endGame(user.tableId);
     });
     
     //emit from client when it is their turn and they have no cards
@@ -290,7 +300,7 @@ io.on('connection', socket => {
         let game = games[user.tableId];
         let player = user.playerNumber;
         let cards = game.pile;
-        let isSlapped = false;
+        //let isSlapped = false;
         let time = new Date().getTime();
         
         console.log('time of slap    : ' + time);
@@ -299,55 +309,8 @@ io.on('connection', socket => {
         
         if (time > game.pauseTill) {
             if (time > game[player].pauseTill) {
-    
-                if (cards.length > 0)
-                    if (cards[cards.length - 1][1] === 'joker')
-                        isSlapped = true;
-                
-                if (game.run === 'four')
-                    if (cards.length > 3) {
-                        let l = cards.length;
-                        if (is4Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0]))
-                            isSlapped = true;
-                    }
-    
-                if (game.run === 'three')
-                    if (cards.length > 2) {
-                        let l = cards.length;
-                        if (is3Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0]))
-                            isSlapped = true;
-                    }
-    
-                if (game.run === 'two')
-                    if (cards.length > 1) {
-                        let l = cards.length;
-                        if (is2Run(cards[l - 1][0], cards[l - 2][0]))
-                            isSlapped = true;
-                    }
-    
-                if (cards.length > 1) {
-                    if (game.bottomTop = 'on')
-                        if (cards[0][0] === cards[cards.length - 1][0])
-                            isSlapped = true;
-                    if (game.double === 'on')
-                        if (cards[cards.length - 1][0] === cards[cards.length - 2][0])
-                            isSlapped = true;
-                    if (game.sumten === 'on')
-                        if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10)
-                            isSlapped = true;
-                }
-                
-                if (game.sandwich = 'on')
-                    if (cards.length > 2) {
-                        if (game.double === 'on')
-                            if (cards[cards.length - 1][0] === cards[cards.length - 3][0])
-                                isSlapped = true;
-                        if (game.sumten === 'on')
-                            if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10)
-                                isSlapped = true;
-                    }
-    
-                
+                //check if is legit slap
+                let isSlapped = isSlap(cards, game);
                 
                 //if the player has won the round
                 if (game.roundOver && player === game.facePlayer) {
@@ -356,8 +319,6 @@ io.on('connection', socket => {
                         if (game[p].userId !== userId)
                             io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>won the pile!</h2>`, true] );
                         else io.to(userId).emit('slap', [`<h2>${user.name}<br>won the pile!</h2>`, false] );
-                        
-                        
                     }
                     takePile(user.tableId, player);
                 } else {
@@ -370,9 +331,6 @@ io.on('connection', socket => {
                             if (game[p].userId !== userId)
                                 io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, true] );
                             else io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, false] );
-                            
-                            
-                            
                         }
                         takePile(user.tableId, player);
                     } else {
@@ -390,9 +348,6 @@ io.on('connection', socket => {
                                 if (game[p].userId !== userId)
                                     io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, true] );
                                 else io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, false] );
-                                
-                                
-                                
                             }
                         } else game[player].pauseTill = time + game.timeout;
                     }
@@ -400,6 +355,16 @@ io.on('connection', socket => {
                 game.pauseTill = time + 3000;
             }
         }
+        //check if game is over (3 players have no cards)
+        let counter = 0;
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
+            if (game[p].cards.length === 0)
+                counter++
+        }
+        console.log(`players with no cards: ${counter}`);
+        if (counter === 3 )
+            endGame(user.tableId);
     });
     
     socket.on('rules', rules => {
@@ -414,8 +379,6 @@ io.on('connection', socket => {
                     if (tables[id][player].userId === userId)
                         table = tables[id];
             }
-            
-            
         //get values from form into table
         table.sandwich = rules[0];
         table.run = rules[1];
@@ -547,6 +510,45 @@ const shuffle = array => {
     }
 };
 
+const endGame = tableId => {
+    console.log('ending game');
+    let game = games[tableId];
+    
+    //delete added game properties
+    delete game.pile;
+    delete game.facePlayer;
+    delete game.triesLeft;
+    delete game.roundOver;
+    delete game.pauseTill;
+    
+    //game.timeout int --> string for form
+    if (game.timeout === 0) game.timeout = 'off';
+    else if (game.timeout === 1000 * 60 * 2) game.timeout = 'two';
+    else if (game.timeout === 1000 * 60 * 5) game.timeout = 'five';
+    else if (game.timeout === 13370000) game.timeout = 'forever';
+    
+    //delete all cards
+    game.pile = [];
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        game[p].cards = [];
+    }
+    
+    tables[tableId] = game;
+    delete games[tableId];
+    let table = tables[tableId];
+    
+    for (let key in lobby) io.to(key).emit('lobby', tables);
+    
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        if (table[p] !== null)
+            io.to(table[p].userId).emit('setup_table', null);
+        io.to(table[p].userId).emit('table', [table, p]);
+    }
+    
+};
+
 const nextPlayer = tableId => {
     let game = games[tableId];
     let next;
@@ -569,6 +571,52 @@ const nextPlayer = tableId => {
     }
     //if the player who's turn got turned on has no cards, next player again
     if (game[next].cards.length === 0) nextPlayer(tableId);
+};
+
+const isSlap = (cards, game) => {
+    let isSlapped = false;
+    if (cards.length > 0)
+        if (cards[cards.length - 1][1] === 'joker')
+            isSlapped = true;
+    if (game.run === 'four')
+        if (cards.length > 3) {
+            let l = cards.length;
+            if (is4Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0]))
+                isSlapped = true;
+        }
+    if (game.run === 'three')
+        if (cards.length > 2) {
+            let l = cards.length;
+            if (is3Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0]))
+                isSlapped = true;
+        }
+    if (game.run === 'two')
+        if (cards.length > 1) {
+            let l = cards.length;
+            if (is2Run(cards[l - 1][0], cards[l - 2][0]))
+                isSlapped = true;
+        }
+    if (cards.length > 1) {
+        if (game.bottomTop = 'on')
+            if (cards[0][0] === cards[cards.length - 1][0])
+                isSlapped = true;
+        if (game.double === 'on')
+            if (cards[cards.length - 1][0] === cards[cards.length - 2][0])
+                isSlapped = true;
+        if (game.sumten === 'on')
+            if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10)
+                isSlapped = true;
+    }
+    if (game.sandwich = 'on')
+        if (cards.length > 2) {
+            if (game.double === 'on')
+                if (cards[cards.length - 1][0] === cards[cards.length - 3][0])
+                    isSlapped = true;
+            if (game.sumten === 'on')
+                if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10)
+                    isSlapped = true;
+        }
+    return isSlapped;
 };
 
 const is4Run = (a,b,c,d) => {
@@ -595,7 +643,6 @@ const is2Run = (a,b) => {
     return bool;
 };
 
-
 const map = a => {
     if (a === 13) a = 11;
     if (a === 14) a = 12;
@@ -603,21 +650,13 @@ const map = a => {
     return a;
 };
 
-/*TODO: MAKE THIS GAME GREAT
+
+/*TODO:
         -add DB
-        -add sound
         -make game for 2-4 players rather than just 4 players
-        -add end to game + delete finished games
-        -add form to pre-game table, use:
-          * form.addEventListener('RadioStateChange', () => { socket.emit('update_form');
-          * to keep form in sync for all players
+        -form doesn't sync after players are put back in table lobby
         -form should give options:
-          * jokers on/off
-          * double slap on/off
-          * sandwich slap on/off
-          * add to 10 slap on/off
-          * top = bottom slap on/off
           * add 0/1/2/3 to bottom on incorrect slaps
-          * tripples = win on/off
+          * tripples = off/win/lose
 */
 

@@ -176,7 +176,8 @@
 
     socket.on('setup_table', player => {
         //get playerNumber
-        playerNumber = player;
+        if (player !== null)
+            playerNumber = player;
         game_body.innerHTML = `
         <div id="players"></div>
         <form id="rules">

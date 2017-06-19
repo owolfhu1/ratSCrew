@@ -473,7 +473,7 @@ const newGame = tableId =>  {
     //deal it out////change this back TODO ffgfgfgf
     for (let i = 1; i < 3; i++) {
         let p = 'player' + i;
-        for (let i = 0; i < 26; i++) {
+        for (let i = 0; i < 27; i++) {
             game[p].cards.push(gameDeck[0]);
             gameDeck.splice(0, 1);
         }

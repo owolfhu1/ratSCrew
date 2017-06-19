@@ -435,7 +435,7 @@ const takePile = (tableId, player) => {
     }
 };
 
-const newGame = tableId =>  {
+const newGame = tableId => {
     //move the table from tables to games
     games[tableId] = tables[tableId];
     let game = games[tableId];
@@ -470,12 +470,14 @@ const newGame = tableId =>  {
     //make a deck
     let gameDeck = deck(game.jokers);
     
-    //deal it out////change this back TODO ffgfgfgf
-    for (let i = 1; i < 3; i++) {
-        let p = 'player' + i;
-        for (let i = 0; i < 27; i++) {
-            game[p].cards.push(gameDeck[0]);
-            gameDeck.splice(0, 1);
+    //deal it out////change this back
+    while (gameDeck.length !== 0) {
+        for (let i = 1; i < 3; i++) {//TODO temp, change this number to play with less than 4 players
+            let p = 'player' + i;
+            if (gameDeck.length !== 0) {
+                game[p].cards.push(gameDeck[0]);
+                gameDeck.splice(0, 1);
+            }
         }
     }
     //add playerNumber property to users
@@ -666,5 +668,6 @@ const map = a => {
         -form should give options:
           * add 0/1/2/3 to bottom on incorrect slaps
           * tripples = off/win/lose
+          * suits
 */
 

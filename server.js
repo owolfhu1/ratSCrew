@@ -1,12 +1,19 @@
 /**
  *  Created by Orion Wolf_Hubbard on 6/4/2017.
  */
-
+//set up server variables
 let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
 
+//connect to DB
+//let pg = require('pg');
+//pg.defaults.ssl = true;
+//let client = new pg.Client(process.env.DATABASE_URL);
+//client.connect();
+
+//start server
 app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
@@ -462,10 +469,11 @@ const newGame = tableId =>  {
     }
     //make a deck
     let gameDeck = deck(game.jokers);
-    //deal it out
-    for (let i = 1; i < 5; i++) {
+    
+    //deal it out////change this back TODO ffgfgfgf
+    for (let i = 1; i < 3; i++) {
         let p = 'player' + i;
-        for (let i = 0; i < 13; i++) {
+        for (let i = 0; i < 26; i++) {
             game[p].cards.push(gameDeck[0]);
             gameDeck.splice(0, 1);
         }

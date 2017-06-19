@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "^4.15.3",
+    "pg": "6.2.4",
     "socket.io": "^2.0.2"
   }
 }

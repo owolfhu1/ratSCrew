@@ -1,19 +1,12 @@
 /**
  *  Created by Orion Wolf_Hubbard on 6/4/2017.
  */
-//set up server variables
+
 let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
 
-//connect to DB
-//let pg = require('pg');
-//pg.defaults.ssl = true;
-//let client = new pg.Client(process.env.DATABASE_URL);
-//client.connect();
-
-//start server
 app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
@@ -143,7 +136,7 @@ io.on('connection', socket => {
             //join existing table
             let table = tables[tableId];
             let added = false;
-        
+            
             for (let i = 1; i < 5; i++) {
                 let seat = 'player' + i;
                 //if that player is null
@@ -190,16 +183,22 @@ io.on('connection', socket => {
         }
         //check if all players are ready
         let ready = 0;
+        let total = 0;
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
-            if (table[p] !== null)
+            if (table[p] !== null) {
+                total++;
                 if (table[p].ready === 'ready')
                     ready++;
+            }
         }
-        if (ready === 4) newGame(user.tableId);
+        if (total > 1 && ready === total) newGame(user.tableId);
     });
     
     socket.on('play_card', () => {
+        
+        console.log('player clicked play card...');
+        
         let game = games[user.tableId];
         let player = user.playerNumber;
         let card = game[player].cards[0];
@@ -222,7 +221,8 @@ io.on('connection', socket => {
                 //update
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
-                    io.to(game[p].userId).emit('game_info', game);
+                    if (game[p] !== null)
+                        io.to(game[p].userId).emit('game_info', game);
                 }
             } else if (game.triesLeft === 1 || game[player].cards.length === 1) {
                 //no-ones turn, wait for player to claim pile or slap
@@ -235,7 +235,8 @@ io.on('connection', socket => {
                 //update game
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
-                    io.to(game[p].userId).emit('game_info', game);
+                    if (game[p] !== null)
+                        io.to(game[p].userId).emit('game_info', game);
                 }
                 
             } else { //player goes again
@@ -247,7 +248,8 @@ io.on('connection', socket => {
                 //update game
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
-                    io.to(game[p].userId).emit('game_info', game);
+                    if (game[p] !== null)
+                        io.to(game[p].userId).emit('game_info', game);
                 }
             }
         } else {
@@ -268,7 +270,8 @@ io.on('connection', socket => {
                 //update
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
-                    io.to(game[p].userId).emit('game_info', game);
+                    if (game[p] !== null)
+                        io.to(game[p].userId).emit('game_info', game);
                 }
                 //if player is out of cards or tries
             } else {
@@ -280,18 +283,23 @@ io.on('connection', socket => {
                 //emit game to players
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
-                    io.to(game[p].userId).emit('game_info', game);
+                    if (game[p] !== null)
+                        io.to(game[p].userId).emit('game_info', game);
                 }
             }
         }
         //check if game is over (3 players have no cards)
         let counter = 0;
+        let players = 0;
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
-            if (game[p].cards.length === 0)
-                counter++
+            if (game[p] !== null) {
+                players++;
+                if (game[p].cards.length === 0)
+                    counter++;
+            }
         }
-        if (counter === 3 )
+        if (counter === players - 1)
             endGame(user.tableId);
     });
     
@@ -321,23 +329,26 @@ io.on('connection', socket => {
                 if (game.roundOver && player === game.facePlayer) {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
-                        if (game[p].userId !== userId)
-                            io.to(game[p].userId).emit('slap', [`<h2>${user.name}<br>won the pile!</h2>`, true] );
-                        else io.to(userId).emit('slap', [`<h2>${user.name}<br>won the pile!</h2>`, false] );
+                        if (game[p] !== null) {
+                            //send slap to every other player
+                            if (game[p].userId !== userId)
+                                io.to(game[p].userId).emit('slap');//maybe remove slap??
+                            io.to(game[p].userId).emit('chat', `<p>${user.name} won the pile.</p>`);
+                        }
                     }
                     takePile(user.tableId, player);
                 } else {
-        
+                    
                     //legit slap
-                    if (isSlapped) {
+                    if (isSlapped[0]) {
                         for (let i = 1; i < 5; i++) {
                             let p = 'player' + i;
-    
-                            if (game[p].userId !== userId)
-                                io.to(game[p].userId).emit(
-                                    'slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, true] );
-                            else io.to(game[p].userId).emit(
-                                'slap', [`<h2>${user.name}<br>slapped and took<br>the pile!</h2>`, false] );
+                            if (game[p] !== null) {
+                                //send slap to every other player
+                                if (game[p].userId !== userId)
+                                    io.to(game[p].userId).emit('slap');
+                                io.to(game[p].userId).emit('chat', `<p>${user.name} slapped: ${isSlapped[1]}</p>`);
+                            }
                         }
                         takePile(user.tableId, player);
                     } else {
@@ -351,11 +362,13 @@ io.on('connection', socket => {
                                 nextPlayer(user.tableId);
                             for (let i = 1; i < 5; i++) {
                                 let p = 'player' + i;
-                                if (game[p].userId !== userId)
-                                    io.to(game[p].userId).emit('slap', [`
-<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, true] );
-                                else io.to(game[p].userId).emit('slap', [`
-<h2>${user.name}<br>slapped and added <br>${printCard(c)}<br> to bottom</h2>`, false] );
+                                if (game[p] !== null) {
+                                    if (game[p].userId !== userId)
+                                        io.to(game[p].userId).emit('slap');
+                                    if (c[1] !== 'joker')
+                                        io.to(game[p].userId).emit('chat', `<p>${user.name} slapped and added ${mapToWord(map(c[0]))} of ${c[1]} to the bottom</p>`);
+                                    else io.to(game[p].userId).emit('chat', `<p>${user.name} slapped and added a joker to the bottom</p>`);
+                                }
                             }
                         } else game[player].pauseTill = time + game.timeout;
                     }
@@ -365,12 +378,16 @@ io.on('connection', socket => {
         }
         //check if game is over (3 players have no cards)
         let counter = 0;
+        let players = 0;
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
-            if (game[p].cards.length === 0)
-                counter++
+            if (game[p] !== null) {
+                players++;
+                if (game[p].cards.length === 0)
+                    counter++;
+            }
         }
-        if (counter === 3 )
+        if (counter === players - 1)
             endGame(user.tableId);
     });
     
@@ -420,7 +437,8 @@ const takePile = (tableId, player) => {
     //turn everyone off
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        game[p].ready = false;
+        if (game[p] !== null)
+            game[p].ready = false;
     }
     //give turn to player who won
     game[player].ready = true;
@@ -430,12 +448,14 @@ const takePile = (tableId, player) => {
     //clear pile and send game_info
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        io.to(game[p].userId).emit('clear_game');
-        io.to(game[p].userId).emit('game_info', game);
+        if (game[p] !== null) {
+            io.to(game[p].userId).emit('clear_game');
+            io.to(game[p].userId).emit('game_info', game);
+        }
     }
 };
 
-const newGame = tableId => {
+const newGame = tableId =>  {
     //move the table from tables to games
     games[tableId] = tables[tableId];
     let game = games[tableId];
@@ -463,18 +483,20 @@ const newGame = tableId => {
     //setup game for clients
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        game[p].ready = false;
-        game[p].cards = [];
-        io.to(game[p].userId).emit('setup_game');
+        if (game[p] !== null) {
+            game[p].ready = false;
+            game[p].cards = [];
+            io.to(game[p].userId).emit('setup_game');
+        }
     }
     //make a deck
     let gameDeck = deck(game.jokers);
-    
-    //deal it out////change this back
-    while (gameDeck.length !== 0) {
-        for (let i = 1; i < 3; i++) {//TODO temp, change this number to play with less than 4 players
+    //deal it out
+    while (gameDeck.length > 0) {
+        for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
-            if (gameDeck.length !== 0) {
+            if (gameDeck.length >0 && game[p] !== null) {
+                game[p].ready = false;
                 game[p].cards.push(gameDeck[0]);
                 gameDeck.splice(0, 1);
             }
@@ -483,15 +505,26 @@ const newGame = tableId => {
     //add playerNumber property to users
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        userMap[game[p].userId].playerNumber = p;
+        if (game[p] !== null)
+            userMap[game[p].userId].playerNumber = p;
     }
+    
     //give a random player the first turn
-    let turn = 'player' + (Math.floor(Math.random() * 4) + 1);
-    game[turn].ready = true;
+    let legit = false;
+    while (!legit) {
+        let turn = 'player' + (Math.floor(Math.random() * 4) + 1);
+        if (game[turn] !== null) {
+            game[turn].ready = true;
+            legit = true;
+        }
+    }
+    
+    
     //start game
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        io.to(game[p].userId).emit('game_info', game);
+        if (game[p] !== null)
+            io.to(game[p].userId).emit('game_info', game);
     }
 };
 
@@ -540,7 +573,8 @@ const endGame = tableId => {
     game.pile = [];
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        game[p].cards = [];
+        if (game[p] !== null)
+            game[p].cards = [];
     }
     
     tables[tableId] = game;
@@ -551,9 +585,10 @@ const endGame = tableId => {
     
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        if (table[p] !== null)
+        if (table[p] !== null) {
             io.to(table[p].userId).emit('setup_table', null);
-        io.to(table[p].userId).emit('table', [table, p]);
+            io.to(table[p].userId).emit('table', [table, p]);
+        }
     }
     
 };
@@ -561,71 +596,113 @@ const endGame = tableId => {
 const nextPlayer = tableId => {
     let game = games[tableId];
     let next;
-    if (game.player1.ready) {
-        game.player1.ready = false;
-        game.player2.ready = true;
-        next = 'player2';
-    } else if (game.player2.ready) {
-        game.player2.ready = false;
-        game.player3.ready = true;
-        next = 'player3';
-    } else if (game.player3.ready) {
-        game.player3.ready = false;
-        game.player4.ready = true;
-        next = 'player4';
-    } else if (game.player4.ready) {
-        game.player4.ready = false;
-        game.player1.ready = true;
-        next = 'player1';
+    let current;
+    
+    
+    
+    //get the current player
+    for (let i = 1; i < 5; i++) {
+        let p =  'player' +  i;
+        if (game[p] !== null)
+            if (game[p].ready)
+                current = i;
     }
-    //if the player who's turn got turned on has no cards, next player again
-    if (game[next].cards.length === 0) nextPlayer(tableId);
+    
+    console.log(game['player' + current].name + ' just went..');
+    
+    
+    //flip current player's ready boolean
+    game['player' + current].ready = false;
+    
+    
+    //find the next non-null player
+    let legit = false;
+    next = current + 1;
+    
+    while (!legit) {
+        if (next === 5)
+            next = 1;
+        let p = 'player' + next;
+        if (game[p] !== null)
+            if (game[p].cards.length) {
+                game[p].ready = true;
+                legit = true;
+            }
+        next++;
+    }
 };
 
 const isSlap = (cards, game) => {
     let isSlapped = false;
+    let message = 'illegal slap!';
+    
     if (cards.length > 0)
-        if (cards[cards.length - 1][1] === 'joker')
+        if (cards[cards.length - 1][1] === 'joker') {
             isSlapped = true;
+            message = 'joker';
+        }
+        
     if (game.run === 'four')
         if (cards.length > 3) {
             let l = cards.length;
-            if (is4Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0]))
+            if (is4Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0], cards[l - 4][0])) {
                 isSlapped = true;
+                message = `run ${mapToWord(map(cards[l - 1][0]))} to ${mapToWord(map(cards[l - 4][0]))}`;
+            }
         }
+        
     if (game.run === 'three')
         if (cards.length > 2) {
             let l = cards.length;
-            if (is3Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0]))
+            if (is3Run(cards[l - 1][0], cards[l - 2][0], cards[l - 3][0])) {
                 isSlapped = true;
+                message = `run ${mapToWord(map(cards[l - 1][0]))} to ${mapToWord(map(cards[l - 3][0]))}`;
+            }
         }
+        
     if (game.run === 'two')
         if (cards.length > 1) {
             let l = cards.length;
-            if (is2Run(cards[l - 1][0], cards[l - 2][0]))
+            if (is2Run(cards[l - 1][0], cards[l - 2][0])) {
                 isSlapped = true;
+                message = `run ${mapToWord(map(cards[l - 1][0]))} to ${mapToWord(map(cards[l - 2][0]))}`;
+            }
         }
+        
     if (cards.length > 1) {
         if (game.bottomTop = 'on')
-            if (cards[0][0] === cards[cards.length - 1][0])
+            if (cards[0][0] === cards[cards.length - 1][0]) {
                 isSlapped = true;
+                message = `${mapToWord(map(cards[0][0]))} (bottom = top)`;
+            }
+            
         if (game.double === 'on')
-            if (cards[cards.length - 1][0] === cards[cards.length - 2][0])
+            if (cards[cards.length - 1][0] === cards[cards.length - 2][0]) {
                 isSlapped = true;
+                message = `double ${mapToWord(map(cards[cards.length - 1][0]))}s`;
+            }
         if (game.sumten === 'on')
-            if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10)
+            if (cards[cards.length - 1][0] + cards[cards.length - 2][0] === 10) {
                 isSlapped = true;
+                message = `${mapToWord(map(cards[cards.length - 1][0]))} + ${mapToWord(map(cards[cards.length - 2][0]))} = ten`;
+            }
     }
+    
     if (game.sandwich = 'on')
         if (cards.length > 2) {
             if (game.double === 'on')
-                if (cards[cards.length - 1][0] === cards[cards.length - 3][0])
+                if (cards[cards.length - 1][0] === cards[cards.length - 3][0]) {
                     isSlapped = true;
+                    message = `sandwiched double ${mapToWord(map(cards[cards.length - 3][0]))}s`;
+                }
             if (game.sumten === 'on')
-                if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10)
+                if (cards[cards.length - 1][0] + cards[cards.length - 3][0] === 10) {
                     isSlapped = true;
+                    message = `${mapToWord(map(cards[cards.length - 1][0]))} + ${mapToWord(map(cards[cards.length - 3][0]))} = ten`;
+                }
         }
-    return isSlapped;
+    
+    return [isSlapped, message];
 };
 
 const is4Run = (a,b,c,d) => {
@@ -658,16 +735,29 @@ const map = a => {
     if (a === 15) a = 13;
     return a;
 };
-
+const  mapToWord = a => {
+    if (a === 1) a = 'ace';
+    if (a === 2) a = 'two';
+    if (a === 3) a = 'three';
+    if (a === 4) a = 'four';
+    if (a === 5) a = 'five';
+    if (a === 6) a = 'six';
+    if (a === 7) a = 'seven';
+    if (a === 8) a = 'eight';
+    if (a === 9) a = 'nine';
+    if (a === 10) a = 'ten';
+    if (a === 11) a = 'jack';
+    if (a === 12) a = 'queen';
+    if (a === 13) a = 'king';
+    return a;
+};
 
 /*TODO:
-        -
-        -add DB
-        -make game for 2-4 players rather than just 4 players
-        -form doesn't sync after players are put back in table lobby
-        -form should give options:
-          * add 0/1/2/3 to bottom on incorrect slaps
-          * tripples = off/win/lose
-          * suits
-*/
-
+ TODO priority: starting at newGame(), make this compatible for 2 and 3 players
+ -add DB
+ -make game for 2-4 players rather than just 4 players
+ -form doesn't sync after players are put back in table lobby
+ -form should give options:
+ * add 0/1/2/3 to bottom on incorrect slaps
+ * tripples = off/win/lose
+ */

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <style>
-
         .chat{  position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 30%;  }
         .chat_body{  width: 100%; height: 100px; background: whitesmoke;
             border: dashed purple; overflow-y: scroll; }
@@ -14,45 +14,38 @@
             width: 100%;  height: 100%;  color: #f51300; }
         .slap_info{  display: none;  position: absolute;  z-index: 1;  width: 100%;  height: 100%;
             top: 0;  right: 0;  overflow: hidden;  }
-        .turn_text{  position: absolute;  bottom: 0;  left: 0;  }
         .player_info{  position: absolute;  bottom: 0;  right: 0;  }
         .game_body{  width: 100%;  height: 100%;  }
         .player_pile{  text-align: center;  position: absolute;  border: dashed green; border-radius: 10px;  height: 20%;  }
         .play_pile{  width: 120px;  height: 180px;  position: absolute;  top: 37%;  left: 50%;
             margin-top: -50px;  margin-left: -50px;  border: dashed green;  border-radius: 20px;  }​
-
     </style>
 </head>
 <body>
-    <div id="slap_info" class="slap_info">
-        <div id="slap_info_content" class="slap_info_content">
-        </div>
+<div id="slap_info" class="slap_info">
+    <div id="slap_info_content" class="slap_info_content">
+        <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"/>
     </div>
-    <div id="chat" class="chat">
-        <div id="chat_body" class="chat_body">
-
-        </div>
-        <input title="chat_input" id="chat_input" class="chat_input"/>
+</div>
+<div id="chat" class="chat">
+    <div id="chat_body" class="chat_body">
     </div>
-    <div class="game_body" id="game_body">
-
-       <!--  test area  -->
-
-
-
-    </div>
+    <input title="chat_input" id="chat_input" class="chat_input"/>
+</div>
+<div class="game_body" id="game_body">
+    <!--  test area  -->
+</div>
 <script>
     const SLAP = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.mp3');
     const alertSound = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/sound.mp3');
     let game_body = document.getElementById('game_body');
     let socket = io();
-    let playerNumber, player1, player2, player3, player4, play_pile,
-        turn_text, slap_info, slap_info_content, player_info, rules, players,  chat_body, chat_input, name = 'GUEST';
+    let playerNumber, player1, player2, player3, player4, play_pile, slap_info, slap_info_content,
+        player_info, rules, players,  chat_body, chat_input, name = 'GUEST';
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
     chat_body = document.getElementById('chat_body');
     chat_input = document.getElementById('chat_input');
-
     //send chat to server on enter key press
     chat_input.addEventListener("keyup", function(event) {
         event.preventDefault();
@@ -62,22 +55,19 @@
             socket.emit('chat', `<p>${name}: ${text}</p>`);
         }
     });
-
     //get name from server when you log in
     socket.on('set_name', x => {name = x;});
-
     //display chat from server
     socket.on('chat', text => {
         chat_body.innerHTML += text;
         chat_body.scrollTop = chat_body.scrollHeight;
     });
-
     socket.on('setup_login', () => {
         //setup game_body to have login fields
         game_body.innerHTML = `
-            <input id="user_name" type="text" value="Please enter a username"><br>
-            <input id="password" type="password"><br>
-            <button id="login_button">login</button>
+            name: <input id="user_name" type="text" ><br>
+            pass: <input id="password" type="password"><br>
+            <button id="login_button">login/create</button>
         `;
         //activate button to send login emit
         document.getElementById('login_button').addEventListener('click', () => {
@@ -86,51 +76,18 @@
             socket.emit('login', [user_name, password]);
         });
     });
-
     //server to console messages
-    socket.on('login', text => {
-       console.log(text);
+    socket.on('console', text => {
+        console.log(text);
     });
+    socket.on('clear_game', () => { play_pile.innerHTML = ''; });
 
-    socket.on('clear_game', () => {
-        console.log('clear game attempted');
-        play_pile.innerHTML = '';
-    });
-
-    socket.on('slap', info => {
-
-
-
-        //play slap sound
+    socket.on('slap', () => {
         SLAP.play();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //show slap divs
         slap_info.style.display = 'block';
-        //display info from server
-        slap_info_content.innerHTML = info[0];
-        if (info[1])
-            slap_info_content.innerHTML += `
-<image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"/>`;
-
-
-        //on click hide slap divs again
         slap_info_content.addEventListener('click', () => {
             slap_info.style.display = 'none';
         });
-
     });
 
     socket.on('lobby', tables => {
@@ -233,7 +190,6 @@
             console.log('player hit ready button' + playerNumber); //for testing remove later
             socket.emit('ready', playerNumber);
         });
-
         console.log(table);
         for (let key in table){
             let p ='player';
@@ -241,7 +197,6 @@
                 document.getElementById(key + table[key]).checked = true;
             }
         }
-
         $("#rules").on("change", function() {
             let emit = [
                 rules.sandwich.value,   //0
@@ -255,12 +210,10 @@
             ];
             socket.emit('rules', emit);
         });
-
     });
 
     socket.on('setup_game', () => {
         game_body.innerHTML = `
-            <div class="turn_text" id="turn_text"></div>
             <div class="player_info" id="player_info"></div>
             <div class="player_pile" id="player1"></div>
             <div class="player_pile" id="player2"></div>
@@ -274,7 +227,6 @@
         player3 = document.getElementById('player3');
         player4 = document.getElementById('player4');
         play_pile = document.getElementById('play_pile');
-        turn_text = document.getElementById('turn_text');
         player_info = document.getElementById('player_info');
         //add slap event listener
         play_pile.addEventListener('mousedown', () =>{
@@ -305,22 +257,45 @@
     });
 
     socket.on('game_info', game => {
-
         if(game[playerNumber].ready && game[playerNumber].cards.length === 0)
             socket.emit('no_cards');
+        //for each player 1 to 4
         for (let i = 1; i < 5; i++) {
             let player = 'player' + i;
-            if (game[player].cards.length !== 0) {
-                if (playerNumber === player)
-                    document.getElementById(player).innerHTML = printActiveBack();
-                else {
-                    document.getElementById(player).innerHTML = printCardBack();
-                    document.getElementById(player).innerHTML += `
-<b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
-${game[player].name}<br>${game[player].cards.length}</b>`;
-                }
-            } else document.getElementById(player).innerHTML = printNoCard();
-        }
+            if (game[player] !== null) {
+
+
+
+
+                if (game[player].cards.length !== 0) {
+
+                    if (game[player].ready) {
+
+                        if (player === playerNumber)
+                            document.getElementById(player).innerHTML = printActiveBack();
+                        else {
+                            document.getElementById(player).innerHTML = printTurnBack();
+
+                        }
+                    } else document.getElementById(player).innerHTML = printCardBack();
+
+                    //show other players info
+                    if (player !== playerNumber)
+                        document.getElementById(player).innerHTML += `
+                            <b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
+                            ${game[player].name}<br>${game[player].cards.length}</b>`;
+
+
+
+                } else document.getElementById(player).innerHTML = printNoCard();
+                //if they dont have any cards ---^
+
+
+
+
+
+            } else document.getElementById(player).innerHTML = '';
+        }//if the player was null---^
         //print player info
         player_info.innerHTML = ``;
         if (game[playerNumber].cards.length > 0){
@@ -331,12 +306,10 @@ ${game[player].name}<br>${game[player].cards.length}</b>`;
         if (game.pile.length > 0) {
             play_pile.innerHTML += printCard(game.pile[game.pile.length - 1], nextPosition());
         }
-        //empty turn_text
-        turn_text.innerHTML = '';
+
         //if it is client's turn
         if (game[playerNumber].ready) {
             alertSound.play();
-            turn_text.innerHTML = '<h2>your turn</h2>';
             document.getElementById('clickable').addEventListener('click', () => {
                 socket.emit('play_card');
             });
@@ -350,9 +323,10 @@ ${game[player].name}<br>${game[player].cards.length}</b>`;
                 document.getElementById(key + table[key]).checked = true;
             }
         }
-
     });
+
     //this changes each time a card is put down
+    //position and nextPosition() work together to cascade cards in pile
     let position = 1;
     const nextPosition = () => {
         if (position === 1) {
@@ -369,8 +343,11 @@ ${game[player].name}<br>${game[player].cards.length}</b>`;
             return `position: absolute; height: 100px; width: 70px; bottom: 0px; right: 0;`;
         }
     };
+
+    //print functions:
+    const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height : 100%;">`;
     const printActiveBack = () =>
-        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
+        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height : 100%;">`;
     const printNoCard = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/play_area.png" style="height : 100%;">`;
     const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
     const printCard = (card, position) =>

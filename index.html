@@ -5,20 +5,25 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <style>
-        .chat{  position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 30%;  }
-        .chat_body{  width: 100%; height: 100px; background: whitesmoke;
-            border: dashed purple; overflow-y: scroll; }
-        .chat_input{ width: 100%; top: 100px; }
-        .slap_image {  position: absolute;  top: 30%;  left: 40%;  margin-top: -50px;  margin-left: -50px;  }
-        .slap_info_content {  margin: auto;  padding: 5px;  background-color: transparent;
-            width: 100%;  height: 100%;  color: #f51300; }
-        .slap_info{  display: none;  position: absolute;  z-index: 1;  width: 100%;  height: 100%;
-            top: 0;  right: 0;  overflow: hidden;  }
-        .player_info{  position: absolute;  bottom: 0;  right: 0;  }
-        .game_body{  width: 100%;  height: 100%;  }
-        .player_pile{  text-align: center;  position: absolute;  border: dashed green; border-radius: 10px;  height: 20%;  }
-        .play_pile{  width: 120px;  height: 180px;  position: absolute;  top: 37%;  left: 50%;
-            margin-top: -50px;  margin-left: -50px;  border: dashed green;  border-radius: 20px;  }​
+        html{background-image:url(http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png); background-size:100%;}
+        .chat{  position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 35%; }
+        .chat_body{  width: 100%; height: 130px; background: rgba(128, 174, 250, 0.79);
+            border-radius: 12px; overflow-y: scroll; padding-left: 5px; padding-right: 15px;}
+        .chat_input{ width: 100%; top: 130px; border-radius: 5px }
+        .slap_image { position: absolute; top: 30%;  left: 40%;  margin-top: -50px;  margin-left: -50px; }
+        .slap_info_content { margin: auto; padding: 5px; background-color: transparent;
+            width: 100%; height: 100%; color: #f51300; }
+        .slap_info{ display: none; position: absolute; z-index: 1;  width: 100%;  height: 100%;
+            top: 0; right: 0; overflow: hidden; }
+        .table_button{ border-radius: 10px; border: groove darkblue; background-color: rgba(68, 133, 191, 0.65); padding: 10px;}
+        .player_info{ position: absolute;  bottom: 0; right: 0; }
+        .game_body{ width: 100%; height: 100%; padding: 7%; }
+        .player_pile{ text-align: center;  position: absolute; height: 20%; }
+        .login_div{position: absolute; padding: 5%; border: ridge cornflowerblue;
+            border-radius: 15%; top: 35%; left: 30%; background: rgba(173, 23, 176, 0.56);}
+        .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 15%; background: rgba(82, 152, 72, 0.74); padding: 20px; }
+        .play_pile{ width: 120px; height: 180px; position: absolute; top: 37%;  left: 50%;
+            margin-top: -50px;  margin-left: -50px; }​
     </style>
 </head>
 <body>
@@ -66,11 +71,10 @@
 
     socket.on('setup_login', () => {
         //setup game_body to have login fields
-        game_body.innerHTML = `
-            name: <input id="user_name" type="text" ><br>
-            pass: <input id="password" type="password"><br>
-            <button id="login_button">login/create</button>
-        `;
+        game_body.innerHTML = `<div class="login_div">
+            name: <input style="border-radius: 5px" id="user_name" type="text" ><br><br>
+            pass: <input style="border-radius: 5px" id="password" type="password"><br><br>
+            <button style="border-radius: 5px" id="login_button">login/create</button></div>`;
         //activate button to send login emit
         document.getElementById('login_button').addEventListener('click', () => {
             let password = document.getElementById('password').value;
@@ -90,23 +94,29 @@
     });
 
     socket.on('lobby', tables => {
-        let body = `<button id="new_table" class="table_button"><br><p>new table</p><br></button>`;
+        let body = `<button id="new_table" class="table_button">click here to start a new table</button>`;
         //for each table, build a button w/ players names and
+        let counter = 0;
+        for (let key in tables) counter++
+        if (counter !== 0)
+            body += `<p>click on a table below to join an existing table</p>`;
+        counter = 0;
         for (let tableId in tables) {
+            counter++;
             let table = tables[tableId];
             //building table button
-            let button = `<button class="table_button" id="${tableId}">`;
+            let button = `<br><b>table ${counter}: </b><button class="table_button" id="${tableId}">`;
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
                 if (table[p] !== null)
-                    button += `<p>${table[p].name}</p>`;
+                    button += `(${table[p].name}) `;
             }
             button += `</button>`;
             //add the button to the game_body
             body += button;
         }
         //update the html
-        game_body.innerHTML = body;
+        game_body.innerHTML = `<div class="lobby">${body}</div>`;
         //activate table buttons
         for (let tableId in tables)
             document.getElementById(tableId).addEventListener('click', () => {
@@ -122,7 +132,7 @@
         //get playerNumber
         if (player !== null)
             playerNumber = player;
-        game_body.innerHTML = `
+        game_body.innerHTML = `<div class="lobby">
         <div id="players"></div>
         <form id="rules">
             <h1>slap conditions:</h1>
@@ -159,7 +169,7 @@
             <input type="radio" title="timeout" name="timeout" id="timeoutfive" value="five">five minutes
             <input type="radio" title="timeout" name="timeout" id="timeoutforever" value="forever">forever<br>
         </form>
-        `;
+        </div>`;
         rules = document.getElementById('rules');
         players = document.getElementById('players');
     });

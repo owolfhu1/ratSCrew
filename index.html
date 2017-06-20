@@ -46,6 +46,7 @@
     slap_info_content = document.getElementById('slap_info_content');
     chat_body = document.getElementById('chat_body');
     chat_input = document.getElementById('chat_input');
+
     //send chat to server on enter key press
     chat_input.addEventListener("keyup", function(event) {
         event.preventDefault();
@@ -62,6 +63,7 @@
         chat_body.innerHTML += text;
         chat_body.scrollTop = chat_body.scrollHeight;
     });
+
     socket.on('setup_login', () => {
         //setup game_body to have login fields
         game_body.innerHTML = `
@@ -76,10 +78,7 @@
             socket.emit('login', [user_name, password]);
         });
     });
-    //server to console messages
-    socket.on('console', text => {
-        console.log(text);
-    });
+
     socket.on('clear_game', () => { play_pile.innerHTML = ''; });
 
     socket.on('slap', () => {
@@ -263,37 +262,19 @@
         for (let i = 1; i < 5; i++) {
             let player = 'player' + i;
             if (game[player] !== null) {
-
-
-
-
                 if (game[player].cards.length !== 0) {
-
                     if (game[player].ready) {
-
                         if (player === playerNumber)
                             document.getElementById(player).innerHTML = printActiveBack();
-                        else {
-                            document.getElementById(player).innerHTML = printTurnBack();
-
-                        }
+                        else document.getElementById(player).innerHTML = printTurnBack();
                     } else document.getElementById(player).innerHTML = printCardBack();
-
                     //show other players info
                     if (player !== playerNumber)
                         document.getElementById(player).innerHTML += `
                             <b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
                             ${game[player].name}<br>${game[player].cards.length}</b>`;
-
-
-
                 } else document.getElementById(player).innerHTML = printNoCard();
                 //if they dont have any cards ---^
-
-
-
-
-
             } else document.getElementById(player).innerHTML = '';
         }//if the player was null---^
         //print player info
@@ -306,7 +287,6 @@
         if (game.pile.length > 0) {
             play_pile.innerHTML += printCard(game.pile[game.pile.length - 1], nextPosition());
         }
-
         //if it is client's turn
         if (game[playerNumber].ready) {
             alertSound.play();
@@ -319,9 +299,8 @@
     socket.on('rules', table => {
         for (let key in table){
             let p ='player';
-            if (!(key === p + 1 || key === p + 2 || key === p + 3 || key === p + 4)) {
+            if (!(key === p + 1 || key === p + 2 || key === p + 3 || key === p + 4))
                 document.getElementById(key + table[key]).checked = true;
-            }
         }
     });
 

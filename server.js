@@ -45,6 +45,7 @@ let newUser = function (userId) {
     this.userId = userId;
 };
 
+//this holds all the functions that deal with information coming from the clients
 io.on('connection', socket => {
     let userId = socket.id;
     io.to(userId).emit('setup_login');
@@ -196,9 +197,6 @@ io.on('connection', socket => {
     });
     
     socket.on('play_card', () => {
-        
-        console.log('player clicked play card...');
-        
         let game = games[user.tableId];
         let player = user.playerNumber;
         let card = game[player].cards[0];
@@ -238,7 +236,6 @@ io.on('connection', socket => {
                     if (game[p] !== null)
                         io.to(game[p].userId).emit('game_info', game);
                 }
-                
             } else { //player goes again
                 game.triesLeft--;
                 //add the card to game pile
@@ -411,7 +408,6 @@ io.on('connection', socket => {
         table.timeout = rules[5];
         table.double = rules[6];
         table.sumten = rules[7];
-        
         //send table back to players
         for (let i = 1; i < 5; i++) {
             let player = 'player' + i;
@@ -421,10 +417,6 @@ io.on('connection', socket => {
     });
     
 });
-
-//for displaying card on miss-slaps
-const printCard = (card) =>
-    `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card${card[1]}${card[0]}.png" style="height: 35%;">`;
 
 const takePile = (tableId, player) => {
     let game = games[tableId];
@@ -468,18 +460,14 @@ const newGame = tableId =>  {
     game.triesLeft = 0;
     game.roundOver = false;
     game.pauseTill = 0;
-    
-    if (game.timeout === 'off') {
+    if (game.timeout === 'off')
         game.timeout = 0;
-        
-    } else if (game.timeout === 'two') {
+    else if (game.timeout === 'two')
         game.timeout = 1000 * 60 * 2;
-    } else if (game.timeout === 'five') {
+    else if (game.timeout === 'five')
         game.timeout = 1000 * 60 * 5;
-    } else if (game.timeout === 'forever') {
+    else if (game.timeout === 'forever')
         game.timeout = 13370000; //a lot..
-    }
-    
     //setup game for clients
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
@@ -508,7 +496,6 @@ const newGame = tableId =>  {
         if (game[p] !== null)
             userMap[game[p].userId].playerNumber = p;
     }
-    
     //give a random player the first turn
     let legit = false;
     while (!legit) {
@@ -518,8 +505,6 @@ const newGame = tableId =>  {
             legit = true;
         }
     }
-    
-    
     //start game
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
@@ -555,20 +540,17 @@ const shuffle = array => {
 const endGame = tableId => {
     console.log('ending game');
     let game = games[tableId];
-    
     //delete added game properties
     delete game.pile;
     delete game.facePlayer;
     delete game.triesLeft;
     delete game.roundOver;
     delete game.pauseTill;
-    
     //game.timeout int --> string for form
     if (game.timeout === 0) game.timeout = 'off';
     else if (game.timeout === 1000 * 60 * 2) game.timeout = 'two';
     else if (game.timeout === 1000 * 60 * 5) game.timeout = 'five';
     else if (game.timeout === 13370000) game.timeout = 'forever';
-    
     //delete all cards
     game.pile = [];
     for (let i = 1; i < 5; i++) {
@@ -576,13 +558,10 @@ const endGame = tableId => {
         if (game[p] !== null)
             game[p].cards = [];
     }
-    
     tables[tableId] = game;
     delete games[tableId];
     let table = tables[tableId];
-    
     for (let key in lobby) io.to(key).emit('lobby', tables);
-    
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (table[p] !== null) {
@@ -590,16 +569,12 @@ const endGame = tableId => {
             io.to(table[p].userId).emit('table', [table, p]);
         }
     }
-    
 };
 
 const nextPlayer = tableId => {
     let game = games[tableId];
     let next;
     let current;
-    
-    
-    
     //get the current player
     for (let i = 1; i < 5; i++) {
         let p =  'player' +  i;
@@ -607,18 +582,11 @@ const nextPlayer = tableId => {
             if (game[p].ready)
                 current = i;
     }
-    
-    console.log(game['player' + current].name + ' just went..');
-    
-    
     //flip current player's ready boolean
     game['player' + current].ready = false;
-    
-    
     //find the next non-null player
     let legit = false;
     next = current + 1;
-    
     while (!legit) {
         if (next === 5)
             next = 1;
@@ -635,13 +603,11 @@ const nextPlayer = tableId => {
 const isSlap = (cards, game) => {
     let isSlapped = false;
     let message = 'illegal slap!';
-    
     if (cards.length > 0)
         if (cards[cards.length - 1][1] === 'joker') {
             isSlapped = true;
             message = 'joker';
         }
-        
     if (game.run === 'four')
         if (cards.length > 3) {
             let l = cards.length;
@@ -650,7 +616,6 @@ const isSlap = (cards, game) => {
                 message = `run ${mapToWord(map(cards[l - 1][0]))} to ${mapToWord(map(cards[l - 4][0]))}`;
             }
         }
-        
     if (game.run === 'three')
         if (cards.length > 2) {
             let l = cards.length;
@@ -659,7 +624,6 @@ const isSlap = (cards, game) => {
                 message = `run ${mapToWord(map(cards[l - 1][0]))} to ${mapToWord(map(cards[l - 3][0]))}`;
             }
         }
-        
     if (game.run === 'two')
         if (cards.length > 1) {
             let l = cards.length;
@@ -668,14 +632,12 @@ const isSlap = (cards, game) => {
                 message = `run ${mapToWord(map(cards[l - 1][0]))} to ${mapToWord(map(cards[l - 2][0]))}`;
             }
         }
-        
     if (cards.length > 1) {
         if (game.bottomTop = 'on')
             if (cards[0][0] === cards[cards.length - 1][0]) {
                 isSlapped = true;
                 message = `${mapToWord(map(cards[0][0]))} (bottom = top)`;
             }
-            
         if (game.double === 'on')
             if (cards[cards.length - 1][0] === cards[cards.length - 2][0]) {
                 isSlapped = true;
@@ -687,7 +649,6 @@ const isSlap = (cards, game) => {
                 message = `${mapToWord(map(cards[cards.length - 1][0]))} + ${mapToWord(map(cards[cards.length - 2][0]))} = ten`;
             }
     }
-    
     if (game.sandwich = 'on')
         if (cards.length > 2) {
             if (game.double === 'on')
@@ -701,7 +662,6 @@ const isSlap = (cards, game) => {
                     message = `${mapToWord(map(cards[cards.length - 1][0]))} + ${mapToWord(map(cards[cards.length - 3][0]))} = ten`;
                 }
         }
-    
     return [isSlapped, message];
 };
 
@@ -752,12 +712,11 @@ const  mapToWord = a => {
     return a;
 };
 
-/*TODO:
- TODO priority: starting at newGame(), make this compatible for 2 and 3 players
+/*
  -add DB
- -make game for 2-4 players rather than just 4 players
  -form doesn't sync after players are put back in table lobby
  -form should give options:
  * add 0/1/2/3 to bottom on incorrect slaps
- * tripples = off/win/lose
+ * triples = off/win/lose
+ * suit triples on/off
  */

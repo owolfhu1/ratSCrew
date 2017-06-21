@@ -25,7 +25,7 @@ let newTable = function () {
     this.run = 'two';
     this.bottomTop = 'on';
     this.jokers = 'on';
-    this.punish = 'one';
+    this.flush = 'three';
     this.timeout = 'two';
     this.double = 'on';
     this.sumten = 'on';
@@ -404,7 +404,7 @@ io.on('connection', socket => {
         table.run = rules[1];
         table.bottomTop = rules[2];
         table.jokers = rules[3];
-        table.punish = rules[4];
+        table.flush = rules[4];
         table.timeout = rules[5];
         table.double = rules[6];
         table.sumten = rules[7];
@@ -660,6 +660,32 @@ const isSlap = (cards, game) => {
                     message = `${mapToWord(map(cards[cards.length - 1][0]))} + ${mapToWord(map(cards[cards.length - 3][0]))} = ten`;
                 }
         }
+        
+    if(game.flush === 'two') {
+        if (cards.length > 1)
+            if (cards[cards.length - 1][1] === cards[cards.length - 2][1]) {
+                isSlapped = true;
+                message = `${cards[cards.length - 1][1]} flush`;
+            }
+    }
+    if(game.flush === 'three') {
+        if (cards.length > 2)
+            if (cards[cards.length - 1][1] === cards[cards.length - 2][1] &&
+                cards[cards.length - 1][1] === cards[cards.length - 3][1]) {
+                isSlapped = true;
+                message = `${cards[cards.length - 1][1]} flush`;
+            }
+    }
+    if(game.flush === 'four') {
+        if (cards.length > 3)
+            if (cards[cards.length - 1][1] === cards[cards.length - 2][1] &&
+                cards[cards.length - 1][1] === cards[cards.length - 3][1] &&
+                cards[cards.length - 1][1] === cards[cards.length - 4][1]) {
+                isSlapped = true;
+                message = `${cards[cards.length - 1][1]} flush`;
+            }
+    }
+    
     return [isSlapped, message];
 };
 

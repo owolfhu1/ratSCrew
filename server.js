@@ -82,8 +82,9 @@ io.on('connection', socket => {
         for (let id in userMap) io.to(id).emit('chat', `<p>${userMap[userId].name} logging off</p>`);
         //if the user has joined a table, remove them
         if(user.tableId !== 'none'){
+            let player;
             if (user.tableId in tables) {
-                let player;
+                //find the player#
                 let table = tables[user.tableId];
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
@@ -108,7 +109,30 @@ io.on('connection', socket => {
                     }
                 }
                 for (let key in lobby) io.to(key).emit('lobby', tables );
+            } else {
+                //find  the player#
+                let table = games[user.tableId];
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    if (table[p] !== null)
+                        if (table[p].userId === userId)
+                            player = p;
+                }
+
+                //removes and adds cards to bottom of game.pile
+                removeFromGame(user.tableId, player);
+
+                for (let i = 1; i < 5; i++) {
+                    let p = 'player' + i;
+                    if (table[p] !== null) {
+                        io.to(table[p].userId).emit('chat', `<p>${user.name} has left unexpectedly
+                            and placed all there cards at the bottom of the pile</p>`);
+                        io.to(table[p].userId).emit('game_info', table);
+                    }
+                }
+
             }
+
         }
         delete userMap[userId];
     });
@@ -687,6 +711,20 @@ const isSlap = (cards, game) => {
     }
     
     return [isSlapped, message];
+};
+
+const removeFromGame = (tableId, player) => {
+    let game = games[tableId];
+    let cards = game[player].cards;
+    //put all their cards on the bottom of the pile
+    console.log(cards);
+    for (let card in cards) {
+        console.log(card[0] + card[1]);
+        game.pile.splice(0, 0, card);
+    }
+    console.log(game.pile);
+    //make player null
+    game[player] = null;
 };
 
 const is4Run = (a,b,c,d) => {

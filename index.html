@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Orion's Rat Screw!</title>
     <meta charset="UTF-8">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -80,31 +81,6 @@
 
     socket.on('setup_login', () => {
         //setup game_body to have login fields
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         game_body.innerHTML = `<div class="container">
     <div class="jumbotron"><h1>Welcome to Egyptian Rat Screw!</h1>
     <h3>Please enter a user name to continue.</h3></div>
@@ -127,10 +103,6 @@
             </div>
         </div>
     </div>`;
-
-
-
-
         //activate button to send login emit
         document.getElementById('login_button').addEventListener('click', () => {
             let password = document.getElementById('password').value;
@@ -357,7 +329,7 @@
         //if it is client's turn
         if (game[playerNumber].ready) {
             alertSound.play();
-            document.getElementById('clickable').addEventListener('click', () => {
+            document.getElementById('clickable').addEventListener('mousedown', () => {
                 socket.emit('play_card');
             });
         }

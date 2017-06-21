@@ -24,13 +24,10 @@
             width: 100%; height: 100%; color: #f51300; }
         .slap_info{ display: none; position: absolute; z-index: 1;  width: 100%;  height: 100%;
             top: 0; right: 0; overflow: hidden; }
-        .table_button{ border-radius: 10px; border: groove darkblue; background-color: rgba(68, 133, 191, 0.65); padding: 10px;}
         .player_info{ position: absolute;  bottom: 0; right: 0; }
         .game_body{ width: 100%; height: 100%; padding: 7%; }
         .player_pile{ text-align: center;  position: absolute; height: 20%; }
-        .login_div{position: absolute; padding: 5%; border: ridge cornflowerblue;
-            border-radius: 15%; top: 35%; left: 30%; background: rgba(173, 23, 176, 0.56);}
-        .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 15%; background: rgba(82, 152, 72, 0.74); padding: 20px; }
+        .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 20px; background: rgba(190, 49, 59, 0.74); padding: 20px; }
         .play_pile{ width: 120px; height: 180px; position: absolute; top: 37%;  left: 50%;
             margin-top: -50px;  margin-left: -50px; }​
     </style>
@@ -123,18 +120,18 @@
 
     socket.on('lobby', tables => {
         chat.style.display = 'inherit';
-        let body = `<button id="new_table" class="table_button">click here to start a new table</button>`;
+        let body = `<button id="new_table" class="btn btn-success">click here to start a new table</button>`;
         //for each table, build a button w/ players names and
         let counter = 0;
         for (let key in tables) counter++
         if (counter !== 0)
-            body += `<p>click on a table below to join an existing table</p>`;
+            body += `<h3>click on a table below to join an existing table</h3>`;
         counter = 0;
         for (let tableId in tables) {
             counter++;
             let table = tables[tableId];
             //building table button
-            let button = `<br><b>table ${counter}: </b><button class="table_button" id="${tableId}">`;
+            let button = `<br><h3>table ${counter}: </h3><button class="btn btn-primary" id="${tableId}">`;
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
                 if (table[p] !== null)
@@ -161,7 +158,7 @@
         //get playerNumber
         if (player !== null)
             playerNumber = player;
-        game_body.innerHTML = `<div class="lobby">
+        game_body.innerHTML = `<div class="container">
         <div id="players"></div>
         <form id="rules">
             <h1>slap conditions:</h1>
@@ -198,7 +195,7 @@
             <input type="radio" title="timeout" name="timeout" id="timeoutfive" value="five">five minutes
             <input type="radio" title="timeout" name="timeout" id="timeoutforever" value="forever">forever<br>
         </form>
-        </div>`;
+        </div> `;
         rules = document.getElementById('rules');
         players = document.getElementById('players');
     });
@@ -214,7 +211,7 @@
                 //if it is the player, give them a ready button
                 if (p === playerNumber) {
                     players.innerHTML += `
-<h2>${table[p].name} <button id="ready_button">${table[p].ready}</button></h2>`;
+<h2>${table[p].name} <button id="ready_button" class="btn btn-info">${table[p].ready}</button></h2>`;
                 } else {
                     //else just display name and if they are ready
                     players.innerHTML += `

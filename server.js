@@ -551,8 +551,6 @@ const endGame = tableId => {
     else if (game.timeout === 1000 * 60 * 2) game.timeout = 'two';
     else if (game.timeout === 1000 * 60 * 5) game.timeout = 'five';
     else if (game.timeout === 13370000) game.timeout = 'forever';
-    //delete all cards
-    game.pile = [];
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (game[p] !== null)

@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+          crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
     <style>
-        html{background-image:url(http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png); background-size:100%;}
-        .chat{  position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 35%; }
+        .chat{display: none; position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 35%; }
         .chat_body{  width: 100%; height: 130px; background: rgba(128, 174, 250, 0.79);
             border-radius: 12px; overflow-y: scroll; padding-left: 5px; padding-right: 15px;}
         .chat_input{ width: 100%; top: 130px; border-radius: 5px }
@@ -46,11 +54,12 @@
     let game_body = document.getElementById('game_body');
     let socket = io();
     let playerNumber, player1, player2, player3, player4, play_pile, slap_info, slap_info_content,
-        player_info, rules, players,  chat_body, chat_input, name = 'GUEST';
+        player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST';
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
     chat_body = document.getElementById('chat_body');
     chat_input = document.getElementById('chat_input');
+    chat = document.getElementById('chat');
 
     //send chat to server on enter key press
     chat_input.addEventListener("keyup", function(event) {
@@ -71,10 +80,57 @@
 
     socket.on('setup_login', () => {
         //setup game_body to have login fields
-        game_body.innerHTML = `<div class="login_div">
-            name: <input style="border-radius: 5px" id="user_name" type="text" ><br><br>
-            pass: <input style="border-radius: 5px" id="password" type="password"><br><br>
-            <button style="border-radius: 5px" id="login_button">login/create</button></div>`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        game_body.innerHTML = `<div class="container">
+    <div class="jumbotron"><h1>Welcome to Egyptian Rat Screw!</h1>
+    <h3>Please enter a user name to continue.</h3></div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="user_name" class="col-sm-2 control-label">User Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="user_name" placeholder="user name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="password" placeholder="Password (optional)">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="login_button" class="btn btn-default">Sign in</button>
+            </div>
+        </div>
+    </div>`;
+
+
+
+
         //activate button to send login emit
         document.getElementById('login_button').addEventListener('click', () => {
             let password = document.getElementById('password').value;
@@ -94,6 +150,7 @@
     });
 
     socket.on('lobby', tables => {
+        chat.style.display = 'inherit';
         let body = `<button id="new_table" class="table_button">click here to start a new table</button>`;
         //for each table, build a button w/ players names and
         let counter = 0;

@@ -72,10 +72,11 @@ io.on('connection', socket => {
             userMap[userId].name = loginInfo[NAME];
         }
         //if the user's name has been changed, they are logged in, emit 'lobby_setup'
-        if (userMap[userId].name !== 'GUEST') {
-            io.to(userId).emit('set_name', userMap[userId].name);
-            lobby[userId] = userMap[userId].name;
-            for (let key in lobby) io.to(key).emit('lobby', tables );
+        if (user.name !== 'GUEST') {
+            io.to(userId).emit('set_name', user.name);
+            lobby[userId] = user.name;
+            for (let key in lobby)
+                io.to(key).emit('lobby', tables );
         }
     });
     
@@ -540,6 +541,16 @@ const newGame = tableId =>  {
             legit = true;
         }
     }
+    //get a count of players (for end game text)
+    let count = 0;
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        if (game[p] !== null)
+            count++;
+    }
+    game.startCount = count;
+    
+    
     //start game
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
@@ -575,33 +586,43 @@ const shuffle = array => {
 const endGame = tableId => {
     console.log('ending game');
     let game = games[tableId];
-    //delete added game properties
-    delete game.pile;
-    delete game.facePlayer;
-    delete game.triesLeft;
-    delete game.roundOver;
-    delete game.pauseTill;
-    //game.timeout int --> string for form
-    if (game.timeout === 0) game.timeout = 'off';
-    else if (game.timeout === 1000 * 60 * 2) game.timeout = 'two';
-    else if (game.timeout === 1000 * 60 * 5) game.timeout = 'five';
-    else if (game.timeout === 13370000) game.timeout = 'forever';
+    
+    //find winner
+    let player;
+    let cardCount = 0;
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
+        
         if (game[p] !== null)
-            game[p].cards = [];
+            
+            if (game[p].cards.length > cardCount) {
+            
+                cardCount = game[p].cards.length;
+                player = p;
+            
+            }
+        
     }
-    tables[tableId] = game;
-    delete games[tableId];
-    let table = tables[tableId];
-    for (let key in lobby) io.to(key).emit('lobby', tables);
+    
+    io.sockets.emit('chat', `<h3>Congratulations ${game[player].name} for winning a game vs ${game.startCount - 1} other players!</h3>`);
+    
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        if (table[p] !== null) {
-            io.to(table[p].userId).emit('setup_table', null);
-            io.to(table[p].userId).emit('table', [table, p]);
+        
+        if (game[p] !== null) {
+            let id = game[p].userId;
+            userMap[id].tableId = 'none';
+            lobby[id] = game[p].name;
         }
     }
+    
+    
+    
+    delete games[tableId];
+    
+    for (let key in lobby) io.to(key).emit('lobby', tables );
+    
+    
 };
 
 const nextPlayer = tableId => {

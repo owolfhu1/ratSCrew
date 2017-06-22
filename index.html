@@ -159,7 +159,7 @@
         if (player !== null)
             playerNumber = player;
         game_body.innerHTML = `
-        <div class="container">
+        <div class="container" >
 
         <div id="players"></div>
 
@@ -195,14 +195,14 @@
                 <tr>
                     <td>runs:</td>
                     <td><input type="radio" title="run" name="run" id="runoff" value="off">off
-                        <input type="radio" title="run" name="run" id="runtwo" value="two" checked>two
+                        <input type="radio" title="run" name="run" id="runtwo" value="two" checked>two<br>
                         <input type="radio" title="run" name="run" id="runthree" value="three">three
                         <input type="radio" title="run" name="run" id="runfour" value="four">four </td>
                 </tr>
                 <tr>
                     <td>flushes:</td>
                     <td><input type="radio" title="flush" name="flush" id="flushoff" value="off">off
-                        <input type="radio" title="flush" name="flush" id="flushtwo" value="two">two
+                        <input type="radio" title="flush" name="flush" id="flushtwo" value="two">two<br>
                         <input type="radio" title="flush" name="flush" id="flushthree" value="three" checked>three
                         <input type="radio" title="flush" name="flush" id="flushfour" value="four">four</td>
                 </tr>
@@ -219,9 +219,16 @@
                 <tr>
                     <td>timeout for slapping without cards:</td>
                     <td><input type="radio" title="timeout" name="timeout" id="timeoutoff" value="off">off
-                        <input type="radio" title="timeout" name="timeout" id="timeouttwo" value="two" checked>two minutes
+                        <input type="radio" title="timeout" name="timeout" id="timeouttwo" value="two" checked>two minutes<br>
                         <input type="radio" title="timeout" name="timeout" id="timeoutfive" value="five">five minutes
                         <input type="radio" title="timeout" name="timeout" id="timeoutforever" value="forever">forever</td>
+                </tr>
+                <tr>
+                    <td>Handle quitter's cards:</td>
+                    <td><input type="radio" title="quit" name="quit" id="quitbottom" value="bottom">bottom
+                        <input type="radio" title="quit" name="quit" id="quitdistribute" value="distribute" checked>distribute<br>
+                        <input type="radio" title="quit" name="quit" id="quitgone" value="gone">gone
+                        <input type="radio" title="quit" name="quit" id="quitend" value="end">end
                 </tr>
                 </tbody>
             </table>
@@ -271,7 +278,8 @@
                 rules.flush.value,      //4
                 rules.timeout.value,    //5
                 rules.double.value,     //6
-                rules.sumten.value      //7
+                rules.sumten.value,     //7
+                rules.quit.value        //8
             ];
             socket.emit('rules', emit);
         });

@@ -29,6 +29,7 @@ let newTable = function () {
     this.timeout = 'two';
     this.double = 'on';
     this.sumten = 'on';
+    this.quit = 'distribute';
 };
 
 let newPlayer = function (name, userId) {
@@ -52,7 +53,7 @@ io.on('connection', socket => {
     userMap[userId] = new newUser(userId);
     let user = userMap[userId];
     
-    socket.on('chat', text => { for (let id in userMap) io.to(id).emit('chat',text); });
+    socket.on('chat', text => { io.sockets.emit('chat',text); });
     
     socket.on('login', loginInfo => {
         let NAME = 0, PASS = 1;
@@ -110,27 +111,36 @@ io.on('connection', socket => {
                 }
                 for (let key in lobby) io.to(key).emit('lobby', tables );
             } else {
-                //find  the player#
+                //find  the player#, get player count
+                let count = 0;
                 let table = games[user.tableId];
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
-                    if (table[p] !== null)
+                    if (table[p] !== null) {
                         if (table[p].userId === userId)
                             player = p;
-                }
-
-                //removes and adds cards to bottom of game.pile
-                removeFromGame(user.tableId, player);
-
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    if (table[p] !== null) {
-                        io.to(table[p].userId).emit('chat', `<p>${user.name} has left unexpectedly
-                            and placed all there cards at the bottom of the pile</p>`);
-                        io.to(table[p].userId).emit('game_info', table);
+                        count++;
                     }
                 }
-
+                
+                if (count > 2) {
+                    removeFromGame(user.tableId, player);
+    
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (table[p] !== null) {
+                            io.to(table[p].userId).emit('game_info', table);
+                        }
+                        
+                    }
+                    
+                } else {
+                    
+                    table[player] = null;
+                    endGame(user.tableId);
+                    
+                }
+                
             }
 
         }
@@ -432,6 +442,7 @@ io.on('connection', socket => {
         table.timeout = rules[5];
         table.double = rules[6];
         table.sumten = rules[7];
+        table.quit = rules[8];
         //send table back to players
         for (let i = 1; i < 5; i++) {
             let player = 'player' + i;
@@ -716,15 +727,52 @@ const isSlap = (cards, game) => {
 const removeFromGame = (tableId, player) => {
     let game = games[tableId];
     let cards = game[player].cards;
-    //put all their cards on the bottom of the pile
-    console.log(cards);
-    for (let card in cards) {
-        console.log(card[0] + card[1]);
-        game.pile.splice(0, 0, card);
-    }
-    console.log(game.pile);
-    //make player null
+    
+    if (game[player].ready)
+        nextPlayer(tableId);
+    
     game[player] = null;
+    console.log(cards);
+    
+    if (game.quit !== 'end') {
+    
+        if (game.quit !== 'gone') {
+    
+            while (cards.length !== 0) {
+        
+                for (let i = 1; i < 5; i++) {
+            
+                    let p = 'player' + i;
+            
+                    console.log("this card is: " + cards[0]);
+            
+                    if (game.quit === 'distribute')
+                        if (cards.length !== 0)
+                            if (game[p] !== null) {
+                                game[p].cards.push(cards[0]);
+                                cards.splice(0, 1);
+                            }
+            
+                    if (game.quit === 'bottom')
+                        if (cards.length !== 0) {
+                            game.pile.splice(0, 0, cards[0]);
+                            cards.splice(0, 1);
+                        }
+                }
+        
+            }
+            for (let i = 1; i < 5; i++) {
+                let p = 'player' + i;
+                if (game[p] !== null) {
+                    console.log(game[p].name);
+                    console.dir(game[p].cards);
+                }
+            }
+            console.dir(game)
+        }
+        
+    } else endGame(tableId);
+    
 };
 
 const is4Run = (a,b,c,d) => {

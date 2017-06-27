@@ -19,7 +19,7 @@
         .chat_body{  width: 100%; height: 130px; background: rgba(128, 174, 250, 0.79);
             border-radius: 12px; overflow-y: scroll; padding-left: 5px; padding-right: 15px;}
         .chat_input{ width: 100%; top: 130px; border-radius: 5px }
-        .slap_image { position: absolute; top: 30%;  left: 40%;  margin-top: -50px;  margin-left: -50px; }
+        .slap_image { position: absolute; top: 24%;  left: 28%;  margin-top: -50px;  margin-left: -50px; }
         .slap_info_content { margin: auto; padding: 5px; background-color: transparent;
             width: 100%; height: 100%; color: #f51300; }
         .slap_info{ display: none; position: absolute; z-index: 1;  width: 100%;  height: 100%;
@@ -28,8 +28,8 @@
         .game_body{ width: 100%; height: 100%; padding: 7%; }
         .player_pile{ text-align: center;  position: absolute; height: 20%; }
         .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 20px; background: rgba(190, 49, 59, 0.74); padding: 20px; }
-        .play_pile{ width: 120px; height: 180px; position: absolute; top: 37%;  left: 50%;
-            margin-top: -50px;  margin-left: -50px; }​
+        .play_pile{ width: 152px; height: 102px; position: absolute; top: 37%;  left: 35%;
+            margin-top: -50px;  margin-left: -50px; border: seagreen 1px solid; }​
     </style>
 </head>
 <body>
@@ -309,9 +309,7 @@
         play_pile = document.getElementById('play_pile');
         player_info = document.getElementById('player_info');
         //add slap event listener
-        play_pile.addEventListener('mousedown', () =>{
-            socket.emit('slap');
-        });
+        play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
         //position player_pile divs
         if (playerNumber === 'player1') {
             player1.style = `bottom: 0px; left: 50%; margin-left: -50px;`;
@@ -364,10 +362,9 @@
             player_info.innerHTML = `
 <h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</h3>`;
         }
-        //place the last played card
-        if (game.pile.length > 0) {
-            play_pile.innerHTML += printCard(game.pile[game.pile.length - 1], nextPosition());
-        }
+        //place the last 4 cards
+        play_pile.innerHTML = printPile(game.pile);
+
         //if it is client's turn
         if (game[playerNumber].ready) {
             alertSound.play();
@@ -386,25 +383,6 @@
         }
     });
 
-    //this changes each time a card is put down
-    //position and nextPosition() work together to cascade cards in pile
-    let position = 1;
-    const nextPosition = () => {
-        if (position === 1) {
-            position = 2;
-            return `position: absolute; height: 100px; width: 70px; bottom: 0px; left: 0;`;
-        } else if (position === 2) {
-            position = 3;
-            return `position: absolute; height: 100px; width: 70px; top: 0px; left: 0;`;
-        } else if (position === 3) {
-            position = 4;
-            return `position: absolute; height: 100px; width: 70px; top: 0px; right: 0;`;
-        } else if (position === 4) {
-            position = 1;
-            return `position: absolute; height: 100px; width: 70px; bottom: 0px; right: 0;`;
-        }
-    };
-
     //print functions:
     const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height : 100%;">`;
     const printActiveBack = () =>
@@ -413,6 +391,24 @@
     const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="height : 100%;">`;
     const printCard = (card, position) =>
         `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card${card[1]}${card[0]}.png" style="${position}">`;
+
+    const printPile = cards => {
+        let pile = '';
+        if (cards.length > 3) {
+            pile += printCard(cards[cards.length - 4], 'position: absolute; left: 0; width: 75px; height: 100px;');
+        }
+        if (cards.length > 2) {
+            pile += printCard(cards[cards.length - 3], 'position: absolute; left: 25px; width: 75px; height: 100px;');
+        }
+        if (cards.length > 1) {
+            pile += printCard(cards[cards.length - 2], 'position: absolute; left: 50px; width: 75px; height: 100px;');
+        }
+        if (cards.length > 0) {
+            pile += printCard(cards[cards.length - 1], 'position: absolute; left: 75px; width: 75px; height: 100px;');
+        }
+        return pile;
+    };
+
 
 </script>
 </body>

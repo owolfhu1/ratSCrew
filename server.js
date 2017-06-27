@@ -402,6 +402,13 @@ io.on('connection', socket => {
                                     else io.to(game[p].userId).emit('chat', `<p>${user.name} slapped and added a joker to the bottom</p>`);
                                 }
                             }
+    
+                            for (let i = 1; i < 5; i++) {
+                                let p = 'player' + i;
+                                if (game[p] !== null)
+                                    io.to(game[p].userId).emit('chat', `<p>${user.name} won the pile.</p>`);
+                            }
+                            
                         } else game[player].pauseTill = time + game.timeout;
                     }
                 }

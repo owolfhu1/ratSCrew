@@ -412,7 +412,7 @@ io.on('connection', socket => {
                         } else game[player].pauseTill = time + game.timeout;
                     }
                 }
-                game.pauseTill = time + 3000;
+                game.pauseTill = time + 1111;
             }
         }
         //check if game is over (3 players have no cards)

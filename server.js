@@ -709,7 +709,7 @@ const isSlap = (cards, game) => {
                 message = `${mapToWord(map(cards[cards.length - 1][0]))} + ${mapToWord(map(cards[cards.length - 2][0]))} = ten`;
             }
     }
-    if (game.sandwich = 'on')
+    if (game.sandwich === 'on')
         if (cards.length > 2) {
             if (game.double === 'on')
                 if (cards[cards.length - 1][0] === cards[cards.length - 3][0]) {

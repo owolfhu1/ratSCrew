@@ -406,7 +406,7 @@ io.on('connection', socket => {
                             for (let i = 1; i < 5; i++) {
                                 let p = 'player' + i;
                                 if (game[p] !== null)
-                                    io.to(game[p].userId).emit('chat', `<p>${user.name} won the pile.</p>`);
+                                    io.to(game[p].userId).emit('game_info', game);
                             }
                             
                         } else game[player].pauseTill = time + game.timeout;
@@ -484,7 +484,6 @@ const takePile = (tableId, player) => {
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (game[p] !== null) {
-            io.to(game[p].userId).emit('clear_game');
             io.to(game[p].userId).emit('game_info', game);
         }
     }

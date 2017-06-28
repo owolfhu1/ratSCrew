@@ -15,13 +15,14 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <style>
+
         .chat_body::-webkit-scrollbar {
             display: none;
         }
         .chat{display: none; position: absolute;  top: 0;  right: 0;  z-index: 1;  width: 35%; }
         .chat_body{  width: 100%; height: 130px; background: rgba(128, 174, 250, 0.55);
             border-radius: 12px; overflow-y: scroll; padding-left: 5px; padding-right: 15px; color: whitesmoke;}
-        .chat_input{ width: 100%; top: 130px; border-radius: 5px; background: rgba(173, 23, 176, 0.51); color: whitesmoke;
+        .chat_input{ width: 100%; top: 130px; border-radius: 5px; border: none; background: rgba(173, 23, 176, 0.51); color: whitesmoke;
         }
         .slap_image { position: absolute; top: 84px;  left: 73px;}
         .slap_info_content { margin: auto; padding: 5px; background-color: transparent;
@@ -52,7 +53,7 @@
 <div id="chat" class="chat">
     <div id="chat_body" class="chat_body">
     </div>
-    <input title="chat_input" id="chat_input" class="chat_input"/>
+    <input title="chat_input" id="chat_input" class="chat_input" placeholder="chat input"/>
 </div>
 <div class="game_body" id="game_body">
     <!--  test area  -->

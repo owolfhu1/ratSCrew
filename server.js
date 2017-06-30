@@ -11,13 +11,13 @@ app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
 
-//COMMENTOUTFORTESTESTING
+//todo COMMENTOUTFORTESTESTING
 //database
 let pg = require('pg');
 pg.defaults.ssl = true;
 let client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
-//COMMENTOUTFORTESTESTING
+//todo COMMENTOUTFORTESTESTING
 
 
 let userMap = {};
@@ -27,12 +27,12 @@ let tables = {};
 let games = {};
 
 
-//COMMENTOUTFORTESTESTING
+//todo COMMENTOUTFORTESTESTING
 //get users
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;
 });
-//COMMENTOUTFORTESTESTING
+//todo COMMENTOUTFORTESTESTING
 
 
 let newTable = function () {
@@ -545,6 +545,18 @@ const newGame = tableId =>  {
             game[p].ready = false;
             game[p].cards = [];
             io.to(game[p].userId).emit('setup_game');
+    
+            //tOdO COMMENTOUTFORTESTESTING
+    
+            client.query(`SELECT rating FROM users WHERE name = '${game[p].name}';`).on('row', row => {
+                game[p].rating = row.rating;
+            });
+            
+            //test
+            console.dir(game);
+            
+    //client.query(`UPDATE userbank SET total = total + 1 WHERE username = '${game[player1].name}';`); <- example
+            //tOdO COMMENTOUTFORTESTESTING
         }
     }
     //make a deck

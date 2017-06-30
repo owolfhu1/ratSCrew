@@ -2,19 +2,38 @@
  *  Created by Orion Wolf_Hubbard on 6/4/2017.
  */
 
+//server
 let app = require('express')();
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
-
 app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
+
+
+//COMMENTOUTFORTESTESTING
+//database
+let pg = require('pg');
+pg.defaults.ssl = true;
+let client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
+//COMMENTOUTFORTESTESTING
+
 
 let userMap = {};
 let lobby = {};
 let passwordMap = {};
 let tables = {};
 let games = {};
+
+
+//COMMENTOUTFORTESTESTING
+//get users
+client.query('SELECT * FROM users;').on('row', row => {
+    passwordMap[row.name] = row.pass;
+});
+//COMMENTOUTFORTESTESTING
+
 
 let newTable = function () {
     this.player1 = null;
@@ -68,6 +87,15 @@ io.on('connection', socket => {
         } else {
             //if username doesn't already exist add it and login
             for (let id in userMap) io.to(id).emit('chat',`<p>${loginInfo[NAME]} logging in</p>`);
+    
+            
+            
+            //COMMENTOUTFORTESTESTING
+            client.query(`INSERT INTO users (name, pass, rating) VALUES ('${loginInfo[NAME]}', '${loginInfo[PASS]}', 1500)`);
+            //COMMENTOUTFORTESTESTING
+            
+            
+            
             passwordMap[loginInfo[NAME]] = loginInfo[PASS];
             userMap[userId].name = loginInfo[NAME];
         }

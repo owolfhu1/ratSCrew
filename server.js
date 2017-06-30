@@ -57,6 +57,7 @@ let newPlayer = function (name, userId) {
     this.ready = 'not ready';
     this.cards = null;
     this.pauseTill = 0;
+    this.rating = 0;
 };
 
 let newUser = function (userId) {
@@ -539,6 +540,7 @@ const newGame = tableId =>  {
     else if (game.timeout === 'forever')
         game.timeout = 13370000; //a lot..
     //setup game for clients
+    io.sockets.emit('chat',`starting game with:`);
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (game[p] !== null) {
@@ -548,12 +550,13 @@ const newGame = tableId =>  {
     
             //tOdO COMMENTOUTFORTESTESTING
     
-            client.query(`SELECT rating FROM users WHERE name = '${game[p].name}';`).on('row', row => {
+            client.query(`SELECT * FROM users WHERE name = '${game[p].name}';`).on('row', row => {
                 game[p].rating = row.rating;
+                io.sockets.emit('chat',`-${game[p].name}- rating: ${game[p].rating}`);
             });
             
-            //test
-            console.dir(game);
+            
+            
             
     //client.query(`UPDATE userbank SET total = total + 1 WHERE username = '${game[player1].name}';`); <- example
             //tOdO COMMENTOUTFORTESTESTING

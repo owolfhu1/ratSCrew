@@ -540,7 +540,7 @@ const newGame = tableId =>  {
     else if (game.timeout === 'forever')
         game.timeout = 13370000; //a lot..
     //setup game for clients
-    io.sockets.emit('chat',`starting game with:`);
+    io.sockets.emit('chat',`<p>starting game with:</p>`);
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (game[p] !== null) {
@@ -552,7 +552,7 @@ const newGame = tableId =>  {
     
             client.query(`SELECT * FROM users WHERE name = '${game[p].name}';`).on('row', row => {
                 game[p].rating = row.rating;
-                io.sockets.emit('chat',`-${game[p].name}- rating: ${game[p].rating}`);
+                io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[p].rating}</p>`);
             });
             
             

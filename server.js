@@ -34,6 +34,7 @@ client.query('SELECT * FROM users;').on('row', row => {
 });
 //todo COMMENTOUTFORTESTESTING
 
+const K = 50;
 
 let newTable = function () {
     this.player1 = null;
@@ -57,12 +58,12 @@ let newPlayer = function (name, userId) {
     this.ready = 'not ready';
     this.cards = null;
     this.pauseTill = 0;
-    this.rating = 0;
 };
 
 let slaps = function (name) {
     this.name = name;
     this.slaps = 0;
+    this.rating = 0;
 };
 
 let newUser = function (userId) {
@@ -552,8 +553,6 @@ const newGame = tableId =>  {
         }
     }
     
-    console.dir(game);
-    
     if (game.timeout === 'off')
         game.timeout = 0;
     else if (game.timeout === 'two')
@@ -574,8 +573,8 @@ const newGame = tableId =>  {
             //tOdO COMMENTOUTFORTESTESTING
     
             client.query(`SELECT * FROM users WHERE name = '${game[p].name}';`).on('row', row => {
-                game[p].rating = row.rating;
-                io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[p].rating}</p>`);
+                game[p + 'slaps'].rating = row.rating;
+                io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[p + 'slaps'].rating}</p>`);
             });
     //client.query(`UPDATE userbank SET total = total + 1 WHERE username = '${game[player1].name}';`); <- example
             //tOdO COMMENTOUTFORTESTESTING
@@ -682,8 +681,34 @@ const endGame = tableId => {
     
     
     
+    //get players from start
+    let players = [];
+    let expectedDivisor = 0;
+    for (let i = 1; i < 5; i++) {
+        if (`player${i}slaps` in game) {
+            players.push(i);
+        }
+    }
+    for (let i in players) {
+        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
+        expectedDivisor += game['R' + i];
+    }
+    expectedDivisor = expectedDivisor/(players.length/2);
     
-    
+    for (let i in players) {
+        let score = game[`player${i}slaps`].slaps/game.slaps;
+        let expected = game['R' + i]/expectedDivisor;
+        let rating = game[`player${i}slaps`].rating + K * (score - expected);
+        io.sockets.emit('chat', `${game[`player${i}slaps`].name} old rating: ${game[`player${i}slaps`].rating} new rating: ${rating}`);
+        
+        //todo COMMENTOUTFORTESTESTING
+        
+        
+        client.query(`UPDATE users SET rating = ${rating} WHERE name = '${game[`player${i}slaps`].name}';`);
+        
+        
+        //todo COMMENTOUTFORTESTESTING
+    }
     
     
     

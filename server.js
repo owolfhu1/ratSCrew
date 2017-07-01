@@ -79,7 +79,26 @@ io.on('connection', socket => {
     userMap[userId] = new newUser(userId);
     let user = userMap[userId];
     
-    socket.on('chat', text => { io.sockets.emit('chat',text); });
+    socket.on('chat', text => {
+        if (text.contains('$slaps') && user.tableId in games) {
+            let game = games[user.tableId];
+            
+            let msg = `<p>total slaps: ${game.slaps}</p>`;
+            
+            for (let i = 1; i < 5; i++) {
+                
+                if (`player${i}slaps` in game) {
+                    
+                    msg += `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>`;
+                
+                }
+            
+            }
+            
+            io.to(userId).emit('chat',msg);
+            
+        } else io.sockets.emit('chat',text);
+    });
     
     socket.on('login', loginInfo => {
         let NAME = 0, PASS = 1;

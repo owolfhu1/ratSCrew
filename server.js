@@ -685,9 +685,7 @@ const endGame = tableId => {
                 player = p;
             }
     }
-    
-    io.sockets.emit('chat', `<h3>Congratulations ${game[player].name} for winning a game vs ${game.startCount - 1} other players!</h3>`);
-    
+    //io.sockets.emit('chat', `<h3>Congratulations ${game[player].name} for winning a game vs ${game.startCount - 1} other players!</h3>`);
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         
@@ -697,10 +695,6 @@ const endGame = tableId => {
             lobby[id] = game[p].name;
         }
     }
-    
-    
-    
-    
     //get players from start
     let players = [];
     let expectedDivisor = 0;
@@ -720,31 +714,30 @@ const endGame = tableId => {
     
     expectedDivisor = expectedDivisor/(players.length/2);
     
+    io.sockets.emit('chat', `Congratulations ${game[player].name} for winning a game with ${game.slaps} slaps`);
+    
     for (let x = 0; x < players.length; x++) {
         let i = players[x];
+        let score;
         
+        if (game.slaps > 0 )
+            score = game[`player${i}slaps`].slaps/game.slaps;
+        else score = 1/players.length; //gives "tie" if no slaps happen
         
-        
-        let score = game[`player${i}slaps`].slaps/game.slaps;
-        
-        //edit to score
+        //adjust score for # of players
         score = score * players.length / 2;
         
         
         let expected = game['R' + i]/expectedDivisor;
         let rating = game[`player${i}slaps`].rating + K * (score - expected);
+        
         io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>
 <p>old rating: ${game[`player${i}slaps`].rating}  new rating: ${rating.toFixed(0)}</p>`);
-        
-        
-        
         //todo COMMENTOUTFORTESTESTING
-        
-        
         client.query(`UPDATE users SET rating = ${rating} WHERE name = '${game[`player${i}slaps`].name}';`);
-        
-        
         //todo COMMENTOUTFORTESTESTING
+        
+        
     }
     
     

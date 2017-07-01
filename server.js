@@ -713,10 +713,9 @@ const endGame = tableId => {
         let score = game[`player${i}slaps`].slaps/game.slaps;
         let expected = game['R' + i]/expectedDivisor;
         let rating = game[`player${i}slaps`].rating + K * (score - expected);
-        io.sockets.emit('chat', `${game[`player${i}slaps`].name} old rating: ${game[`player${i}slaps`].rating} new rating: ${rating}`);
+        io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} old rating: ${game[`player${i}slaps`].rating} new rating: ${rating.toFixed(0)}</p>`);
         
         
-        console.log("new rating: " + rating);
         
         //todo COMMENTOUTFORTESTESTING
         

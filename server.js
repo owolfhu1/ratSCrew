@@ -691,11 +691,13 @@ const endGame = tableId => {
         }
     }
     for (let i in players) {
+        console.log('player length: ' + players.length);
+        console.log(`player${i}slaps`);
         game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
         expectedDivisor += game['R' + i];
     }
     
-    console.log('player length: ' + players.length);
+    
     expectedDivisor = expectedDivisor/(players.length/2);
     
     for (let i in players) {

@@ -292,7 +292,7 @@ io.on('connection', socket => {
         //if someone played a face/ace
         if (game.facePlayer !== 'none') {
             //if player plays a face/ace
-            if ((card[0] > 10 || card[0] === 1) && game[player].cards[0][1] !== 'joker') {///code change check it
+            if ((card[0] > 12 || card[0] === 1)) {///code change check it
                 //change facePlayer and set triesLeft
                 game.facePlayer = player;
                 if (card[0] === 1) game.triesLeft = 4;
@@ -340,7 +340,7 @@ io.on('connection', socket => {
             }
         } else {
             //if player plays a face/ace
-            if (card[0] > 10 || card[0] === 1) {
+            if (card[0] > 12 || card[0] === 1) {
                 //change facePlayer and set triesLeft
                 game.facePlayer = player;
                 if (card[0] === 1) game.triesLeft = 4;

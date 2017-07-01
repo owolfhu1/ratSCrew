@@ -60,6 +60,11 @@ let newPlayer = function (name, userId) {
     this.rating = 0;
 };
 
+let slaps = function (name) {
+    this.name = name;
+    this.slaps = 0;
+};
+
 let newUser = function (userId) {
     this.name = 'GUEST';
     this.tableId = 'none';
@@ -385,7 +390,6 @@ io.on('connection', socket => {
             if (time > game[player].pauseTill) {
                 //check if is legit slap
                 let isSlapped = isSlap(cards, game);
-                
                 //if the player has won the round
                 if (game.roundOver && player === game.facePlayer) {
                     for (let i = 1; i < 5; i++) {
@@ -399,9 +403,18 @@ io.on('connection', socket => {
                     }
                     takePile(user.tableId, player);
                 } else {
-                    
                     //legit slap
                     if (isSlapped[0]) {
+                        
+                        
+                        game.slaps++;
+                        game[player + 'slaps'].slaps++;
+                        
+                        
+                        
+                        
+                        
+                        
                         for (let i = 1; i < 5; i++) {
                             let p = 'player' + i;
                             if (game[p] !== null) {
@@ -531,6 +544,16 @@ const newGame = tableId =>  {
     game.triesLeft = 0;
     game.roundOver = false;
     game.pauseTill = 0;
+    game.slaps = 0;
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        if (game[p] !== null) {
+            game[p + 'slaps'] = new slaps(game[p].name);
+        }
+    }
+    
+    console.dir(game);
+    
     if (game.timeout === 'off')
         game.timeout = 0;
     else if (game.timeout === 'two')
@@ -554,10 +577,6 @@ const newGame = tableId =>  {
                 game[p].rating = row.rating;
                 io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[p].rating}</p>`);
             });
-            
-            
-            
-            
     //client.query(`UPDATE userbank SET total = total + 1 WHERE username = '${game[player1].name}';`); <- example
             //tOdO COMMENTOUTFORTESTESTING
         }
@@ -641,16 +660,11 @@ const endGame = tableId => {
     let cardCount = 0;
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        
         if (game[p] !== null)
-            
             if (game[p].cards.length > cardCount) {
-            
                 cardCount = game[p].cards.length;
                 player = p;
-            
             }
-        
     }
     
     io.sockets.emit('chat', `<h3>Congratulations ${game[player].name} for winning a game vs ${game.startCount - 1} other players!</h3>`);
@@ -664,6 +678,13 @@ const endGame = tableId => {
             lobby[id] = game[p].name;
         }
     }
+    
+    
+    
+    
+    
+    
+    
     
     
     

@@ -715,6 +715,9 @@ const endGame = tableId => {
         let rating = game[`player${i}slaps`].rating + K * (score - expected);
         io.sockets.emit('chat', `${game[`player${i}slaps`].name} old rating: ${game[`player${i}slaps`].rating} new rating: ${rating}`);
         
+        
+        console.log("new rating: " + rating);
+        
         //todo COMMENTOUTFORTESTESTING
         
         

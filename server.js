@@ -80,7 +80,7 @@ io.on('connection', socket => {
     let user = userMap[userId];
     
     socket.on('chat', text => {
-        if (text.contains('$slaps') && user.tableId in games) {
+        if (text.indexOf('$slaps') !== -1 && user.tableId in games) {
             let game = games[user.tableId];
             
             let msg = `<p>total slaps: ${game.slaps}</p>`;
@@ -88,8 +88,8 @@ io.on('connection', socket => {
             for (let i = 1; i < 5; i++) {
                 
                 if (`player${i}slaps` in game) {
-                    
-                    msg += `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>`;
+                    let player = game[`player${i}slaps`];
+                    msg += `<p>${player.name} got ${player.slaps} slaps</p>`;
                 
                 }
             

@@ -576,13 +576,10 @@ const newGame = tableId =>  {
                 game[`player${i}slaps`].rating = row.rating;
                 io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[`player${i}slaps`].rating}</p>`);
             });
-    //client.query(`UPDATE userbank SET total = total + 1 WHERE username = '${game[player1].name}';`); <- example
+            
             //tOdO COMMENTOUTFORTESTESTING
         }
     }
-    
-    
-    console.dir(game);
     
     //make a deck
     let gameDeck = deck(game.jokers);
@@ -697,6 +694,8 @@ const endGame = tableId => {
         game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
         expectedDivisor += game['R' + i];
     }
+    
+    console.log('player length: ' + players.length);
     expectedDivisor = expectedDivisor/(players.length/2);
     
     for (let i in players) {

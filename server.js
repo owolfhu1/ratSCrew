@@ -695,7 +695,7 @@ const endGame = tableId => {
         let i = players[x];
         
         console.log(`player${i}slaps`);
-        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
+        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/300 );
         expectedDivisor += game['R' + i];
         
         console.log(game['R' + i]);

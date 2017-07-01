@@ -693,15 +693,11 @@ const endGame = tableId => {
     //maybe one day i will understand why for (i in players) doesn't work ....
     for (let x = 0; x < players.length; x++) {
         let i = players[x];
-        
         console.log(`player${i}slaps`);
-        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/300 );
+        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
         expectedDivisor += game['R' + i];
-        
         console.log(game['R' + i]);
-        
     }
-    
     
     expectedDivisor = expectedDivisor/(players.length/2);
     
@@ -711,6 +707,11 @@ const endGame = tableId => {
         
         
         let score = game[`player${i}slaps`].slaps/game.slaps;
+        
+        //edit to score
+        score = score * players.length / 2;
+        
+        
         let expected = game['R' + i]/expectedDivisor;
         let rating = game[`player${i}slaps`].rating + K * (score - expected);
         io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>

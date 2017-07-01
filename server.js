@@ -573,8 +573,8 @@ const newGame = tableId =>  {
             //tOdO COMMENTOUTFORTESTESTING
     
             client.query(`SELECT * FROM users WHERE name = '${game[p].name}';`).on('row', row => {
-                game[p + 'slaps'].rating = row.rating;
-                io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[p + 'slaps'].rating}</p>`);
+                game[`player${i}slaps`].rating = row.rating;
+                io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[`player${i}slaps`].rating}</p>`);
             });
     //client.query(`UPDATE userbank SET total = total + 1 WHERE username = '${game[player1].name}';`); <- example
             //tOdO COMMENTOUTFORTESTESTING

@@ -15,7 +15,6 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <style>
-
         .chat_body::-webkit-scrollbar {
             display: none;
         }
@@ -36,6 +35,14 @@
         .play_pile{ width: 150px; height: 100px; position: absolute; top: 210px;  left: 175px;
             margin-top: -50px;  margin-left: -50px; }​
     </style>
+    <script>
+        let $help = `
+            <p><b>$rules:</b> Tells you the current game rules.</p>
+            <p><b>$slaps</b> Tells you how many slaps everyone in your game has.</p>
+            <p><b></b></p>
+            <p><b></b></p>
+        `
+    </script>
 </head>
 <body>
 <div id="slap_info" class="slap_info">
@@ -52,6 +59,7 @@
 
 <div id="chat" class="chat">
         <div id="chat_body" class="chat_body">
+            <p>For help enter '$help'. Enjoy! </p>
         </div>
         <input title="chat_input" id="chat_input" class="chat_input" placeholder="type chat here..."/>
 </div>
@@ -77,7 +85,10 @@
         if (event.keyCode === 13) {
             let text = chat_input.value;
             chat_input.value = '';
-            socket.emit('chat', `<p>${name}: ${text}</p>`);
+            if (text.indexOf("$help") !== -1) {
+                chat_body.innerHTML += $help;
+                chat_body.scrollTop = chat_body.scrollHeight;
+            } else socket.emit('chat', `<p>${name}: ${text}</p>`);
         }
     });
     //get name from server when you log in
@@ -132,7 +143,7 @@
 
     socket.on('lobby', tables => {
         game_body.style = "width: 100%; height: 100%; padding: 7%; background: none;";
-        chat.style = "top: 0; right: 0; width: 30%;"
+        chat.style = "top: 0; right: 0; width: 30%;";
         chat.style.display = 'inherit';
         let body = `<div class="well"><button id="new_table" class="btn btn-success">click here to start a new table</button>`;
         //for each table, build a button w/ players names and

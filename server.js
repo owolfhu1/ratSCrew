@@ -19,13 +19,11 @@ let client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 //todo COMMENTOUTFORTESTESTING
 
-
 let userMap = {};
 let lobby = {};
 let passwordMap = {};
 let tables = {};
 let games = {};
-
 
 //todo COMMENTOUTFORTESTESTING
 //get users

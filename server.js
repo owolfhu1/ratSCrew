@@ -580,6 +580,10 @@ const newGame = tableId =>  {
             //tOdO COMMENTOUTFORTESTESTING
         }
     }
+    
+    
+    console.dir(game);
+    
     //make a deck
     let gameDeck = deck(game.jokers);
     //deal it out

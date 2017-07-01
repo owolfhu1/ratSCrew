@@ -690,6 +690,7 @@ const endGame = tableId => {
             players.push(i);
         }
     }
+    //maybe one say i will understand why for (i in players) doesn't work ....
     for (let x = 0; x <players.length; x++) {
         let i = players[x];
         
@@ -702,7 +703,11 @@ const endGame = tableId => {
     
     expectedDivisor = expectedDivisor/(players.length/2);
     
-    for (let i in players) {
+    for (let x = 0; x <players.length; x++) {
+        let i = players[x];
+        
+        
+        
         let score = game[`player${i}slaps`].slaps/game.slaps;
         let expected = game['R' + i]/expectedDivisor;
         let rating = game[`player${i}slaps`].rating + K * (score - expected);

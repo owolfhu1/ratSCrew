@@ -32,7 +32,7 @@ client.query('SELECT * FROM users;').on('row', row => {
 });
 //todo COMMENTOUTFORTESTESTING
 
-const K = 50;
+const K = 70;
 
 let newTable = function () {
     this.player1 = null;
@@ -94,6 +94,10 @@ io.on('connection', socket => {
             }
             
             io.to(userId).emit('chat',msg);
+            
+        } else if (text.indexOf('$rules') !== -1 && user.tableId in games) {
+            
+            io.to(userId).emit('chat', htmlRules(user.tableId));
             
         } else io.sockets.emit('chat',text);
     });
@@ -965,6 +969,24 @@ const  mapToWord = a => {
     if (a === 13) a = 'king';
     return a;
 };
+
+const htmlRules = gameId => {
+    let game = games[gameId];
+    return `
+        <p><b>slap conditions:</b></p>
+        <p>Sandwiches: ${game.sandwich}</p>
+        <p>Doubles: ${game.double}</p>
+        <p>Adds to ten: ${game.sumten}</p>
+        <p>Bottom = top: ${game.bottomTop}</p>
+        <p>Runs: ${game.run}</p>
+        <p>Flushes: ${game.flush}</p>
+        <p><b>Other conditions:</b></p>
+        <p>Jokers: ${game.jokers}</p>
+        <p>Timeout: ${game.timeout} (milli seconds im too lazy to convert this for you)</p>
+        <p>Quiters: ${game.quit}</p>
+    `;
+};
+
 
 /*
  -add DB

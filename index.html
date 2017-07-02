@@ -62,13 +62,6 @@
         <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"></image>
     </div>
 </div>
-
-
-<!-- test area -->
-
-
-
-
 <div id="chat" class="chat">
         <div id="chat_body" class="chat_body">
             <p>For help enter '$help'. Enjoy! </p>
@@ -76,7 +69,6 @@
         <input title="chat_input" id="chat_input" class="chat_input" placeholder="type chat here..."/>
 </div>
 <div class="game_body" id="game_body">
-    <!--  test area  -->
 </div>
 <div id="ratings" class="well ratings" >
     <div class="well">
@@ -133,7 +125,7 @@
         search_result.innerHTML = `rating: ${result}`;
     });
     //send chat to server on enter key press
-    chat_input.addEventListener("keyup", function(event) {
+    chat_input.addEventListener('keyup', function(event) {
         event.preventDefault();
         if (event.keyCode === 13) {
             let text = chat_input.value;
@@ -260,8 +252,8 @@
                 <tbody>
                 <tr>
                     <td>sandwiches:</td>
-                    <td><input type="radio" title="sandwich" name="sandwich" id="sandwichon" value="on" checked> on
-                        <input type="radio" title="sandwich" name="sandwich" id="sandwichoff" value="off"> off</td>
+                    <td><input type="radio" title="sandwich" name="sandwich" id="sandwichon" value="on"> on
+                        <input type="radio" title="sandwich" name="sandwich" id="sandwichoff" value="off" checked> off</td>
                 </tr>
                 <tr>
                     <td>doubles:</td>
@@ -270,8 +262,8 @@
                 </tr>
                 <tr>
                     <td>adds to 10:</td>
-                    <td><input type="radio" title="sumten" name="sumten" id="sumtenon" value="on" checked>on
-                        <input type="radio" title="sumten" name="sumten" id="sumtenoff" value="off">off</td>
+                    <td><input type="radio" title="sumten" name="sumten" id="sumtenon" value="on">on
+                        <input type="radio" title="sumten" name="sumten" id="sumtenoff" value="off" checked>off</td>
                 </tr>
                 <tr>
                     <td>bottom = top:</td>

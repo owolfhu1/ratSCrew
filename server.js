@@ -10,45 +10,43 @@ let port = process.env.PORT || 3000;
 app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
-
-
 //database
 let pg = require('pg');
 pg.defaults.ssl = true;
 let client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
 
-
 let userMap = {};
 let lobby = {};
 let passwordMap = {};
 let ratingMap = {};
+let gamesCountMap = {};
+let slapsMap = {};
 let tables = {};
 let games = {};
-
-
-//get users
+//ELO K value
+const K = 80;
+//get users info
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;
     ratingMap[row.name] = row.rating;
+    gamesCountMap[row.name] = row.games;
+    slapsMap[row.name] = row.slaps;
 });
-
-
-const K = 80;
 
 let newTable = function () {
     this.player1 = null;
     this.player2 = null;
     this.player3 = null;
     this.player4 = null;
-    this.sandwich = 'on';
+    this.sandwich = 'off';
     this.run = 'two';
     this.bottomTop = 'on';
     this.jokers = 'on';
     this.flush = 'three';
     this.timeout = 'two';
     this.double = 'on';
-    this.sumten = 'on';
+    this.sumten = 'off';
     this.quit = 'distribute';
 };
 
@@ -110,14 +108,9 @@ io.on('connection', socket => {
         } else {
             //if username doesn't already exist add it and login
             for (let id in userMap) io.to(id).emit('chat',`<p>${loginInfo[NAME]} logging in</p>`);
-    
-            
-            
-  
-            client.query(`INSERT INTO users (name, pass, rating) VALUES ('${loginInfo[NAME]}', '${loginInfo[PASS]}', 1500)`);
-         
-            
-            
+            client.query(`INSERT INTO users (name, pass, rating, games, slaps) VALUES ('${loginInfo[NAME]}', '${loginInfo[PASS]}', 1500, 0, 0)`);
+            gamesCountMap[loginInfo[NAME]] = 0;
+            slapsMap[loginInfo[NAME]] = 0;
             ratingMap[loginInfo[NAME]] = 1500;
             passwordMap[loginInfo[NAME]] = loginInfo[PASS];
             userMap[userId].name = loginInfo[NAME];
@@ -728,14 +721,18 @@ const endGame = tableId => {
         //adjust score for # of players
         score = score * players.length / 2;
         
-        
         let expected = game['R' + i]/expectedDivisor;
         let rating = game[`player${i}slaps`].rating + K * (score - expected);
         
         io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>
 <p>old rating: ${game[`player${i}slaps`].rating}  new rating: ${rating.toFixed(0)}</p>`);
         
-        client.query(`UPDATE users SET rating = ${rating.toFixed(0)} WHERE name = '${game[`player${i}slaps`].name}';`);
+        gamesCountMap[game[`player${i}slaps`].name] ++;
+        slapsMap[game[`player${i}slaps`].name] += game[`player${i}slaps`].slaps;
+        
+        client.query(
+`UPDATE users SET rating = ${rating.toFixed(0)}, games = ${gamesCountMap[game[`player${i}slaps`].name]},
+ slaps = ${slapsMap[game[`player${i}slaps`].name]} WHERE name = '${game[`player${i}slaps`].name}';`);
         
         
         //update ratingMap
@@ -955,7 +952,7 @@ const map = a => {
     if (a === 15) a = 13;
     return a;
 };
-const  mapToWord = a => {
+const mapToWord = a => {
     if (a === 1) a = 'ace';
     if (a === 2) a = 'two';
     if (a === 3) a = 'three';

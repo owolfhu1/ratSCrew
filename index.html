@@ -127,7 +127,9 @@
         document.getElementById('login_button').addEventListener('click', () => {
             let password = document.getElementById('password').value;
             let user_name = document.getElementById('user_name').value;
-            socket.emit('login', [user_name, password]);
+            if (user_name.length > 0) {
+                socket.emit('login', [user_name, password]);
+            }
         });
     });
 

@@ -512,10 +512,7 @@ io.on('connection', socket => {
     
     socket.on('rating_search', name => {
         if (name in ratingMap) {
-            let profile = `
-                <p style="font-size: large;">${name}: ${ratingMap[name]}"</p>
-                games: ${gamesCountMap[name]} slaps: ${slapsMap[name]}
-            `;
+            let profile = `Rating: ${ratingMap[name]} games: ${gamesCountMap[name]} slaps: ${slapsMap[name]}`;
             io.to(userId).emit('rating_search', profile);
         } else io.to(userId).emit('rating_search', 'user does not exist');
     });

@@ -42,8 +42,8 @@ let newTable = function () {
     this.sandwich = 'off';
     this.run = 'two';
     this.bottomTop = 'on';
-    this.jokers = 'on';
-    this.flush = 'three';
+    this.jokers = 'off';
+    this.flush = 'off';
     this.timeout = 'two';
     this.double = 'on';
     this.sumten = 'off';
@@ -973,8 +973,8 @@ const htmlRules = gameId => {
     let game = games[gameId];
     return `
         <p><b>slap conditions:</b></p>
-        <p>Sandwiches: ${game.sandwich}</p>
         <p>Doubles: ${game.double}</p>
+        <p>Sandwiches: ${game.sandwich}</p>
         <p>Adds to ten: ${game.sumten}</p>
         <p>Bottom = top: ${game.bottomTop}</p>
         <p>Runs: ${game.run}</p>
@@ -989,18 +989,35 @@ const htmlRules = gameId => {
 const topFive = () => {
     
     let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
-    let list = '';
+    let table = `
+
+<table class="table">
+    <tr>
+        <td>rank</td>
+        <td>name</td>
+        <td>rating</td>
+        <td>games</td>
+        <td>slaps</td>
+    </tr>
+`;
     
     let five = 5;
-    
     if (order.length < 5)
         five = order.length;
     
     for (let i = 0; i < five; i++) {
-        list += `<p> ${i+1}) ${order[i]}: ${ratingMap[order[i]]}</p>`;
+        table += `
+        <tr>
+            <td>${i+1}</td>
+            <td>${order[i]}</td>
+            <td>${ratingMap[order[i]]}</td>
+            <td>${gamesCountMap[order[i]]}</td>
+            <td>${slapsMap[order[i]]}</td>
+        </tr>
+    `;
     }
-    
-    return list;
+    table += '</table>';
+    return table;
     
 };
 

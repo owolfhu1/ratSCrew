@@ -512,7 +512,11 @@ io.on('connection', socket => {
     
     socket.on('rating_search', name => {
         if (name in ratingMap) {
-            let profile = `Rating: ${ratingMap[name]} games: ${gamesCountMap[name]} slaps: ${slapsMap[name]}`;
+            let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
+            let profile = `
+                <p>Rank: ${order.indexOf(name) + 1} Rating: ${ratingMap[name]}</p>
+                <p>Games: ${gamesCountMap[name]} Slaps: ${slapsMap[name]}</p>
+            `;
             io.to(userId).emit('rating_search', profile);
         } else io.to(userId).emit('rating_search', 'user does not exist');
     });

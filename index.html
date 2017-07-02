@@ -127,8 +127,13 @@
         ratings.style.display = 'none';
     });
 
+    search_button.addEventListener('click', () => {
+        socket.emit('rating_search', search_input.value);
+    });
 
-
+    socket.on('rating_search', result => {
+        search_result.innerHTML = `rating: ${result}`;
+    });
     //send chat to server on enter key press
     chat_input.addEventListener("keyup", function(event) {
         event.preventDefault();

@@ -517,6 +517,12 @@ io.on('connection', socket => {
         }
     });
     
+    socket.on('rating_search', name => {
+        if (name in ratingMap) {
+            io.to(userId).emit('result_search', ratingMap[name]);
+        } else io.to(userId).emit('result_search', 'none');
+    });
+    
 });
 
 const takePile = (tableId, player) => {

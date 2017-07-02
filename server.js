@@ -22,6 +22,7 @@ client.connect();
 let userMap = {};
 let lobby = {};
 let passwordMap = {};
+let ratingMap = {};
 let tables = {};
 let games = {};
 
@@ -29,6 +30,7 @@ let games = {};
 //get users
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;
+    ratingMap[row.name] = row.rating;
 });
 //todo COMMENTOUTFORTESTESTING
 
@@ -77,28 +79,21 @@ io.on('connection', socket => {
     userMap[userId] = new newUser(userId);
     let user = userMap[userId];
     
+    //handles chat and $commands
     socket.on('chat', text => {
         if (text.indexOf('$slaps') !== -1 && user.tableId in games) {
             let game = games[user.tableId];
-            
             let msg = `<p>total slaps: ${game.slaps}</p>`;
-            
-            for (let i = 1; i < 5; i++) {
-                
+            for (let i = 1; i < 5; i++)
                 if (`player${i}slaps` in game) {
                     let player = game[`player${i}slaps`];
                     msg += `<p>${player.name} got ${player.slaps} slaps</p>`;
-                
                 }
-            
-            }
-            
             io.to(userId).emit('chat',msg);
-            
         } else if (text.indexOf('$rules') !== -1 && user.tableId in games) {
-            
             io.to(userId).emit('chat', htmlRules(user.tableId));
-            
+        } else if (text.indexOf('$ratings') !== -1) {
+            io.to(userId).emit('chat', ratingList());
         } else io.sockets.emit('chat',text);
     });
     
@@ -123,7 +118,7 @@ io.on('connection', socket => {
             //COMMENTOUTFORTESTESTING
             
             
-            
+            ratingMap[loginInfo[NAME]] = 1500;
             passwordMap[loginInfo[NAME]] = loginInfo[PASS];
             userMap[userId].name = loginInfo[NAME];
         }
@@ -736,8 +731,11 @@ const endGame = tableId => {
         io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>
 <p>old rating: ${game[`player${i}slaps`].rating}  new rating: ${rating.toFixed(0)}</p>`);
         //todo COMMENTOUTFORTESTESTING
-        client.query(`UPDATE users SET rating = ${rating} WHERE name = '${game[`player${i}slaps`].name}';`);
+        client.query(`UPDATE users SET rating = ${rating.toFixed(0)} WHERE name = '${game[`player${i}slaps`].name}';`);
         //todo COMMENTOUTFORTESTESTING
+        
+        //update ratingMap
+        ratingMap[game[`player${i}slaps`].name] = rating.toFixed(0);
         
         
     }
@@ -985,6 +983,22 @@ const htmlRules = gameId => {
         <p>Timeout: ${game.timeout} (milli seconds im too lazy to convert this for you)</p>
         <p>Quiters: ${game.quit}</p>
     `;
+};
+
+const ratingList = () => {
+    
+    let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] > ratingMap[b]));
+    
+    let list = '';
+    
+    for (let i = 0; i < order.length; i++) {
+        
+        list += `<p>${i+1}) ${order[i]} - ${ratingMap[order[i]]}</p>`;
+        
+    }
+    
+    return list;
+    
 };
 
 

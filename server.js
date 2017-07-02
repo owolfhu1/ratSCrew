@@ -987,7 +987,7 @@ const htmlRules = gameId => {
 
 const ratingList = () => {
     
-    let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] > ratingMap[b]));
+    let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
     
     let list = '';
     

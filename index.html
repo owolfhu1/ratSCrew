@@ -126,7 +126,6 @@
     });
 
     search_button.addEventListener('click', () => {
-        console.log('clicked search button' + search_input.value);
         socket.emit('rating_search', search_input.value);
     });
 

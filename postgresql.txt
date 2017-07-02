@@ -1,0 +1,13 @@
+CREATE TABLE users(
+    name varchar,
+    pass varchar,
+    rating integer,
+    games integer,
+    slaps integer
+);
+
+select * from users;
+
+delete from users where games = 0;
+
+delete from users where name = '';

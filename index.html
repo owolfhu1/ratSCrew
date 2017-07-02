@@ -122,7 +122,7 @@
     });
 
     socket.on('rating_search', result => {
-        search_result.innerHTML = `rating: ${result}`;
+        search_result.innerHTML = result;
     });
     //send chat to server on enter key press
     chat_input.addEventListener('keyup', function(event) {

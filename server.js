@@ -34,7 +34,7 @@ client.query('SELECT * FROM users;').on('row', row => {
 });
 
 
-const K = 150;
+const K = 80;
 
 let newTable = function () {
     this.player1 = null;

@@ -11,13 +11,13 @@ app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
 
-//todo COMMENTOUTFORTESTESTING
+
 //database
 let pg = require('pg');
 pg.defaults.ssl = true;
 let client = new pg.Client(process.env.DATABASE_URL);
 client.connect();
-//todo COMMENTOUTFORTESTESTING
+
 
 let userMap = {};
 let lobby = {};
@@ -26,13 +26,13 @@ let ratingMap = {};
 let tables = {};
 let games = {};
 
-//todo COMMENTOUTFORTESTESTING
+
 //get users
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;
     ratingMap[row.name] = row.rating;
 });
-//todo COMMENTOUTFORTESTESTING
+
 
 const K = 150;
 
@@ -93,7 +93,7 @@ io.on('connection', socket => {
         } else if (text.indexOf('$rules') !== -1 && user.tableId in games) {
             io.to(userId).emit('chat', htmlRules(user.tableId));
         } else if (text.indexOf('$ratings') !== -1) {
-            io.to(userId).emit('chat', ratingList());
+            io.to(userId).emit('ratings', topFive());
         } else io.sockets.emit('chat',text);
     });
     
@@ -113,9 +113,9 @@ io.on('connection', socket => {
     
             
             
-            //COMMENTOUTFORTESTESTING
+  
             client.query(`INSERT INTO users (name, pass, rating) VALUES ('${loginInfo[NAME]}', '${loginInfo[PASS]}', 1500)`);
-            //COMMENTOUTFORTESTESTING
+         
             
             
             ratingMap[loginInfo[NAME]] = 1500;
@@ -198,7 +198,6 @@ io.on('connection', socket => {
         }
         delete userMap[userId];
     });
-    
     socket.on('join_table', tableId => {
         //new table
         if (tableId === 'new') {
@@ -586,14 +585,14 @@ const newGame = tableId =>  {
             game[p].cards = [];
             io.to(game[p].userId).emit('setup_game');
     
-            //tOdO COMMENTOUTFORTESTESTING
+            
     
             client.query(`SELECT * FROM users WHERE name = '${game[p].name}';`).on('row', row => {
                 game[`player${i}slaps`].rating = row.rating;
                 io.sockets.emit('chat',`<p>-${game[p].name}- rating: ${game[`player${i}slaps`].rating}</p>`);
             });
             
-            //tOdO COMMENTOUTFORTESTESTING
+            
         }
     }
     
@@ -633,7 +632,6 @@ const newGame = tableId =>  {
             count++;
     }
     game.startCount = count;
-    
     
     //start game
     for (let i = 1; i < 5; i++) {
@@ -730,9 +728,9 @@ const endGame = tableId => {
         
         io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>
 <p>old rating: ${game[`player${i}slaps`].rating}  new rating: ${rating.toFixed(0)}</p>`);
-        //todo COMMENTOUTFORTESTESTING
+        
         client.query(`UPDATE users SET rating = ${rating.toFixed(0)} WHERE name = '${game[`player${i}slaps`].name}';`);
-        //todo COMMENTOUTFORTESTESTING
+        
         
         //update ratingMap
         ratingMap[game[`player${i}slaps`].name] = rating.toFixed(0);
@@ -985,16 +983,18 @@ const htmlRules = gameId => {
     `;
 };
 
-const ratingList = () => {
+const topFive = () => {
     
     let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
-    
     let list = '';
     
-    for (let i = 0; i < order.length; i++) {
-        
-        list += `<p>${i+1}) ${order[i]} - ${ratingMap[order[i]]}</p>`;
-        
+    let five = 5;
+    
+    if (order.length < 5)
+        five = order.length;
+    
+    for (let i = 0; i < five; i++) {
+        list += `<p> ${i+1}) ${order[i]}: ${ratingMap[order[i]]}</p>`;
     }
     
     return list;

@@ -23,6 +23,14 @@
              overflow-y: scroll; padding-left: 5px; padding-right: 15px; color: whitesmoke;}
         .chat_input{ width: 100%; top: 130px; border: none; background: rgba(173, 23, 176, 0.51); color: whitesmoke;
         }
+        .ratings{
+            position: absolute;
+            width: 250px;
+            height: 540px;
+            margin-top: 60px;
+            margin-left: 30%;
+            display: none;
+        }
         .slap_image { position: absolute; top: 84px;  left: 73px;}
         .slap_info_content { margin: auto; padding: 5px; background-color: transparent;
             width: 100%; height: 100%; color: #f51300; }
@@ -41,7 +49,10 @@
             <p><b>$slaps:</b> Tells you how many slaps everyone in your game has.</p>
             <p><b>$ratings:</b> Shows you the high scores list</p>
             <p><b></b></p>
-        `
+        `;
+        let playerNumber, player1, player2, player3, player4, play_pile, slap_info, slap_info_content,
+            player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST',
+            ratings, close_ratings, scores, search_result, search_input, search_button;
     </script>
 </head>
 <body>
@@ -49,6 +60,28 @@
     <div id="slap_info_content" class="slap_info_content">
         <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"></image>
     </div>
+</div>
+
+
+<div id="ratings" class="well ratings" >
+    <div class="well">
+        <h2>
+            High Scores
+        </h2>
+        <button id="close_ratings" class="btn btn-danger btn-sm"
+                style="position: absolute; top: 6px; right: 6px;" >X</button>
+    </div>
+        <div id="scores" class="well">
+            <!-- filled in from server -->
+        </div>
+        <div class="well">
+            <div class="well" id="search_result">
+                <!-- filled in from server -->
+            </div>
+            <input id="search_input" type="text" class="form-control"
+                   placeholder="User Name">
+            <button id="search_button" class="form-control">Search</button>
+        </div>
 </div>
 
 
@@ -71,13 +104,29 @@
     const alertSound = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/sound.mp3');
     let game_body = document.getElementById('game_body');
     let socket = io();
-    let playerNumber, player1, player2, player3, player4, play_pile, slap_info, slap_info_content,
-        player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST';
     slap_info = document.getElementById('slap_info');
     slap_info_content = document.getElementById('slap_info_content');
     chat_body = document.getElementById('chat_body');
     chat_input = document.getElementById('chat_input');
     chat = document.getElementById('chat');
+    ratings = document.getElementById('ratings');
+    close_ratings = document.getElementById('close_ratings');
+    scores = document.getElementById('scores');
+    search_result = document.getElementById('search_result');
+    search_input = document.getElementById('search_input');
+    search_button = document.getElementById('search_button');
+
+    //ratings, close_ratings, scores, search_result, search_input, search_button;
+    socket.on('ratings', list => {
+        ratings.style.display = 'block';
+        scores.innerHTML = list;
+    });
+
+    close_ratings.addEventListener('click', () => {
+        ratings.style.display = 'none';
+    });
+
+
 
     //send chat to server on enter key press
     chat_input.addEventListener("keyup", function(event) {
@@ -108,18 +157,18 @@
         <div class="form-group">
             <label for="user_name" class="col-sm-2 control-label">User Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="user_name" placeholder="user name">
+                <input type="text" class="form-control" id="user_name" placeholder="user name (1 - 10 char)">
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password" placeholder="Password (optional)">
+                <input type="password" class="form-control" id="password" placeholder="Password">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button id="login_button" class="btn btn-default">Sign in</button>
+                <button id="login_button" class="btn btn-default">Sign in / Sign up</button>
             </div>
         </div>
     </div>`;
@@ -127,7 +176,7 @@
         document.getElementById('login_button').addEventListener('click', () => {
             let password = document.getElementById('password').value;
             let user_name = document.getElementById('user_name').value;
-            if (user_name.length > 0) {
+            if (user_name.length > 0 && user_name.length < 11) {
                 socket.emit('login', [user_name, password]);
             }
         });

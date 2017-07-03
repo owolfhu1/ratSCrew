@@ -104,7 +104,7 @@ io.on('connection', socket => {
                     userMap[userId].name = loginInfo[NAME];
                     for (let id in userMap) io.to(id).emit('chat', `<p>${loginInfo[NAME]} logging in</p>`);
                 } else {
-                    //resend 'login_setup' on fail TODO make this better...
+                    //resend 'login_setup' on fail
                     io.to(userId).emit('login_setup');
                 }
             } else {
@@ -191,6 +191,8 @@ io.on('connection', socket => {
         }
         delete userMap[userId];
     });
+    
+    //when attempt is made to join a table
     socket.on('join_table', tableId => {
         //new table
         if (tableId === 'new') {
@@ -274,6 +276,7 @@ io.on('connection', socket => {
         if (total > 1 && ready === total) newGame(user.tableId);
     });
     
+    //when a player plays a card
     socket.on('play_card', () => {
         let game = games[user.tableId];
         let player = user.playerNumber;
@@ -390,6 +393,7 @@ io.on('connection', socket => {
         }
     });
     
+    //when a player slaps the pile
     socket.on('slap', () => {
         let game = games[user.tableId];
         let player = user.playerNumber;
@@ -476,6 +480,7 @@ io.on('connection', socket => {
             endGame(user.tableId);
     });
     
+    //this socket is used to keep the table lobby form in sync with other players
     socket.on('rules', rules => {
         let table;
         //get the table:
@@ -682,14 +687,14 @@ const endGame = tableId => {
             io.to(game[p].userId).emit('timeout_over');
     }
     //find winner
-    let player;
+    let winner;
     let cardCount = 0;
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (game[p] !== null)
             if (game[p].cards.length > cardCount) {
                 cardCount = game[p].cards.length;
-                player = p;
+                winner = p;
             }
     }
     for (let i = 1; i < 5; i++) {
@@ -700,7 +705,7 @@ const endGame = tableId => {
             lobby[id] = game[p].name;
         }
     }
-    calcRatings(game);
+    calcRatings(game, winner);
     delete games[tableId];
     for (let key in lobby) io.to(key).emit('lobby', tables );
     
@@ -942,9 +947,7 @@ const htmlRules = gameId => {
     `;
 };
 
-
-const calcRatings = game => {
-    
+const calcRatings = (game, winner) => {
     //get players from start
     let players = [];
     let expectedDivisor = 0;
@@ -962,7 +965,7 @@ const calcRatings = game => {
         console.log(game['R' + i]);
     }
     expectedDivisor = expectedDivisor/(players.length/2);
-    io.sockets.emit('chat', `Congratulations ${game[player].name} for winning a game with ${game.slaps} slaps`);
+    io.sockets.emit('chat', `Congratulations ${game[winner].name} for winning a game with ${game.slaps} slaps`);
     for (let x = 0; x < players.length; x++) {
         let i = players[x];
         let score;
@@ -984,9 +987,6 @@ const calcRatings = game => {
         ratingMap[game[`player${i}slaps`].name] = rating.toFixed(0);
     }
 };
-
-
-
 
 const topFive = () => {
     let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));

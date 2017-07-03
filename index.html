@@ -121,6 +121,7 @@
 
     //for miss-slaps with no cards
     socket.on('timeout', time => {
+        console.log('timeout emit: ' + time);
         timeout.style.display = 'block';
         time_left.innerHTML = `time left: ${time/1000} seconds`;
         timeout_time = new Date().getTime() + time;
@@ -129,7 +130,7 @@
     remove_timeout.addEventListener('click', () => {
         let now = new Date().getTime();
         if (now > timeout_time)
-            timeout.style.display = 'block';
+            timeout.style.display = 'none';
         else {
             time_left.innerText = `time left: ${(timeout_time - now)/1000} seconds`
         }

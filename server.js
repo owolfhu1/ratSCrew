@@ -25,7 +25,7 @@ let slapsMap = {};
 let tables = {};
 let games = {};
 //ELO K value
-const K = 100;
+const K = 110;
 //get users info
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;
@@ -278,104 +278,106 @@ io.on('connection', socket => {
         let game = games[user.tableId];
         let player = user.playerNumber;
         let card = game[player].cards[0];
-        //if someone played a face/ace
-        if (game.facePlayer !== 'none') {
-            //if player plays a face/ace
-            if ((card[0] > 12 || card[0] === 1)) {///code change check it
-                //change facePlayer and set triesLeft
-                game.facePlayer = player;
-                if (card[0] === 1) game.triesLeft = 4;
-                else if (card[0] === 13) game.triesLeft = 1;
-                else if (card[0] === 14) game.triesLeft = 2;
-                else if (card[0] === 15) game.triesLeft = 3;
-                //add the card to game pile
-                game.pile.push(card);
-                //remove the card from player cards
-                game[user.playerNumber].cards.splice(0,1);
-                //next player's turn
-                nextPlayer(user.tableId);
-                //update
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    if (game[p] !== null)
-                        io.to(game[p].userId).emit('game_info', game);
+        if (game[player].ready) {
+            //if someone played a face/ace
+            if (game.facePlayer !== 'none') {
+                //if player plays a face/ace
+                if ((card[0] > 12 || card[0] === 1)) {///code change check it
+                    //change facePlayer and set triesLeft
+                    game.facePlayer = player;
+                    if (card[0] === 1) game.triesLeft = 4;
+                    else if (card[0] === 13) game.triesLeft = 1;
+                    else if (card[0] === 14) game.triesLeft = 2;
+                    else if (card[0] === 15) game.triesLeft = 3;
+                    //add the card to game pile
+                    game.pile.push(card);
+                    //remove the card from player cards
+                    game[user.playerNumber].cards.splice(0, 1);
+                    //next player's turn
+                    nextPlayer(user.tableId);
+                    //update
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (game[p] !== null)
+                            io.to(game[p].userId).emit('game_info', game);
+                    }
+                } else if (game.triesLeft === 1 || game[player].cards.length === 1) {
+                    //no-ones turn, wait for player to claim pile or slap
+                    game[player].ready = false;
+                    game.roundOver = true;
+                    //add the card to game pile
+                    game.pile.push(card);
+                    //remove the card from player cards
+                    game[player].cards.splice(0, 1);
+                    //update game
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (game[p] !== null)
+                            io.to(game[p].userId).emit('game_info', game);
+                    }
+                } else { //player goes again
+                    game.triesLeft--;
+                    //add the card to game pile
+                    game.pile.push(card);
+                    //remove the card from player cards
+                    game[user.playerNumber].cards.splice(0, 1);
+                    //update game
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (game[p] !== null)
+                            io.to(game[p].userId).emit('game_info', game);
+                    }
                 }
-            } else if (game.triesLeft === 1 || game[player].cards.length === 1) {
-                //no-ones turn, wait for player to claim pile or slap
-                game[player].ready = false;
-                game.roundOver = true;
-                //add the card to game pile
-                game.pile.push(card);
-                //remove the card from player cards
-                game[player].cards.splice(0,1);
-                //update game
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    if (game[p] !== null)
-                        io.to(game[p].userId).emit('game_info', game);
-                }
-            } else { //player goes again
-                game.triesLeft--;
-                //add the card to game pile
-                game.pile.push(card);
-                //remove the card from player cards
-                game[user.playerNumber].cards.splice(0,1);
-                //update game
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    if (game[p] !== null)
-                        io.to(game[p].userId).emit('game_info', game);
-                }
-            }
-        } else {
-            //if player plays a face/ace
-            if (card[0] > 12 || card[0] === 1) {
-                //change facePlayer and set triesLeft
-                game.facePlayer = player;
-                if (card[0] === 1) game.triesLeft = 4;
-                else if (card[0] === 13) game.triesLeft = 1;
-                else if (card[0] === 14) game.triesLeft = 2;
-                else if (card[0] === 15) game.triesLeft = 3;
-                //add the card to game pile
-                game.pile.push(card);
-                //remove the card from player cards
-                game[user.playerNumber].cards.splice(0,1);
-                //next player's turn
-                nextPlayer(user.tableId);
-                //update
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    if (game[p] !== null)
-                        io.to(game[p].userId).emit('game_info', game);
-                }
-                //if player is out of cards or tries
             } else {
-                game.pile.push(card);
-                //remove the card from player cards
-                game[user.playerNumber].cards.splice(0, 1);
-                //change turns
-                nextPlayer(user.tableId);
-                //emit game to players
-                for (let i = 1; i < 5; i++) {
-                    let p = 'player' + i;
-                    if (game[p] !== null)
-                        io.to(game[p].userId).emit('game_info', game);
+                //if player plays a face/ace
+                if (card[0] > 12 || card[0] === 1) {
+                    //change facePlayer and set triesLeft
+                    game.facePlayer = player;
+                    if (card[0] === 1) game.triesLeft = 4;
+                    else if (card[0] === 13) game.triesLeft = 1;
+                    else if (card[0] === 14) game.triesLeft = 2;
+                    else if (card[0] === 15) game.triesLeft = 3;
+                    //add the card to game pile
+                    game.pile.push(card);
+                    //remove the card from player cards
+                    game[user.playerNumber].cards.splice(0, 1);
+                    //next player's turn
+                    nextPlayer(user.tableId);
+                    //update
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (game[p] !== null)
+                            io.to(game[p].userId).emit('game_info', game);
+                    }
+                    //if player is out of cards or tries
+                } else {
+                    game.pile.push(card);
+                    //remove the card from player cards
+                    game[user.playerNumber].cards.splice(0, 1);
+                    //change turns
+                    nextPlayer(user.tableId);
+                    //emit game to players
+                    for (let i = 1; i < 5; i++) {
+                        let p = 'player' + i;
+                        if (game[p] !== null)
+                            io.to(game[p].userId).emit('game_info', game);
+                    }
                 }
             }
-        }
-        //check if game is over (3 players have no cards)
-        let counter = 0;
-        let players = 0;
-        for (let i = 1; i < 5; i++) {
-            let p = 'player' + i;
-            if (game[p] !== null) {
-                players++;
-                if (game[p].cards.length === 0)
-                    counter++;
+            //check if game is over (3 players have no cards)
+            let counter = 0;
+            let players = 0;
+            for (let i = 1; i < 5; i++) {
+                let p = 'player' + i;
+                if (game[p] !== null) {
+                    players++;
+                    if (game[p].cards.length === 0)
+                        counter++;
+                }
             }
+            if (counter === players - 1)
+                endGame(user.tableId);
         }
-        if (counter === players - 1)
-            endGame(user.tableId);
     });
     
     //emit from client when it is their turn and they have no cards

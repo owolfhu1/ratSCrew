@@ -675,14 +675,12 @@ const shuffle = array => {
 const endGame = tableId => {
     console.log('ending game');
     let game = games[tableId];
-    
     //turn off timeouts
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
         if (game[p] !== null)
             io.to(game[p].userId).emit('timeout_over');
     }
-    
     //find winner
     let player;
     let cardCount = 0;
@@ -694,73 +692,16 @@ const endGame = tableId => {
                 player = p;
             }
     }
-    //io.sockets.emit('chat', `<h3>Congratulations ${game[player].name} for winning a game vs ${game.startCount - 1} other players!</h3>`);
     for (let i = 1; i < 5; i++) {
         let p = 'player' + i;
-        
         if (game[p] !== null) {
             let id = game[p].userId;
             userMap[id].tableId = 'none';
             lobby[id] = game[p].name;
         }
     }
-    //get players from start
-    let players = [];
-    let expectedDivisor = 0;
-    for (let i = 1; i < 5; i++) {
-        if (`player${i}slaps` in game) {
-            players.push(i);
-        }
-    }
-    //maybe one day i will understand why for (i in players) doesn't work ....
-    for (let x = 0; x < players.length; x++) {
-        let i = players[x];
-        console.log(`player${i}slaps`);
-        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
-        expectedDivisor += game['R' + i];
-        console.log(game['R' + i]);
-    }
-    
-    expectedDivisor = expectedDivisor/(players.length/2);
-    
-    io.sockets.emit('chat', `Congratulations ${game[player].name} for winning a game with ${game.slaps} slaps`);
-    
-    for (let x = 0; x < players.length; x++) {
-        let i = players[x];
-        let score;
-        
-        if (game.slaps > 0 )
-            score = game[`player${i}slaps`].slaps/game.slaps;
-        else score = 1/players.length; //gives "tie" if no slaps happen
-        
-        //adjust score for # of players
-        score = score * players.length / 2;
-        
-        let expected = game['R' + i]/expectedDivisor;
-        let rating = game[`player${i}slaps`].rating + K * (score - expected);
-        
-        io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>
-<p>old rating: ${game[`player${i}slaps`].rating}  new rating: ${rating.toFixed(0)}</p>`);
-        
-        gamesCountMap[game[`player${i}slaps`].name] ++;
-        slapsMap[game[`player${i}slaps`].name] += game[`player${i}slaps`].slaps;
-        
-        client.query(
-`UPDATE users SET rating = ${rating.toFixed(0)}, games = ${gamesCountMap[game[`player${i}slaps`].name]},
- slaps = ${slapsMap[game[`player${i}slaps`].name]} WHERE name = '${game[`player${i}slaps`].name}';`);
-        
-        
-        //update ratingMap
-        ratingMap[game[`player${i}slaps`].name] = rating.toFixed(0);
-        
-        
-    }
-    
-    
-    
-    
+    calcRatings(game);
     delete games[tableId];
-    
     for (let key in lobby) io.to(key).emit('lobby', tables );
     
     
@@ -1001,49 +942,86 @@ const htmlRules = gameId => {
     `;
 };
 
+
+const calcRatings = game => {
+    
+    //get players from start
+    let players = [];
+    let expectedDivisor = 0;
+    for (let i = 1; i < 5; i++) {
+        if (`player${i}slaps` in game) {
+            players.push(i);
+        }
+    }
+    //maybe one day i will understand why for (i in players) doesn't work ....
+    for (let x = 0; x < players.length; x++) {
+        let i = players[x];
+        console.log(`player${i}slaps`);
+        game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
+        expectedDivisor += game['R' + i];
+        console.log(game['R' + i]);
+    }
+    expectedDivisor = expectedDivisor/(players.length/2);
+    io.sockets.emit('chat', `Congratulations ${game[player].name} for winning a game with ${game.slaps} slaps`);
+    for (let x = 0; x < players.length; x++) {
+        let i = players[x];
+        let score;
+        if (game.slaps > 0 )
+            score = game[`player${i}slaps`].slaps/game.slaps;
+        else score = 1/players.length; //gives "tie" if no slaps happen
+        //adjust score for # of players
+        score = score * players.length / 2;
+        let expected = game['R' + i]/expectedDivisor;
+        let rating = game[`player${i}slaps`].rating + K * (score - expected);
+        io.sockets.emit('chat', `<p>${game[`player${i}slaps`].name} got ${game[`player${i}slaps`].slaps} slaps</p>
+<p>old rating: ${game[`player${i}slaps`].rating}  new rating: ${rating.toFixed(0)}</p>`);
+        gamesCountMap[game[`player${i}slaps`].name] ++;
+        slapsMap[game[`player${i}slaps`].name] += game[`player${i}slaps`].slaps;
+        client.query(
+            `UPDATE users SET rating = ${rating.toFixed(0)}, games = ${gamesCountMap[game[`player${i}slaps`].name]},
+ slaps = ${slapsMap[game[`player${i}slaps`].name]} WHERE name = '${game[`player${i}slaps`].name}';`);
+        //update ratingMap
+        ratingMap[game[`player${i}slaps`].name] = rating.toFixed(0);
+    }
+};
+
+
+
+
 const topFive = () => {
-    
     let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
-    
-    
     //remove players who have not played!
     for (let i = order.length - 1; i >= 0; i--)
         if (gamesCountMap[order[i]] === 0)
             order.splice(i, 1);
-    
-    
     let table = `
-
-<table class="table">
-    <tr>
-        <td>rank</td>
-        <td>name</td>
-        <td>rating</td>
-        <td>games</td>
-        <td>slaps</td>
-    </tr>
-`;
-    
+        <table class="table">
+            <tr>
+                <td>rank</td>
+                <td>name</td>
+                <td>rating</td>
+                <td>games</td>
+                <td>slaps</td>
+            </tr>
+    `;
     let five = 5;
     if (order.length < 5)
         five = order.length;
-    
     for (let i = 0; i < five; i++) {
         table += `
-        <tr>
-            <td>${i+1}</td>
-            <td>${order[i]}</td>
-            <td>${ratingMap[order[i]]}</td>
-            <td>${gamesCountMap[order[i]]}</td>
-            <td>${slapsMap[order[i]]}</td>
-        </tr>
-    `;
+            <tr>
+                <td>${i+1}</td>
+                <td>${order[i]}</td>
+                <td>${ratingMap[order[i]]}</td>
+                <td>${gamesCountMap[order[i]]}</td>
+                <td>${slapsMap[order[i]]}</td>
+            </tr>
+        `;
     }
     table += '</table>';
     return table;
     
 };
-
 
 /*
  -add DB

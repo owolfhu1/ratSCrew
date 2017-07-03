@@ -117,9 +117,12 @@
     //for miss-slaps with no cards
     socket.on('timeout', time => {
         timeout.style.display = 'block';
-        setTimeout(function (){
-            timeout.style.display = 'none';
-        }, time);
+        let timeOutTill = new Date().getTime() + time;
+        let now = 0;
+        while (now < timeOutTill) {
+            now = new Date().getTime();
+        }
+        timeout.style.display = 'none';
     });
 
     //ratings, close_ratings, scores, search_result, search_input, search_button;

@@ -24,6 +24,7 @@ let gamesCountMap = {};
 let slapsMap = {};
 let tables = {};
 let games = {};
+let online = [];
 //ELO K value
 const K = 110;
 //get users info
@@ -97,34 +98,41 @@ io.on('connection', socket => {
     
     socket.on('login', loginInfo => {
         let NAME = 0, PASS = 1;
-        if (loginInfo[NAME] in passwordMap) {
-            if (passwordMap[loginInfo[NAME]] === loginInfo[PASS]) {
-                userMap[userId].name = loginInfo[NAME];
-                for (let id in userMap) io.to(id).emit('chat',`<p>${loginInfo[NAME]} logging in</p>`);
+        if (online.indexOf(loginInfo[NAME]) === -1) {
+            if (loginInfo[NAME] in passwordMap) {
+                if (passwordMap[loginInfo[NAME]] === loginInfo[PASS]) {
+                    userMap[userId].name = loginInfo[NAME];
+                    for (let id in userMap) io.to(id).emit('chat', `<p>${loginInfo[NAME]} logging in</p>`);
+                } else {
+                    //resend 'login_setup' on fail TODO make this better...
+                    io.to(userId).emit('login_setup');
+                }
             } else {
-                //resend 'login_setup' on fail TODO make this better...
-                io.to(userId).emit('login_setup');
+                //if username doesn't already exist add it and login
+                for (let id in userMap) io.to(id).emit('chat', `<p>${loginInfo[NAME]} logging in</p>`);
+                client.query(`INSERT INTO users (name, pass, rating, games, slaps) VALUES ('${loginInfo[NAME]}', '${loginInfo[PASS]}', 1500, 0, 0)`);
+                gamesCountMap[loginInfo[NAME]] = 0;
+                slapsMap[loginInfo[NAME]] = 0;
+                ratingMap[loginInfo[NAME]] = 1500;
+                passwordMap[loginInfo[NAME]] = loginInfo[PASS];
+                userMap[userId].name = loginInfo[NAME];
             }
-        } else {
-            //if username doesn't already exist add it and login
-            for (let id in userMap) io.to(id).emit('chat',`<p>${loginInfo[NAME]} logging in</p>`);
-            client.query(`INSERT INTO users (name, pass, rating, games, slaps) VALUES ('${loginInfo[NAME]}', '${loginInfo[PASS]}', 1500, 0, 0)`);
-            gamesCountMap[loginInfo[NAME]] = 0;
-            slapsMap[loginInfo[NAME]] = 0;
-            ratingMap[loginInfo[NAME]] = 1500;
-            passwordMap[loginInfo[NAME]] = loginInfo[PASS];
-            userMap[userId].name = loginInfo[NAME];
-        }
-        //if the user's name has been changed, they are logged in, emit 'lobby_setup'
-        if (user.name !== 'GUEST') {
-            io.to(userId).emit('set_name', user.name);
-            lobby[userId] = user.name;
-            for (let key in lobby)
-                io.to(key).emit('lobby', tables );
+            //if the user's name has been changed, they are logged in, emit 'lobby_setup'
+            if (user.name !== 'GUEST') {
+                online.push(user.name);
+                io.to(userId).emit('set_name', user.name);
+                lobby[userId] = user.name;
+                for (let key in lobby)
+                    io.to(key).emit('lobby', tables);
+            }
         }
     });
     
     socket.on('disconnect', () => {
+        //remove from online array
+        let index = online.indexOf(user.name);
+        online.splice(index,1);
+        
         for (let id in userMap) io.to(id).emit('chat', `<p>${userMap[userId].name} logging off</p>`);
         //if the user has joined a table, remove them
         if(user.tableId !== 'none'){
@@ -167,27 +175,19 @@ io.on('connection', socket => {
                         count++;
                     }
                 }
-                
                 if (count > 2) {
                     removeFromGame(user.tableId, player);
-    
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
                         if (table[p] !== null) {
                             io.to(table[p].userId).emit('game_info', table);
                         }
-                        
                     }
-                    
                 } else {
-                    
                     table[player] = null;
                     endGame(user.tableId);
-                    
                 }
-                
             }
-
         }
         delete userMap[userId];
     });
@@ -513,13 +513,16 @@ io.on('connection', socket => {
     });
     
     socket.on('rating_search', name => {
+        
         if (name in ratingMap) {
             let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
-            for (let i = order.length - 1; i >= 0; i--) {
-                if (gamesCountMap[order[i]] === 0) {
+            
+            //remove players who have not played!
+            for (let i = order.length - 1; i >= 0; i--)
+                if (gamesCountMap[order[i]] === 0)
                     order.splice(i, 1);
-                }
-            }
+            
+            
             let profile = `
                 <p>Rank: ${order.indexOf(name) + 1} Rating: ${ratingMap[name]}</p>
                 <p>Games: ${gamesCountMap[name]} Slaps: ${slapsMap[name]}</p>
@@ -1003,11 +1006,10 @@ const topFive = () => {
     let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
     
     
-    for (let i = order.length - 1; i >= 0; i--) {
-        if (gamesCountMap[order[i]] === 0) {
+    //remove players who have not played!
+    for (let i = order.length - 1; i >= 0; i--)
+        if (gamesCountMap[order[i]] === 0)
             order.splice(i, 1);
-        }
-    }
     
     
     let table = `

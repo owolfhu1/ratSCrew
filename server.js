@@ -25,7 +25,7 @@ let slapsMap = {};
 let tables = {};
 let games = {};
 //ELO K value
-const K = 80;
+const K = 100;
 //get users info
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;

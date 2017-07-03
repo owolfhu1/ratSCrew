@@ -515,6 +515,11 @@ io.on('connection', socket => {
     socket.on('rating_search', name => {
         if (name in ratingMap) {
             let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
+            for (let i = order.length - 1; i >= 0; i--) {
+                if (gamesCountMap[order[i]] === 0) {
+                    order.splice(i, 1);
+                }
+            }
             let profile = `
                 <p>Rank: ${order.indexOf(name) + 1} Rating: ${ratingMap[name]}</p>
                 <p>Games: ${gamesCountMap[name]} Slaps: ${slapsMap[name]}</p>
@@ -996,6 +1001,15 @@ const htmlRules = gameId => {
 const topFive = () => {
     
     let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
+    
+    
+    for (let i = order.length - 1; i >= 0; i--) {
+        if (gamesCountMap[order[i]] === 0) {
+            order.splice(i, 1);
+        }
+    }
+    
+    
     let table = `
 
 <table class="table">

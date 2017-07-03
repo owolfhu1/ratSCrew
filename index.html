@@ -134,7 +134,9 @@
         }
     });
 
-
+    socket.on('timeout_over', () => {
+        timeout.style.display = 'none';
+    });
 
     //ratings, close_ratings, scores, search_result, search_input, search_button;
     socket.on('ratings', list => {

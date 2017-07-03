@@ -676,6 +676,13 @@ const endGame = tableId => {
     console.log('ending game');
     let game = games[tableId];
     
+    //turn off timeouts
+    for (let i = 1; i < 5; i++) {
+        let p = 'player' + i;
+        if (game[p] !== null)
+            io.to(game[p].userId).emit('timeout_over');
+    }
+    
     //find winner
     let player;
     let cardCount = 0;

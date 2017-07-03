@@ -52,8 +52,8 @@
             <p><b></b></p>
         `;
         let playerNumber, player1, player2, player3, player4, play_pile, slap_info, slap_info_content,
-            player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST',
-            ratings, close_ratings, scores, search_result, search_input, search_button, timeout;
+            player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST', time_left, remove_timeout,
+            ratings, close_ratings, scores, search_result, search_input, search_button, timeout, timeout_time;
     </script>
 </head>
 <body>
@@ -91,8 +91,9 @@
     </div>
 
     <div id="timeout" style="display: none; background: red; width: 100%; height: 100%; z-index: 1;">
-        <h2>WOOPS! LOOKS LIKE YOU MISS-SLAPPED WITHOUT ANY CARDS SO YOU ARE ON TIMEOUT.
-            THIS SCREEN WILL GO AWAY AUTOMATICALLY WHEN YOUR TIMEOUT IS OVER</h2>
+        <h1>WOOPS! LOOKS LIKE YOU MISS-SLAPPED WITHOUT ANY CARDS SO YOU ARE ON TIMEOUT.</h1>
+        <div id="time_left">
+        <button class="form-control" id="remove_timeout">Check / Remove Timeout</button>
     </div>
 
 </div>
@@ -113,17 +114,28 @@
     search_input = document.getElementById('search_input');
     search_button = document.getElementById('search_button');
     timeout = document.getElementById('timeout');
+    remove_timeout = document.getElementById('remove_timeout');
+    time_left = document.getElementById('time_left');
+
+
 
     //for miss-slaps with no cards
     socket.on('timeout', time => {
         timeout.style.display = 'block';
-        let timeOutTill = new Date().getTime() + time;
-        let now = 0;
-        while (now < timeOutTill) {
-            now = new Date().getTime();
-        }
-        timeout.style.display = 'none';
+        time_left.innerHTML = `time left: ${time/1000} seconds`;
+        timeout_time = new Date().getTime() + time;
     });
+
+    remove_timeout.addEventListener('click', () => {
+        let now = new Date().getTime();
+        if (now > timeout_time)
+            timeout.style.display = 'block';
+        else {
+            time_left.innerText = `time left: ${(timeout_time - now)/1000} seconds`
+        }
+    });
+
+
 
     //ratings, close_ratings, scores, search_result, search_input, search_button;
     socket.on('ratings', list => {

@@ -416,16 +416,8 @@ io.on('connection', socket => {
                 } else {
                     //legit slap
                     if (isSlapped[0]) {
-                        
-                        
                         game.slaps++;
                         game[player + 'slaps'].slaps++;
-                        
-                        
-                        
-                        
-                        
-                        
                         for (let i = 1; i < 5; i++) {
                             let p = 'player' + i;
                             if (game[p] !== null) {
@@ -455,17 +447,18 @@ io.on('connection', socket => {
                                     else io.to(game[p].userId).emit('chat', `<p>${user.name} slapped and added a joker to the bottom</p>`);
                                 }
                             }
-    
                             for (let i = 1; i < 5; i++) {
                                 let p = 'player' + i;
                                 if (game[p] !== null)
                                     io.to(game[p].userId).emit('game_info', game);
                             }
-                            
-                        } else game[player].pauseTill = time + game.timeout;
+                        } else {
+                            game[player].pauseTill = time + game.timeout;
+                            io.to(game[player].userId).emit('timeout', game.timeout);
+                        }
                     }
                 }
-                game.pauseTill = time + 1111;
+                game.pauseTill = time + 999;
             }
         }
         //check if game is over (3 players have no cards)

@@ -102,25 +102,25 @@
     let socket = io();
 
     //shorten the code
-    const getById = id => document.getElementById(id);
+    const ID = id => document.getElementById(id);
 
     //grab the DOM
-                 chat = getById('chat');
-               scores = getById('scores');
-              ratings = getById('ratings');
-              timeout = getById('timeout');
-            game_body = getById('game_body');
-            slap_info = getById('slap_info');
-            chat_body = getById('chat_body');
-            time_left = getById('time_left');
-           chat_input = getById('chat_input');
-         search_input = getById('search_input');
-        close_ratings = getById('close_ratings');
-        search_result = getById('search_result');
-        search_button = getById('search_button');
-       remove_timeout = getById('remove_timeout');
-    slap_info_content = getById('slap_info_content');
-
+                    chat = ID('chat')
+    ;             scores = ID('scores')
+    ;            ratings = ID('ratings')
+    ;            timeout = ID('timeout')
+    ;          game_body = ID('game_body')
+    ;          slap_info = ID('slap_info')
+    ;          chat_body = ID('chat_body')
+    ;          time_left = ID('time_left')
+    ;         chat_input = ID('chat_input')
+    ;       search_input = ID('search_input')
+    ;      close_ratings = ID('close_ratings')
+    ;      search_result = ID('search_result')
+    ;      search_button = ID('search_button')
+    ;     remove_timeout = ID('remove_timeout')
+    ;  slap_info_content = ID('slap_info_content')
+    ;
     //miss-slap timeout functions:
     socket.on('timeout', time => {
         console.log('timeout emit: ' + time);
@@ -181,7 +181,8 @@
     socket.on('setup_login', () => {
         //setup game_body to have login fields
         game_body.innerHTML = `<div class="container">
-    <div class="jumbotron"><h1>Welcome to Egyptian Rat Screw!</h1>
+    <div class="jumbotron" style="background-image:url(http://owolfhu1.x10host.com/Oh_Hell_solo/img/ratimg.jpg); background-size:100%;">
+    <h1>Welcome to Egyptian Rat Screw!</h1>
     <h3>Please enter a user name to continue.</h3></div>
     <div class="form-horizontal">
         <div class="form-group">
@@ -203,9 +204,9 @@
         </div>
     </div>`;
         //activate button to send login emit
-        getById('login_button').addEventListener('click', () => {
-            let password = getById('password').value;
-            let user_name = getById('user_name').value;
+        ID('login_button').addEventListener('click', () => {
+            let password = ID('password').value;
+            let user_name = ID('user_name').value;
             if (user_name.length > 0 && user_name.length < 11) {
                 socket.emit('login', [user_name, password]);
             }
@@ -256,11 +257,11 @@
         game_body.innerHTML = `<div class="container"><div class="well">${body}</div></div>`;
         //activate table buttons
         for (let tableId in tables)
-            getById(tableId).addEventListener('click', () => {
+            ID(tableId).addEventListener('click', () => {
                 //attempt to join table
                 socket.emit('join_table', tableId);
             });
-        getById('new_table').addEventListener('click', () => {
+        ID('new_table').addEventListener('click', () => {
             socket.emit('join_table', 'new');
         });
     });
@@ -343,8 +344,8 @@
                 </tbody>
             </table>
         </form></div>`;
-        rules = getById('rules');
-        players = getById('players');
+        rules = ID('rules');
+        players = ID('players');
     });
 
     //
@@ -367,7 +368,7 @@
             }
         }
         //activate ready button
-        let ready_button = getById('ready_button');
+        let ready_button = ID('ready_button');
         ready_button.addEventListener('click', () => {
             console.log('player hit ready button' + playerNumber); //for testing remove later
             socket.emit('ready', playerNumber);
@@ -376,7 +377,7 @@
         for (let key in table){
             let p ='player';
             if (!(key === p + 1 || key === p + 2 || key === p + 3 || key === p + 4))
-                getById(key + table[key]).checked = true;
+                ID(key + table[key]).checked = true;
         }
         //when a change is made to the form, send the form to the server
         $("#rules").on("change", function() {
@@ -400,7 +401,7 @@
         for (let key in table){
             let p ='player';
             if (!(key === p + 1 || key === p + 2 || key === p + 3 || key === p + 4)) {
-                getById(key + table[key]).checked = true;
+                ID(key + table[key]).checked = true;
             }
         }
     });
@@ -419,12 +420,12 @@
             <div class="play_pile" id="play_pile"></div>
         `;
         //get doc elements
-        player1 = getById('player1');
-        player2 = getById('player2');
-        player3 = getById('player3');
-        player4 = getById('player4');
-        play_pile = getById('play_pile');
-        player_info = getById('player_info');
+        player1 = ID('player1');
+        player2 = ID('player2');
+        player3 = ID('player3');
+        player4 = ID('player4');
+        play_pile = ID('play_pile');
+        player_info = ID('player_info');
         //add slap event listener
         play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
         //position player_pile divs
@@ -463,17 +464,17 @@
                 if (game[player].cards.length !== 0) {
                     if (game[player].ready) {
                         if (player === playerNumber)
-                            getById(player).innerHTML = printActiveBack();
-                        else getById(player).innerHTML = printTurnBack();
-                    } else getById(player).innerHTML = printCardBack();
+                            ID(player).innerHTML = printActiveBack();
+                        else ID(player).innerHTML = printTurnBack();
+                    } else ID(player).innerHTML = printCardBack();
                     //show other players info
                     if (player !== playerNumber)
-                        getById(player).innerHTML += `
+                        ID(player).innerHTML += `
                             <b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
                             <br>${game[player].name}<br>&nbsp;&nbsp;&nbsp;&nbsp;${game[player].cards.length}</b>`;
-                } else getById(player).innerHTML = printNoCard();
+                } else ID(player).innerHTML = printNoCard();
                 //if they dont have any cards ---^
-            } else getById(player).innerHTML = '';
+            } else ID(player).innerHTML = '';
         }//if the player was null---^
         //print player info
         player_info.innerHTML = ``;
@@ -487,7 +488,7 @@
         //if it is client's turn
         if (game[playerNumber].ready) {
             alertSound.play();
-            getById('clickable').addEventListener('mousedown', () => {
+            ID('clickable').addEventListener('mousedown', () => {
                 socket.emit('play_card');
             });
         }

@@ -406,7 +406,7 @@ io.on('connection', socket => {
                 //check if is legit slap
                 let isSlapped = isSlap(cards, game);
                 //if the player has won the round
-                if (game.roundOver && player === game.facePlayer) {
+                if (game.roundOver && player === game.facePlayer && !isSlapped[0]) {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
                         if (game[p] !== null) {

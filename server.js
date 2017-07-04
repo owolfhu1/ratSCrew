@@ -666,21 +666,6 @@ const deck = (jokers) => {
     if (jokers === 'on') {
         deckReturn.push([11, 'joker']);
         deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
-        deckReturn.push([11, 'joker']);
     }
     shuffle(deckReturn);
     return deckReturn;

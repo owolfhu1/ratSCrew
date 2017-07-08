@@ -3,7 +3,7 @@
 <head>
     <title>Orion's Rat Screw!</title>
     <meta charset="UTF-8">
-    <script src="/socket.io/socket.io.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -102,24 +102,24 @@
     let socket = io();
 
     //shorten the code
-    const GET = id => document.getElementById(id);
+    const ID = id => document.getElementById(id);
 
     //grab the DOM
-                    chat = GET('chat')
-    ;             scores = GET('scores')
-    ;            ratings = GET('ratings')
-    ;            timeout = GET('timeout')
-    ;          game_body = GET('game_body')
-    ;          slap_info = GET('slap_info')
-    ;          chat_body = GET('chat_body')
-    ;          time_left = GET('time_left')
-    ;         chat_input = GET('chat_input')
-    ;       search_input = GET('search_input')
-    ;      close_ratings = GET('close_ratings')
-    ;      search_result = GET('search_result')
-    ;      search_button = GET('search_button')
-    ;     remove_timeout = GET('remove_timeout')
-    ;  slap_info_content = GET('slap_info_content')
+                    chat = ID('chat')
+    ;             scores = ID('scores')
+    ;            ratings = ID('ratings')
+    ;            timeout = ID('timeout')
+    ;          game_body = ID('game_body')
+    ;          slap_info = ID('slap_info')
+    ;          chat_body = ID('chat_body')
+    ;          time_left = ID('time_left')
+    ;         chat_input = ID('chat_input')
+    ;       search_input = ID('search_input')
+    ;      close_ratings = ID('close_ratings')
+    ;      search_result = ID('search_result')
+    ;      search_button = ID('search_button')
+    ;     remove_timeout = ID('remove_timeout')
+    ;  slap_info_content = ID('slap_info_content')
     ;
     //miss-slap timeout functions:
     socket.on('timeout', time => {
@@ -204,9 +204,9 @@
         </div>
     </div>`;
         //activate button to send login emit
-        GET('login_button').addEventListener('click', () => {
-            let password = GET('password').value;
-            let user_name = GET('user_name').value;
+        ID('login_button').addEventListener('click', () => {
+            let password = ID('password').value;
+            let user_name = ID('user_name').value;
             if (user_name.length > 0 && user_name.length < 11) {
                 socket.emit('login', [user_name, password]);
             }
@@ -257,11 +257,11 @@
         game_body.innerHTML = `<div class="container"><div class="well">${body}</div></div>`;
         //activate table buttons
         for (let tableId in tables)
-            GET(tableId).addEventListener('click', () => {
+            ID(tableId).addEventListener('click', () => {
                 //attempt to join table
                 socket.emit('join_table', tableId);
             });
-        GET('new_table').addEventListener('click', () => {
+        ID('new_table').addEventListener('click', () => {
             socket.emit('join_table', 'new');
         });
     });
@@ -344,8 +344,8 @@
                 </tbody>
             </table>
         </form></div>`;
-        rules = GET('rules');
-        players = GET('players');
+        rules = ID('rules');
+        players = ID('players');
     });
 
     //
@@ -368,7 +368,7 @@
             }
         }
         //activate ready button
-        let ready_button = GET('ready_button');
+        let ready_button = ID('ready_button');
         ready_button.addEventListener('click', () => {
             console.log('player hit ready button' + playerNumber); //for testing remove later
             socket.emit('ready', playerNumber);
@@ -377,7 +377,7 @@
         for (let key in table){
             let p ='player';
             if (!(key === p + 1 || key === p + 2 || key === p + 3 || key === p + 4))
-                GET(key + table[key]).checked = true;
+                ID(key + table[key]).checked = true;
         }
         //when a change is made to the form, send the form to the server
         $("#rules").on("change", function() {
@@ -401,7 +401,7 @@
         for (let key in table){
             let p ='player';
             if (!(key === p + 1 || key === p + 2 || key === p + 3 || key === p + 4)) {
-                GET(key + table[key]).checked = true;
+                ID(key + table[key]).checked = true;
             }
         }
     });
@@ -420,12 +420,12 @@
             <div class="play_pile" id="play_pile"></div>
         `;
         //get doc elements
-        player1 = GET('player1');
-        player2 = GET('player2');
-        player3 = GET('player3');
-        player4 = GET('player4');
-        play_pile = GET('play_pile');
-        player_info = GET('player_info');
+        player1 = ID('player1');
+        player2 = ID('player2');
+        player3 = ID('player3');
+        player4 = ID('player4');
+        play_pile = ID('play_pile');
+        player_info = ID('player_info');
         //add slap event listener
         play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
         //position player_pile divs
@@ -464,17 +464,17 @@
                 if (game[player].cards.length !== 0) {
                     if (game[player].ready) {
                         if (player === playerNumber)
-                            GET(player).innerHTML = printActiveBack();
-                        else GET(player).innerHTML = printTurnBack();
-                    } else GET(player).innerHTML = printCardBack();
+                            ID(player).innerHTML = printActiveBack();
+                        else ID(player).innerHTML = printTurnBack();
+                    } else ID(player).innerHTML = printCardBack();
                     //show other players info
                     if (player !== playerNumber)
-                        GET(player).innerHTML += `
+                        ID(player).innerHTML += `
                             <b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
                             <br>${game[player].name}<br>&nbsp;&nbsp;&nbsp;&nbsp;${game[player].cards.length}</b>`;
-                } else GET(player).innerHTML = printNoCard();
+                } else ID(player).innerHTML = printNoCard();
                 //if they dont have any cards ---^
-            } else GET(player).innerHTML = '';
+            } else ID(player).innerHTML = '';
         }//if the player was null---^
         //print player info
         player_info.innerHTML = ``;
@@ -488,7 +488,7 @@
         //if it is client's turn
         if (game[playerNumber].ready) {
             alertSound.play();
-            GET('clickable').addEventListener('mousedown', () => {
+            ID('clickable').addEventListener('mousedown', () => {
                 socket.emit('play_card');
             });
         }

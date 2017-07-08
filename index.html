@@ -16,6 +16,18 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <style>
+        .bottom{
+            top: 500px; left: 160px;
+        }
+        .left{
+            top: 200px; left: 0px;
+        }
+        .top{
+            top: 0px; left: 160px;
+        }
+        .right{
+            top: 200px; left: 325px;
+        }
         .chat_body::-webkit-scrollbar {
             display: none;
         }
@@ -433,23 +445,15 @@
         //position player_pile divs
         if (playerNumber === 'player1') {
 
-            player1.style.top = '500px';
-            player2.style.top = '200px';
-            player3.style.top = '0px';
-            player4.style.top = '200px';
-            player1.style.left = '160px';
-            player2.style.left = '0px';
-            player3.style.left = '160px';
-            player4.style.left = '325px';
+            player1.className += "bottom";
+            player2.className += "left";
+            player3.className += "top";
+            player4.className += "right";
 
-
-
-
-
-            //player1.style = "top: 500px; left: 160px;";
-            //player2.style = "top: 200px; left: 0px;";
-            //player3.style = "top: 0px; left: 160px;";
-            //player4.style = "top: 200px; left: 325px;";
+            /*player1.style = "top: 500px; left: 160px;";
+            player2.style = "top: 200px; left: 0px;";
+            player3.style = "top: 0px; left: 160px;";
+            player4.style = "top: 200px; left: 325px;";*/
         } else if (playerNumber === 'player2') {
             player2.style = "top: 500px; left: 160px;";
             player3.style = "top: 200px; left: 0px;";

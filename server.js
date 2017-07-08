@@ -26,7 +26,7 @@ let tables = {};
 let games = {};
 let online = [];
 //ELO K value
-const K = 110;
+const K = 40;
 //get users info
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;

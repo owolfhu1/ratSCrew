@@ -438,13 +438,10 @@
             player3.style.left = '160px';
             player4.style.left = '325px';
 
-
-
             player1.style.top = '500px';
             player2.style.top = '200px';
             player3.style.top = '0';
             player4.style.top = '200px';
-
 
             //player1.style = "top: 500px; left: 160px;";
             //player2.style = "top: 200px; left: 0px;";
@@ -453,22 +450,62 @@
 
 
         } else if (playerNumber === 'player2') {
-            player2.style = "top: 500px; left: 160px;";
-            player3.style = "top: 200px; left: 0px;";
-            player4.style = "top: 0px; left: 160px;";
-            player1.style = "top: 200px; left: 325px;";
+
+            player2.style.left = '160px';
+            player3.style.left = '0';
+            player4.style.left = '160px';
+            player1.style.left = '325px';
+
+            player2.style.top = '500px';
+            player3.style.top = '200px';
+            player4.style.top = '0';
+            player1.style.top = '200px';
+
+            //player2.style = "top: 500px; left: 160px;";
+            //player3.style = "top: 200px; left: 0px;";
+            //player4.style = "top: 0px; left: 160px;";
+            //player1.style = "top: 200px; left: 325px;";
         } else if (playerNumber === 'player3') {
-            player3.style = "top: 500px; left: 160px;";
-            player4.style = "top: 200px; left: 0px;";
-            player1.style = "top: 0px; left: 160px;";
-            player2.style = "top: 200px; left: 325px;";
+
+            player3.style.left = '160px';
+            player4.style.left = '0';
+            player1.style.left = '160px';
+            player2.style.left = '325px';
+
+            player3.style.top = '500px';
+            player4.style.top = '200px';
+            player1.style.top = '0';
+            player2.style.top = '200px';
+
+            //player3.style = "top: 500px; left: 160px;";
+            //player4.style = "top: 200px; left: 0px;";
+            //player1.style = "top: 0px; left: 160px;";
+            //player2.style = "top: 200px; left: 325px;";
         } else if (playerNumber === 'player4') {
-            player4.style = "top: 500px; left: 160px;";
-            player1.style = "top: 200px; left: 0px;";
-            player2.style = "top: 0px; left: 160px;";
-            player3.style = "top: 200px; left: 325px;";
+
+            player4.style.left = '160px';
+            player1.style.left = '0';
+            player2.style.left = '160px';
+            player3.style.left = '325px';
+
+            player4.style.top = '500px';
+            player1.style.top = '200px';
+            player2.style.top = '0';
+            player3.style.top = '200px';
+
+            //player4.style = "top: 500px; left: 160px;";
+            //player1.style = "top: 200px; left: 0px;";
+            //player2.style = "top: 0px; left: 160px;";
+            //player3.style = "top: 200px; left: 325px;";
         }
-        chat.style = "width: 300px; height: 150px; top: 320px; left: 50px; display: inherit;";
+
+        chat.style.width = '300px';
+        chat.style.height = '150px';
+        chat.style.top = '320px';
+        chat.style.left = '50px';
+        chat.style.display = 'inherit';
+
+        //chat.style = "width: 300px; height: 150px; top: 320px; left: 50px; display: inherit;";
     });
 
     //gets new info and updates the game ui

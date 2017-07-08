@@ -255,7 +255,7 @@
             body += '</p></div>';
         }
         //update the html
-        game_body.innerHTML = `<div class="container"><br><br><br><br><br><br><br><br><br><br>${body}</div>`;
+        game_body.innerHTML = `<div class="container"><br><br><br><br><br><br><br>${body}</div>`;
         //activate table buttons
         for (let tableId in tables)
             ID(tableId).addEventListener('click', () => {
@@ -274,6 +274,7 @@
             playerNumber = player;
         game_body.innerHTML = `
         <div class="container" >
+        <br><br><br><br><br><br><br>
         <div id="players"></div>
         <form id="rules" class="bogusclassnamehereidkwhy">
             <table class="table">

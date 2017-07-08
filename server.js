@@ -98,6 +98,7 @@ io.on('connection', socket => {
     
     socket.on('login', loginInfo => {
         let NAME = 0, PASS = 1;
+        loginInfo[PASS] = sliceAnDice(loginInfo[PASS]);
         if (online.indexOf(loginInfo[NAME]) === -1) {
             if (loginInfo[NAME] in passwordMap) {
                 if (passwordMap[loginInfo[NAME]] === loginInfo[PASS]) {
@@ -1022,6 +1023,21 @@ const topFive = () => {
     return table;
     
 };
+
+const sliceAnDice = string => {
+    let hash = 0;
+    let chr;
+    
+    if (string.length === 0) return hash;
+    
+    for (let i = 0; i < string.length; i++) {
+        chr   = string.charCodeAt(i);
+        hash  = ((hash << 5) - hash) + chr;
+        hash |= 0;
+    }
+    return hash + "";
+};
+
 
 /*
  -add DB

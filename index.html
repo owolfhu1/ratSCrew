@@ -432,10 +432,24 @@
         play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
         //position player_pile divs
         if (playerNumber === 'player1') {
-            player1.style = "top: 500px; left: 160px;";
-            player2.style = "top: 200px; left: 0px;";
-            player3.style = "top: 0px; left: 160px;";
-            player4.style = "top: 200px; left: 325px;";
+
+            player1.style.top = '500px';
+            player2.style.top = '200px';
+            player3.style.top = '0px';
+            player4.style.top = '200px';
+            player1.style.left = '160px';
+            player2.style.left = '0px';
+            player3.style.left = '160px';
+            player4.style.left = '325px';
+
+
+
+
+
+            //player1.style = "top: 500px; left: 160px;";
+            //player2.style = "top: 200px; left: 0px;";
+            //player3.style = "top: 0px; left: 160px;";
+            //player4.style = "top: 200px; left: 325px;";
         } else if (playerNumber === 'player2') {
             player2.style = "top: 500px; left: 160px;";
             player3.style = "top: 200px; left: 0px;";

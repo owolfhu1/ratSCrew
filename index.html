@@ -183,8 +183,7 @@
         //setup game_body to have login fields
         game_body.innerHTML = `<div class="container">
     <div class="jumbotron" style="color: whitesmoke; background-image:url(http://owolfhu1.x10host.com/Oh_Hell_solo/img/ratimg.jpg); background-size:100%;">
-    <h1>Welcome to Egyptian Rat Screw!</h1>
-    <h3>Please enter a user name to continue.</h3></div>
+    <h1>Welcome to Egyptian Rat Screw!</h1></div>
     <div class="form-horizontal">
         <div class="form-group">
             <label for="user_name" class="col-sm-2 control-label">User Name</label>
@@ -432,81 +431,31 @@
         play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
         //position player_pile divs
         if (playerNumber === 'player1') {
-
-            player1.style.left = '160px';
-            player2.style.left = '0';
-            player3.style.left = '160px';
-            player4.style.left = '325px';
-
-            player1.style.top = '500px';
-            player2.style.top = '200px';
-            player3.style.top = '0';
-            player4.style.top = '200px';
-
-            //player1.style = "top: 500px; left: 160px;";
-            //player2.style = "top: 200px; left: 0px;";
-            //player3.style = "top: 0px; left: 160px;";
-            //player4.style = "top: 200px; left: 325px;";
-
+            player1.style.left = '160px';   player1.style.top = '500px';
+            player2.style.left = '0'    ;   player2.style.top = '200px';
+            player3.style.left = '160px';   player3.style.top = '0'    ;
+            player4.style.left = '325px';   player4.style.top = '200px';
         } else if (playerNumber === 'player2') {
-
-            player2.style.left = '160px';
-            player3.style.left = '0';
-            player4.style.left = '160px';
-            player1.style.left = '325px';
-
-            player2.style.top = '500px';
-            player3.style.top = '200px';
-            player4.style.top = '0';
-            player1.style.top = '200px';
-
-            //player2.style = "top: 500px; left: 160px;";
-            //player3.style = "top: 200px; left: 0px;";
-            //player4.style = "top: 0px; left: 160px;";
-            //player1.style = "top: 200px; left: 325px;";
-
+            player2.style.left = '160px';   player2.style.top = '500px';
+            player3.style.left = '0'    ;   player3.style.top = '200px';
+            player4.style.left = '160px';   player4.style.top = '0'    ;
+            player1.style.left = '325px';   player1.style.top = '200px';
         } else if (playerNumber === 'player3') {
-
-            player3.style.left = '160px';
-            player4.style.left = '0';
-            player1.style.left = '160px';
-            player2.style.left = '325px';
-
-            player3.style.top = '500px';
-            player4.style.top = '200px';
-            player1.style.top = '0';
-            player2.style.top = '200px';
-
-            //player3.style = "top: 500px; left: 160px;";
-            //player4.style = "top: 200px; left: 0px;";
-            //player1.style = "top: 0px; left: 160px;";
-            //player2.style = "top: 200px; left: 325px;";
-
+            player3.style.left = '160px';   player3.style.top = '500px';
+            player4.style.left = '0'    ;   player4.style.top = '200px';
+            player1.style.left = '160px';   player1.style.top = '0'    ;
+            player2.style.left = '325px';   player2.style.top = '200px';
         } else if (playerNumber === 'player4') {
-
-            player4.style.left = '160px';
-            player1.style.left = '0';
-            player2.style.left = '160px';
-            player3.style.left = '325px';
-
-            player4.style.top = '500px';
-            player1.style.top = '200px';
-            player2.style.top = '0';
-            player3.style.top = '200px';
-
-            //player4.style = "top: 500px; left: 160px;";
-            //player1.style = "top: 200px; left: 0px;";
-            //player2.style = "top: 0px; left: 160px;";
-            //player3.style = "top: 200px; left: 325px;";
+            player4.style.left = '160px';   player4.style.top = '500px';
+            player1.style.left = '0'    ;   player1.style.top = '200px';
+            player2.style.left = '160px';   player2.style.top = '0'    ;
+            player3.style.left = '325px';   player3.style.top = '200px';
         }
-
         chat.style.width = '300px';
         chat.style.height = '150px';
         chat.style.top = '320px';
         chat.style.left = '50px';
         chat.style.display = 'inherit';
-
-        //chat.style = "width: 300px; height: 150px; top: 320px; left: 50px; display: inherit;";
     });
 
     //gets new info and updates the game ui

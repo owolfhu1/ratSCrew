@@ -1028,7 +1028,7 @@ const sliceAnDice = string => {
     let hash = 0;
     let chr;
     
-    if (string.length === 0) return hash;
+    if (string.length === 0) return 'no password entered';
     
     for (let i = 0; i < string.length; i++) {
         chr   = string.charCodeAt(i);

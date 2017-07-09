@@ -147,7 +147,7 @@ io.on('connection', socket => {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
                         if (table[p] !== null)
-                            io.to(table[p].userId).emit('table', [table, p]);
+                            io.to(table[p].userId).emit('table', table);
                     }
                 }
                 for (let key in lobby) io.to(key).emit('lobby', tables );
@@ -199,7 +199,7 @@ io.on('connection', socket => {
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
                 if (table[p] !== null)
-                    io.to(table[p].userId).emit('table', [table, p]);
+                    io.to(table[p].userId).emit('table', table);
             }
         } else {
             //join existing table
@@ -573,7 +573,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null)
-                io.to(table[x].userId).emit('table', [table, x]);
+                io.to(table[x].userId).emit('table', table);
         }
         
         for (let player in lobby)
@@ -588,7 +588,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null)
-                io.to(table[x].userId).emit('table', [table, x]);
+                io.to(table[x].userId).emit('table', table);
         }
         
         for (let player in lobby)

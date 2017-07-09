@@ -348,8 +348,7 @@
     });
 
     //
-    socket.on('table', tableArray => {
-        let table = tableArray[0];
+    socket.on('table', table => {
 
         players.innerHTML = '';
         for (let i = 1; i < 5; i++) {

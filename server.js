@@ -953,7 +953,7 @@ const htmlRules = gameId => {
         <p>Flushes: ${game.flush}</p>
         <p><b>Other conditions:</b></p>
         <p>Jokers: ${game.jokers}</p>
-        <p>Timeout: ${game.timeout} (milli seconds im too lazy to convert this for you)</p>
+        <p>Timeout: ${game.timeout/60000} minuets</p>
         <p>Quiters: ${game.quit}</p>
     `;
 };

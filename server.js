@@ -11,10 +11,10 @@ app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
 //database
-//let pg = require('pg');
-//pg.defaults.ssl = true;
-//let client = new pg.Client(process.env.DATABASE_URL);
-//client.connect();
+let pg = require('pg');
+pg.defaults.ssl = true;
+let client = new pg.Client(process.env.DATABASE_URL);
+client.connect();
 
 let userMap = {};
 let lobby = {};
@@ -147,7 +147,7 @@ io.on('connection', socket => {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
                         if (table[p] !== null)
-                            io.to(table[p].userId).emit('table', [table, p]);
+                            io.to(table[p].userId).emit('table', table);
                     }
                 }
                 for (let key in lobby) io.to(key).emit('lobby', tables );
@@ -199,7 +199,7 @@ io.on('connection', socket => {
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
                 if (table[p] !== null)
-                    io.to(table[p].userId).emit('table', [table, p]);
+                    io.to(table[p].userId).emit('table', table);
             }
         } else {
             //join existing table
@@ -228,7 +228,7 @@ io.on('connection', socket => {
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
                     if (table[p] !== null)
-                        io.to(table[p].userId).emit('table', [table, p]);
+                        io.to(table[p].userId).emit('table', table);
                 }
                 //remove from lobby and update lobby for lobby recipients
                 delete lobby[userId];
@@ -248,7 +248,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
             if (table[p] !== null)
-                io.to(table[p].userId).emit('table', [table, p]);
+                io.to(table[p].userId).emit('table', table);
         }
         //check if all players are ready
         let ready = 0;
@@ -576,12 +576,14 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null) {
-                io.to(table[x].userId).emit('table', [table, x]);
+                io.to(table[x].userId).emit('table', table);
                 count++
             }
         }
         if (count === 0)
             delete tables[tableId];
+        
+        
         
         for (let player in lobby)
             io.to(player).emit('lobby', tables);
@@ -596,7 +598,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null)
-                io.to(table[x].userId).emit('table', [table, x]);
+                io.to(table[x].userId).emit('table', table);
         }
         
         

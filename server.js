@@ -565,16 +565,23 @@ io.on('connection', socket => {
     });
     
     socket.on('leave', p => {
-        let table = tables[user.tableId];
+        let tableId = user.tableId;
+        let table = tables[tableId];
         table[p] = null;
         user.tableId = 'none';
         lobby[userId] = user.name;
         
+        
+        let count = 0;
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
-            if (table[x] !== null)
+            if (table[x] !== null) {
                 io.to(table[x].userId).emit('table', table);
+                count++
+            }
         }
+        if (count === 0)
+            delete tables[tableId];
         
         for (let player in lobby)
             io.to(player).emit('lobby', tables);
@@ -585,11 +592,15 @@ io.on('connection', socket => {
         lobby[table[p].userId] = table[p].name;
         table[p] = null;
     
+        
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null)
                 io.to(table[x].userId).emit('table', table);
         }
+        
+        
+        
         
         for (let player in lobby)
             io.to(player).emit('lobby', tables);

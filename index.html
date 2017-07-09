@@ -37,7 +37,7 @@
         .slap_image { position: absolute; top: 15%;  left: 25%; width: 50%; height: 40%;}
         .slap_info{ display: none; position: absolute; z-index: 1;
             width: 100%;  height: 100%; top: 0; right: 0; overflow: hidden; }
-        .player_info{ position: absolute; height: 17%; width: 36%; right: 0; bottom: 0; color: whitesmoke; }
+        .player_info{ position: absolute; height: 20%; width: 36%; right: 0; bottom: 0; color: whitesmoke; }
         .game_body{ width: 100%; height: 100%; padding: 7%; position: absolute; }
         .player_pile{ text-align: center;  position: absolute; height: 20%; color: whitesmoke; }
         .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 20px; background: rgba(190, 49, 59, 0.74); padding: 20px; }
@@ -494,7 +494,7 @@
         }
 
         chat.style.top = '50%';
-        chat.style.height = '25%';
+        chat.style.height = '30%';
         chat.style.display = 'inherit';
     });
 
@@ -525,7 +525,7 @@
         player_info.innerHTML = ``;
         if (game[playerNumber].cards.length > 0){
             player_info.innerHTML = `
-<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</h3>`;
+<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} in pile</h3>`;
         }
         //place the last 4 cards
         play_pile.innerHTML = printPile(game.pile);

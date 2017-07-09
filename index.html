@@ -440,17 +440,17 @@
             <div class="player_pile" id="player4"></div>
             <div class="play_pile" id="play_pile"></div>
             <button id="slaps_button" class="btn btn-success"
-            style="position: absolute; top: 30px; right: 3px;">slaps</button>
+            style="position: absolute; top: 10px; left: 10px;">slaps</button>
             <button id="rules_button" class="btn btn-primary"
-            style="position: absolute; top: 58px; right: 3px;">rules</button>
+            style="position: absolute; top: 10px; right: 10px;">rules</button>
         `;
 
 
         ID('rules_button').addEventListener('click', () => {
-            socket.emit('rules');
+            socket.emit('rules_button');
         });
         ID('slaps_button').addEventListener('click', () => {
-            socket.emit('slaps');
+            socket.emit('slaps_button');
         });
 
 

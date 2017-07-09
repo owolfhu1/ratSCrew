@@ -532,12 +532,23 @@ io.on('connection', socket => {
         io.to(userId).emit('ratings', topFive());
     });
     
-    socket.on('highscores', () => {
-        io.to(userId).emit('ratings', topFive());
+    socket.on('rules_button', () => {
+    
+        io.to(userId).emit('chat', htmlRules(user.tableId));
+        
     });
     
-    socket.on('highscores', () => {
-        io.to(userId).emit('ratings', topFive());
+    socket.on('slaps_button', () => {
+    
+        let game = games[user.tableId];
+        let msg = `<p>total slaps: ${game.slaps}</p>`;
+        for (let i = 1; i < 5; i++)
+            if (`player${i}slaps` in game) {
+                let player = game[`player${i}slaps`];
+                msg += `<p>${player.name} got ${player.slaps} slaps</p>`;
+            }
+        io.to(userId).emit('chat',msg);
+        
     });
     
 });

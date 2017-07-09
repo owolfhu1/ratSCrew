@@ -43,7 +43,7 @@
             width: 100%;  height: 100%; top: 0; right: 0; overflow: hidden; }
         .player_info{ position: absolute; height: 15%; width: 36%; right: 0; bottom: 0; color: whitesmoke; }
         .game_body{ width: 100%; height: 100%; padding: 7%; position: absolute; }
-        .player_pile{ text-align: center;  position: absolute; height: 20%; color: whitesmoke; }
+        .player_pile{ text-align: center;  position: absolute; height: 17%; width: 18%; color: whitesmoke; }
         .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 20px; background: rgba(190, 49, 59, 0.74); padding: 20px; }
         .play_pile{ position: absolute; height: 17%; width: 36%; left: 32%; top: 25%; }​
 
@@ -459,56 +459,27 @@
         player_info = ID('player_info');
         //add slap event listener
         play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
-        //position player_pile divs
-        player1.style.height = '17%';   player1.style.width = '18%';
-        player2.style.height = '17%';   player2.style.width = '18%';
-        player3.style.height = '17%';   player3.style.width = '18%';
-        player4.style.height = '17%';   player4.style.width = '18%';
 
         if (playerNumber === 'player1') {
-
             player1.style.left  = '42%';  player1.style.bottom = '0';
             player2.style.left  = '0';    player2.style.top    = '33%';
             player3.style.left  = '42%';  player3.style.top    = '0';
             player4.style.right = '0';    player4.style.top    = '33%';
-
-            //player1.style.left = '160px';   player1.style.top = '500px';
-            //player2.style.left = '0'    ;   player2.style.top = '200px';
-            //player3.style.left = '160px';   player3.style.top = '0'    ;
-            //player4.style.left = '325px';   player4.style.top = '200px';
         } else if (playerNumber === 'player2') {
-
             player2.style.left  = '42%';  player2.style.bottom = '0';
             player3.style.left  = '0';    player3.style.top    = '33%';
             player4.style.left  = '42%';  player4.style.top    = '0';
             player1.style.right = '0';    player1.style.top    = '33%';
-
-            //player2.style.left = '160px';   player2.style.top = '500px';
-            //player3.style.left = '0'    ;   player3.style.top = '200px';
-            //player4.style.left = '160px';   player4.style.top = '0'    ;
-            //player1.style.left = '325px';   player1.style.top = '200px';
         } else if (playerNumber === 'player3') {
-
             player3.style.left  = '42%';  player3.style.bottom = '0';
             player4.style.left  = '0';    player4.style.top    = '33%';
             player1.style.left  = '42%';  player1.style.top    = '0';
             player2.style.right = '0';    player2.style.top    = '33%';
-
-            //player3.style.left = '160px';   player3.style.top = '500px';
-            //player4.style.left = '0'    ;   player4.style.top = '200px';
-            //player1.style.left = '160px';   player1.style.top = '0'    ;
-            //player2.style.left = '325px';   player2.style.top = '200px';
         } else if (playerNumber === 'player4') {
-
             player4.style.left  = '42%';  player4.style.bottom = '0';
             player1.style.left  = '0';    player1.style.top    = '33%';
             player2.style.left  = '42%';  player2.style.top    = '0';
             player3.style.right = '0';    player3.style.top    = '33%';
-
-            //player4.style.left = '160px';   player4.style.top = '500px';
-            //player1.style.left = '0'    ;   player1.style.top = '200px';
-            //player2.style.left = '160px';   player2.style.top = '0'    ;
-            //player3.style.left = '325px';   player3.style.top = '200px';
         }
 
         style('chat').top = '52%';

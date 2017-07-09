@@ -80,7 +80,21 @@ io.on('connection', socket => {
     
     //handles chat and $commands
     socket.on('chat', text => {
-        io.sockets.emit('chat',text);
+        
+        if (text.indexOf('$online') !== -1) {
+            let people = '';
+            
+            for (let key in userMap)
+                if (userMap[key].name !== 'GUEST') {
+                    if (userMap[key].tableId === 'none')
+                        people += `<p>user ${userMap[key].name} is in the lobby.</p>`;
+                    else if (userMap[key].tableId in tables)
+                        people += `<p>user ${userMap[key].name} is waiting at a table.</p>`;
+                    else if (userMap[key].tableId in games)
+                        people += `<p>user ${userMap[key].name} is in a game.</p>`;
+                }
+            io.to(userId).emit('chat', people);
+        } else io.sockets.emit('chat',text);
     });
     
     socket.on('login', loginInfo => {

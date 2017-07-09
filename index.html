@@ -447,7 +447,9 @@
             style="position: absolute; top: 58px; right: 3px;">rules</button>
         `;
 
-
+        ID('highscores_button').addEventListener('click', () => {
+            socket.emit('highscores');
+        });
         ID('rules_button').addEventListener('click', () => {
             socket.emit('rules');
         });

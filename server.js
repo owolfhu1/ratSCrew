@@ -91,8 +91,6 @@ io.on('connection', socket => {
             io.to(userId).emit('chat',msg);
         } else if (text.indexOf('$rules') !== -1 && user.tableId in games) {
             io.to(userId).emit('chat', htmlRules(user.tableId));
-        } else if (text.indexOf('$scores') !== -1) {
-            io.to(userId).emit('ratings', topFive());
         } else io.sockets.emit('chat',text);
     });
     
@@ -528,6 +526,10 @@ io.on('connection', socket => {
             `;
             io.to(userId).emit('rating_search', profile);
         } else io.to(userId).emit('rating_search', 'user does not exist');
+    });
+    
+    socket.on('highscores', () => {
+        io.to(userId).emit('ratings', topFive());
     });
     
 });

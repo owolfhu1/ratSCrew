@@ -52,8 +52,6 @@
         let $help = `
             <p><b>$rules:</b> Tells you the current game rules.</p>
             <p><b>$slaps:</b> Tells you how many slaps everyone in your game has.</p>
-            <p><b>$scores:</b> High scores popup.</p>
-            <p><b></b></p>
         `;
         let playerNumber, player1, player2, player3, player4, play_pile, slap_info, game_body;
             player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST', time_left, remove_timeout,
@@ -221,6 +219,10 @@
     socket.on('slap', () => {
         SLAP.play();
         slap_info.style.display = 'block';
+    });
+
+    ID('highscores_button').addEventListener('click', () => {
+        socket.emit('highscores');
     });
 
     slap_info.addEventListener('click', () => {

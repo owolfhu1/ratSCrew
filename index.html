@@ -349,44 +349,7 @@
 
     //
     socket.on('table', table => {
-        players.innerHTML = '';
-        //adds html for all players at table
-        for (let i = 1; i < 5; i++) {
-            let p = 'player' + i;
-            //for all non-null players
-            if (table[p] !== null) {
-                //if it is the player, give them a ready button
-                if (p === playerNumber) {
 
-
-                    players.innerHTML += `
-<h3>${table[p].name} <button id="ready_button" class="btn btn-sm btn-success">${table[p].ready}</button> &nbsp;
-                     <button id="leave" class="btn btn-sm btn-danger">Leave</button></h3>`;
-
-
-                } else {
-                    let kick = '';
-                    if (playerNumber === 'player1')
-                        kick = `<button id="kick_${p}" class="btn btn-sm btn-danger">Kick</button>`;
-
-                    //else just display name and if they are ready
-                    players.innerHTML += `
-<h3> ${table[p].name} ${table[p].ready} &nbsp; ${kick} </h3>`;
-
-                    if (kick !== '')
-                        click(`kick_${p}`, () => socket.emit('kick', p) );
-
-
-                }
-            }
-        }
-
-        click('leave', () => socket.emit('leave', playerNumber) );
-
-        //activate ready button
-        click('ready_button', () => {
-            socket.emit('ready', playerNumber);
-        });
         //fills out form with current game rules
         for (let key in table){
             let p ='player';
@@ -408,6 +371,33 @@
             ];
             socket.emit('rules', emit);
         });
+
+        players.innerHTML = '';
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
+            if (table[p] !== null) {
+                if (p === playerNumber) {
+                    players.innerHTML += `
+<h3>${table[p].name} <button id="ready_button" class="btn btn-sm btn-success">${table[p].ready}</button> &nbsp;
+                     <button id="leave" class="btn btn-sm btn-danger">Leave</button></h3>`;
+                } else {
+                    let kick = '';
+                    if (playerNumber === 'player1')
+                        kick = `<button id="kick_${p}" class="btn btn-sm btn-danger">Kick</button>`;
+                    players.innerHTML += `
+<h3> ${table[p].name} ${table[p].ready} &nbsp; ${kick} </h3>`;
+                    if (kick !== '')
+                        click(`kick_${p}`, () => socket.emit('kick', p) );
+                }
+            }
+        }
+
+        click('leave', () => socket.emit('leave', playerNumber) );
+
+        click('ready_button', () => {
+            socket.emit('ready', playerNumber);
+        });
+
     });
 
     //gets table rules from server and fills out form

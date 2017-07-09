@@ -467,6 +467,19 @@
 
     //gets new info and updates the game ui
     socket.on('game_info', game => {
+        //todo fail safe (fix this!!)
+        let count = 0;
+        for (let i = 1; i < 5; i++) {
+            let p = 'player' + i;
+            if (game[p] !== null)
+                if (game[p].cards.length !== 0)
+                    count++;
+        }
+        if (count < 2)
+            socket.emit('lobby_me');
+        //todo end fail safe
+
+
         if(game[playerNumber].ready && game[playerNumber].cards.length === 0)
             socket.emit('no_cards');
         //for each player 1 to 4

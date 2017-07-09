@@ -197,7 +197,7 @@
         </div>
     </div>`;
         //activate button to send login emit
-        ID('login_button').addEventListener('click', () => {
+        click('login_button', () => {
             let password = ID('password').value;
             let user_name = ID('user_name').value;
             if (user_name.length > 0 && user_name.length < 11) {
@@ -215,7 +215,7 @@
         style('slap_info').display = 'block';
     });
 
-    ID('highscores_button').addEventListener('click', () => {
+    click('highscores_button', () => {
         socket.emit('highscores');
     });
 
@@ -256,11 +256,11 @@
         ID('game_body').innerHTML = `<div class="container"><br><br><br><br><br><br><br><br>${body}</div>`;
         //activate table buttons
         for (let tableId in tables)
-            ID(tableId).addEventListener('click', () => {
+            click(tableId, () => {
                 //attempt to join table
                 socket.emit('join_table', tableId);
             });
-        ID('new_table').addEventListener('click', () => {
+        click('new_table', () => {
             socket.emit('join_table', 'new');
         });
     });
@@ -383,9 +383,7 @@
             }
         }
         //activate ready button
-        let ready_button = ID('ready_button');
-        ready_button.addEventListener('click', () => {
-            console.log('player hit ready button' + playerNumber); //for testing remove later
+        click('ready_button', () => {
             socket.emit('ready', playerNumber);
         });
         //fills out form with current game rules
@@ -439,10 +437,10 @@
         `;
 
 
-        ID('rules_button').addEventListener('click', () => {
+        click('rules_button', () => {
             socket.emit('rules_button');
         });
-        ID('slaps_button').addEventListener('click', () => {
+        click('slaps_button', () => {
             socket.emit('slaps_button');
         });
 

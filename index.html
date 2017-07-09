@@ -35,7 +35,7 @@
             display: none;
         }
         .slap_image { position: absolute; top: 15%;  left: 25%; width: 50%; height: 40%;}
-        .slap_info{ display: block; position: absolute; z-index: 1;
+        .slap_info{ display: none; position: absolute; z-index: 1;
             width: 100%;  height: 100%; top: 0; right: 0; overflow: hidden; }
         .player_info{ position: absolute; height: 17%; width: 36%; right: 0; bottom: 0; color: whitesmoke; }
         .game_body{ width: 100%; height: 100%; padding: 7%; position: absolute; }
@@ -217,9 +217,10 @@
     socket.on('slap', () => {
         SLAP.play();
         slap_info.style.display = 'block';
-        slap_info_content.addEventListener('click', () => {
-            slap_info.style.display = 'none';
-        });
+    });
+
+    slap_info.addEventListener('click', () => {
+        slap_info.style.display = 'none';
     });
 
     //builds lobby

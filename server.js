@@ -11,10 +11,10 @@ app.get('/', (req, res) => { res.sendFile(__dirname + '/index.html') });
 http.listen(port,() => { console.log('listening on *:' + port) });
 
 //database
-let pg = require('pg');
-pg.defaults.ssl = false;
-let client = new pg.Client(process.env.DATABASE_URL);
-client.connect();
+//let pg = require('pg');
+//pg.defaults.ssl = true;
+//let client = new pg.Client(process.env.DATABASE_URL);
+//client.connect();
 
 let userMap = {};
 let lobby = {};

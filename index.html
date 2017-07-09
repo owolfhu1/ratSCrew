@@ -356,14 +356,14 @@
             if (table[p] !== null) {
                 if (p === playerNumber) {
                     players.innerHTML += `
-<h3>${table[p].name} <button id="ready_button" class="btn btn-sm btn-success">${table[p].ready}</button> &nbsp;
+<h3>${i}) ${table[p].name} <button id="ready_button" class="btn btn-sm btn-success">${table[p].ready}</button> &nbsp;
                      <button id="leave" class="btn btn-sm btn-danger">Leave</button></h3>`;
                 } else {
                     let kick = '';
                     if (playerNumber === 'player1')
                         kick = `<button id="kick_${p}" class="btn btn-sm btn-danger">Kick</button>`;
                     players.innerHTML += `
-<h3> ${table[p].name} ${table[p].ready} &nbsp; ${kick} </h3>`;
+<h3>${i}) ${table[p].name} ${table[p].ready} &nbsp; ${kick} </h3>`;
                     if (kick !== '')
                         click(`kick_${p}`, () => socket.emit('kick', p) );
                 }

@@ -522,13 +522,10 @@ io.on('connection', socket => {
     });
     
     socket.on('rules_button', () => {
-    
         io.to(userId).emit('chat', htmlRules(user.tableId));
-        
     });
     
     socket.on('slaps_button', () => {
-    
         let game = games[user.tableId];
         let msg = `<p>total slaps: ${game.slaps}</p>`;
         for (let i = 1; i < 5; i++)
@@ -537,7 +534,6 @@ io.on('connection', socket => {
                 msg += `<p>${player.name} got ${player.slaps} slaps</p>`;
             }
         io.to(userId).emit('chat',msg);
-        
     });
     
 });
@@ -1047,13 +1043,3 @@ const sliceAnDice = string => {
     }
     return hash + "";
 };
-
-
-/*
- -add DB
- -form doesn't sync after players are put back in table lobby
- -form should give options:
- * add 0/1/2/3 to bottom on incorrect slaps
- * triples = off/win/lose
- * suit triples on/off
- */

@@ -49,8 +49,8 @@
 
     </style>
     <script>
-        let playerNumber, player1, player2, player3, player4, play_pile, slap_info, game_body;
-            player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST', time_left, remove_timeout,
+        let playerNumber, player1, player2, player3, player4, play_pile, slap_info,
+            player_info, rules, players, name = 'GUEST', time_left, remove_timeout,
             ratings, close_ratings, scores, search_result, search_input, search_button, timeout, timeout_time;
     </script>
 </head>
@@ -101,68 +101,63 @@
     const click = (id, event) => ID(id).addEventListener('click', event );
     const style = id => document.getElementById(id).style;
     //grab the DOM
-                    chat = ID('chat');
-                 scores = ID('scores');
-                ratings = ID('ratings');
-                timeout = ID('timeout');
-              game_body = ID('game_body');
-              slap_info = ID('slap_info');
-              chat_body = ID('chat_body');
-              time_left = ID('time_left');
-             chat_input = ID('chat_input');
-           search_input = ID('search_input');
-          close_ratings = ID('close_ratings');
-          search_result = ID('search_result');
-          search_button = ID('search_button');
-         remove_timeout = ID('remove_timeout');
+                    //chat = ID('chat');
+                 //scores = ID('scores');
+                //ratings = ID('ratings');
+                //timeout = ID('timeout');
+              //game_body = ID('game_body');
+             // slap_info = ID('slap_info');
+             // chat_body = ID('chat_body');
+           //   time_left = ID('time_left');
+          //   chat_input = ID('chat_input');
+         //  search_input = ID('search_input');
+         // close_ratings = ID('close_ratings');
+        //  search_result = ID('search_result');
+          //search_button = ID('search_button');
+        // remove_timeout = ID('remove_timeout');
 
     //miss-slap timeout functions:
     socket.on('timeout', time => {
         console.log('timeout emit: ' + time);
-        timeout.style.display = 'block';
-        time_left.innerHTML = `time left: ${time/1000} seconds`;
+        style('timeout').display = 'block';
+        ID('time_left').innerHTML = `time left: ${time/1000} seconds`;
         timeout_time = new Date().getTime() + time;
     });
-    remove_timeout.addEventListener('click', () => {
+    click('remove_timeout', () => {
         let now = new Date().getTime();
         if (now > timeout_time)
-            timeout.style.display = 'none';
+            style('timeout').display = 'none';
         else {
-            time_left.innerText = `time left: ${(timeout_time - now)/1000} seconds`
+            ID('time_left').innerText = `time left: ${(timeout_time - now)/1000} seconds`
         }
     });
     socket.on('timeout_over', () => {
-        timeout.style.display = 'none';
+        style('timeout').display = 'none';
     });
 
     //high score functions:
     socket.on('ratings', list => {
-        ratings.style.display = 'block';
+        style('ratings').display = 'block';
         ID('scores').innerHTML = list;
     });
-
-    //close_ratings.addEventListener('click', () => {
-      //  ratings.style.display = 'none';
-    //});
 
     click('close_ratings', () => {
         style('ratings').display = 'none';
     });
 
-
-    search_button.addEventListener('click', () => {
-        socket.emit('rating_search', search_input.value);
+    click('search_button', () => {
+        socket.emit('rating_search', ID('search_input').value);
     });
     socket.on('rating_search', result => {
-        search_result.innerHTML = result;
+        ID('search_result').innerHTML = result;
     });
 
     //send chat to server on enter key press
-    chat_input.addEventListener('keyup', function(event) {
+    ID('chat_input').addEventListener('keyup', function(event) {
         event.preventDefault();
         if (event.keyCode === 13) {
-            let text = chat_input.value;
-            chat_input.value = '';
+            let text = ID('chat_input').value;
+            ID('chat_input').value = '';
             socket.emit('chat', `<p>${name}: ${text}</p>`);
         }
     });
@@ -172,14 +167,14 @@
 
     //display chat from server
     socket.on('chat', text => {
-        chat_body.innerHTML += text;
-        chat_body.scrollTop = chat_body.scrollHeight;
+        ID('chat_body').innerHTML += text;
+        ID('chat_body').scrollTop = ID('chat_body').scrollHeight;
     });
 
     //builds login form
     socket.on('setup_login', () => {
         //setup game_body to have login fields
-        game_body.innerHTML = `<div class="container">
+        ID('game_body').innerHTML = `<div class="container">
     <div class="jumbotron" style="color: whitesmoke; background-image:url(http://owolfhu1.x10host.com/Oh_Hell_solo/img/ratimg.jpg); background-size:100%;">
     <h1><div style="text-align: center;">Orion's Rat Screw!</div></h1></div>
     <div class="form-horizontal">
@@ -217,21 +212,20 @@
     //when someone else slaps the pile
     socket.on('slap', () => {
         SLAP.play();
-        slap_info.style.display = 'block';
+        style('slap_info').display = 'block';
     });
 
     ID('highscores_button').addEventListener('click', () => {
         socket.emit('highscores');
     });
 
-    slap_info.addEventListener('click', () => {
-        slap_info.style.display = 'none';
+    click('slap_info', () => {
+        style('slap_info').display = 'none';
     });
 
     //builds lobby
     socket.on('lobby', tables => {
-        game_body.style = "width: 100%; height: 100%; padding: 7%; background: none;";
-
+        style('game_body').padding = '7%';
 
         style('chat').top = "0";
         style('chat').display = 'inherit';
@@ -259,7 +253,7 @@
             body += '</p></div>';
         }
         //update the html
-        game_body.innerHTML = `<div class="container"><br><br><br><br><br><br><br><br>${body}</div>`;
+        ID('game_body').innerHTML = `<div class="container"><br><br><br><br><br><br><br><br>${body}</div>`;
         //activate table buttons
         for (let tableId in tables)
             ID(tableId).addEventListener('click', () => {
@@ -276,7 +270,7 @@
         //get playerNumber
         if (player !== null)
             playerNumber = player;
-        game_body.innerHTML = `
+        ID('game_body').innerHTML = `
         <div class="container" >
         <br><br><br><br><br><br><br>
         <div id="players"></div>
@@ -429,11 +423,8 @@
 
     //sets up the game ui
     socket.on('setup_game', () => {
-        //game_body.style.backgroundImage = "url('http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png')";
-        //game_body.style.width = "400px";
-        //game_body.style.height = "600px";
-        game_body.style.padding = "0";
-        game_body.innerHTML = `
+        style('game_body').padding = "0";
+        ID('game_body').innerHTML = `
 <img src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png" height="100%" width="100%">
             <div class="player_info" id="player_info"></div>
             <div class="player_pile" id="player1"></div>

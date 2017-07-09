@@ -537,7 +537,6 @@ io.on('connection', socket => {
     });
     
     socket.on('quit', () => {
-        
         if (user.tableId in games) {
             let game = games[user.tableId];
             for (let i = 1; i < 5; i++) {
@@ -554,8 +553,15 @@ io.on('connection', socket => {
                         lobby[userId] = user.name;
                         for (let player in lobby)
                             io.to(player).emit('lobby', tables);
+    
+                        let count = 0;
+                        for (let i = 1; i < 5; i++)
+                            if (game[`player${i}`] !== null)
+                                if (game[`player${i}`].cards.length > 0)
+                                    count++;
+                        if (count < 2)
+                            endGame(game);
                     }
-                
             }
         }
     });
@@ -1065,3 +1071,5 @@ const sliceAnDice = string => {
     }
     return hash + "";
 };
+
+

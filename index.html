@@ -451,35 +451,35 @@
 
 
         //get doc elements
-        player1 = ID('player1');
-        player2 = ID('player2');
-        player3 = ID('player3');
-        player4 = ID('player4');
-        play_pile = ID('play_pile');
-        player_info = ID('player_info');
+        //player1 = ID('player1');
+        //player2 = ID('player2');
+        //player3 = ID('player3');
+        //player4 = ID('player4');
+        //play_pile = ID('play_pile');
+        //player_info = ID('player_info');
         //add slap event listener
-        play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
+        ID('play_pile').addEventListener('mousedown', () =>{ socket.emit('slap'); });
 
         if (playerNumber === 'player1') {
-            player1.style.left  = '42%';  player1.style.bottom = '0';
-            player2.style.left  = '0';    player2.style.top    = '33%';
-            player3.style.left  = '42%';  player3.style.top    = '0';
-            player4.style.right = '0';    player4.style.top    = '33%';
+            style('player1').left  = '42%';  style('player1').bottom = '0';
+            style('player2').left  = '0';    style('player2').top    = '33%';
+            style('player3').left  = '42%';  style('player3').top    = '0';
+            style('player4').right = '0';    style('player4').top    = '33%';
         } else if (playerNumber === 'player2') {
-            player2.style.left  = '42%';  player2.style.bottom = '0';
-            player3.style.left  = '0';    player3.style.top    = '33%';
-            player4.style.left  = '42%';  player4.style.top    = '0';
-            player1.style.right = '0';    player1.style.top    = '33%';
+            style('player2').left  = '42%';  style('player2').bottom = '0';
+            style('player3').left  = '0';    style('player3').top    = '33%';
+            style('player4').left  = '42%';  style('player4').top    = '0';
+            style('player1').right = '0';    style('player1').top    = '33%';
         } else if (playerNumber === 'player3') {
-            player3.style.left  = '42%';  player3.style.bottom = '0';
-            player4.style.left  = '0';    player4.style.top    = '33%';
-            player1.style.left  = '42%';  player1.style.top    = '0';
-            player2.style.right = '0';    player2.style.top    = '33%';
+            style('player3').left  = '42%';  style('player3').bottom = '0';
+            style('player4').left  = '0';    style('player4').top    = '33%';
+            style('player1').left  = '42%';  style('player1').top    = '0';
+            style('player2').right = '0';    style('player2').top    = '33%';
         } else if (playerNumber === 'player4') {
-            player4.style.left  = '42%';  player4.style.bottom = '0';
-            player1.style.left  = '0';    player1.style.top    = '33%';
-            player2.style.left  = '42%';  player2.style.top    = '0';
-            player3.style.right = '0';    player3.style.top    = '33%';
+            style('player4').left  = '42%';  style('player4').bottom = '0';
+            style('player1').left  = '0';    style('player1').top    = '33%';
+            style('player2').left  = '42%';  style('player2').top    = '0';
+            style('player3').right = '0';    style('player3').top    = '33%';
         }
 
         style('chat').top = '52%';
@@ -504,7 +504,7 @@
                     if (player !== playerNumber)
                         ID(player).innerHTML += `
                             <b style="position: absolute; z-index: 1; top: 3px; left: 3px;">
-                            <br>${game[player].name}<br>&nbsp;&nbsp;&nbsp;&nbsp;${game[player].cards.length}</b>`;
+                            <br>&nbsp;${game[player].name}<br>&nbsp;&nbsp;&nbsp;&nbsp;${game[player].cards.length}</b>`;
                 } else ID(player).innerHTML = printNoCard();
                 //if they dont have any cards ---^
             } else ID(player).innerHTML = '';
@@ -512,11 +512,11 @@
         //print player info
         player_info.innerHTML = ``;
         if (game[playerNumber].cards.length > 0){
-            player_info.innerHTML = `
+            ID('player_info').innerHTML = `
 <strong>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</strong>`;
         }
         //place the last 4 cards
-        play_pile.innerHTML = printPile(game.pile);
+        ID('play_pile').innerHTML = printPile(game.pile);
 
         //if it is client's turn
         if (game[playerNumber].ready) {

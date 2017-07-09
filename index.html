@@ -393,7 +393,7 @@
                 ID(key + table[key]).checked = true;
         }
         //when a change is made to the form, send the form to the server
-        $('#rules').on('change', fuck => {
+        $('#rules').on('change', whatAreYouGonnaDo => {
             let emit = [
                 rules.sandwich.value,   //0
                 rules.run.value,        //1
@@ -434,13 +434,20 @@
             style="position: absolute; top: 10px; left: 10px;">slaps</button>
             <button id="rules_button" class="btn btn-info"
             style="position: absolute; top: 10px; right: 10px;">rules</button>
+            <button id="quit_button" class="btn btn-danger"
+            style="position: absolute; bottom: 2%; left: 4%; width: 25%; height: 10%;">rules</button>
         `;
 
         click('rules_button', () => {
             socket.emit('rules_button');
         });
+
         click('slaps_button', () => {
             socket.emit('slaps_button');
+        });
+
+        click('quit_button', () => {
+            socket.emit('quit_button');
         });
 
         ID('play_pile').addEventListener('mousedown', () =>{ socket.emit('slap'); });

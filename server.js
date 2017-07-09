@@ -542,18 +542,21 @@ io.on('connection', socket => {
             let game = games[user.tableId];
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
-                if (game[p] !== null) {
-                    if (game[p].userId === userId)
+                if (game[p] !== null)
+                    if (game[p].userId === userId) {
                         removeFromGame(user.tableId, p);
-                }
+                        for (let x = 1; x < 5; x++) {
+                            let y = 'player' + x;
+                            if (game[y] !== null)
+                                io.to(game[y].userId).emit('game_info', game);
+                        }
+                        user.tableId = 'none';
+                        lobby[userId] = user.name;
+                        for (let player in lobby)
+                            io.to(player).emit('lobby', tables);
+                    }
+                
             }
-            
-            user.tableId = 'none';
-            lobby[userId] = user.name;
-            
-            for (let player in lobby)
-                io.to(player).emit('lobby', tables);
-    
         }
     });
     

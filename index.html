@@ -13,9 +13,6 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        strong {
-            font-size: large;
-        }
         .well { border: 1px solid slategray; border-radius: 10px;}
         .btn { border-radius: 10px }
         .form-control { border-radius: 10px; }
@@ -234,7 +231,7 @@
         game_body.style = "width: 100%; height: 100%; padding: 7%; background: none;";
         chat.style = "top: 0; width: 100%;";
         chat.style.display = 'inherit';
-        let body = `<button id="new_table" class="btn btn-info btn-lg"><strong>click here to start a new table</strong></button>`;
+        let body = `<button id="new_table" class="btn btn-info btn-lg"><span style="font-size: large;">click here to start a new table</span></button>`;
         //for each table, build a button w/ players names and
         let counter = 0;
         for (let key in tables) counter++

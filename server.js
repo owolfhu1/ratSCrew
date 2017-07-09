@@ -80,21 +80,7 @@ io.on('connection', socket => {
     
     //handles chat and $commands
     socket.on('chat', text => {
-        
-        if (text.indexOf('$online') !== -1) {
-            let people = '';
-            
-            for (let key in userMap)
-                if (userMap[key].name !== 'GUEST') {
-                    if (userMap[key].tableId === 'none')
-                        people += `<p>user ${userMap[key].name} is in the lobby.</p>`;
-                    else if (userMap[key].tableId in tables)
-                        people += `<p>user ${userMap[key].name} is waiting at a table.</p>`;
-                    else if (userMap[key].tableId in games)
-                        people += `<p>user ${userMap[key].name} is in a game.</p>`;
-                }
-            io.to(userId).emit('chat', people);
-        } else io.sockets.emit('chat',text);
+        io.sockets.emit('chat',text);
     });
     
     socket.on('login', loginInfo => {
@@ -607,19 +593,27 @@ io.on('connection', socket => {
         let table = tables[user.tableId];
         lobby[table[p].userId] = table[p].name;
         table[p] = null;
-    
-        
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null)
                 io.to(table[x].userId).emit('table', [table, x]);
         }
-        
-        
-        
-        
         for (let player in lobby)
             io.to(player).emit('lobby', tables);
+    });
+    
+    socket.on('online', () => {
+        let people = '';
+        for (let key in userMap)
+            if (userMap[key].name !== 'GUEST') {
+                if (userMap[key].tableId === 'none')
+                    people += `<p>user ${userMap[key].name} is in the lobby.</p>`;
+                else if (userMap[key].tableId in tables)
+                    people += `<p>user ${userMap[key].name} is waiting at a table.</p>`;
+                else if (userMap[key].tableId in games)
+                    people += `<p>user ${userMap[key].name} is in a game.</p>`;
+            }
+        io.to(userId).emit('chat', people);
     });
     
     

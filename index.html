@@ -62,6 +62,7 @@
     <div id="chat_body" class="chat_body"></div>
     <input title="chat_input" id="chat_input" class="chat_input" placeholder="type chat here..."/>
     <button id="highscores_button" class="btn btn-xs btn-warning" style="position: absolute; top: 3px; right: 3px;">high scores</button>
+    <button id="online_button" class="btn btn-xs btn-success" style="position: absolute; top: 30px; right: 3px;">who's online?</button>
 </div>
 <div class="game_body" id="game_body">
 </div>
@@ -199,9 +200,9 @@
         style('slap_info').display = 'block';
     });
 
-    click('highscores_button', () => {
-        socket.emit('highscores');
-    });
+    click('highscores_button', () => socket.emit('highscores') );
+
+    click('online_button', () => socket.emit('online') );
 
     click('slap_info', () => {
         style('slap_info').display = 'none';

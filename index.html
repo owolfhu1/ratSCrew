@@ -529,7 +529,7 @@
         player_info.innerHTML = ``;
         if (game[playerNumber].cards.length > 0){
             player_info.innerHTML = `
-<h3>${game[playerNumber].cards.length} cards left<br>${game.pile.length} in pile</h3>`;
+<strong>${game[playerNumber].cards.length} cards left<br>${game.pile.length} cards in pile</strong>`;
         }
         //place the last 4 cards
         play_pile.innerHTML = printPile(game.pile);

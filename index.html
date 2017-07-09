@@ -98,23 +98,24 @@
 
     //shorten the code
     const ID = id => document.getElementById(id);
-
+    const click = (id, event) => ID(id).addEventListener('click', event );
+    const style = id => document.getElementById(id).style;
     //grab the DOM
-                    chat = ID('chat')
-    ;             scores = ID('scores')
-    ;            ratings = ID('ratings')
-    ;            timeout = ID('timeout')
-    ;          game_body = ID('game_body')
-    ;          slap_info = ID('slap_info')
-    ;          chat_body = ID('chat_body')
-    ;          time_left = ID('time_left')
-    ;         chat_input = ID('chat_input')
-    ;       search_input = ID('search_input')
-    ;      close_ratings = ID('close_ratings')
-    ;      search_result = ID('search_result')
-    ;      search_button = ID('search_button')
-    ;     remove_timeout = ID('remove_timeout')
-    ;
+                    chat = ID('chat');
+                 scores = ID('scores');
+                ratings = ID('ratings');
+                timeout = ID('timeout');
+              game_body = ID('game_body');
+              slap_info = ID('slap_info');
+              chat_body = ID('chat_body');
+              time_left = ID('time_left');
+             chat_input = ID('chat_input');
+           search_input = ID('search_input');
+          close_ratings = ID('close_ratings');
+          search_result = ID('search_result');
+          search_button = ID('search_button');
+         remove_timeout = ID('remove_timeout');
+
     //miss-slap timeout functions:
     socket.on('timeout', time => {
         console.log('timeout emit: ' + time);
@@ -137,11 +138,18 @@
     //high score functions:
     socket.on('ratings', list => {
         ratings.style.display = 'block';
-        scores.innerHTML = list;
+        ID('scores').innerHTML = list;
     });
-    close_ratings.addEventListener('click', () => {
-        ratings.style.display = 'none';
+
+    //close_ratings.addEventListener('click', () => {
+      //  ratings.style.display = 'none';
+    //});
+
+    click('close_ratings', () => {
+        style('ratings').display = 'none';
     });
+
+
     search_button.addEventListener('click', () => {
         socket.emit('rating_search', search_input.value);
     });
@@ -223,8 +231,11 @@
     //builds lobby
     socket.on('lobby', tables => {
         game_body.style = "width: 100%; height: 100%; padding: 7%; background: none;";
-        chat.style = "top: 0; width: 100%;";
-        chat.style.display = 'inherit';
+
+
+        style('chat').top = "0";
+        style('chat').display = 'inherit';
+
         let body = `<button id="new_table" class="btn btn-info btn-lg">click here to start a new table</button>`;
         //for each table, build a button w/ players names and
         let counter = 0;
@@ -511,8 +522,8 @@
             //player3.style.left = '325px';   player3.style.top = '200px';
         }
 
-        chat.style.top = '52%';
-        chat.style.display = 'inherit';
+        style('chat').top = '52%';
+        style('chat').display = 'inherit';
     });
 
     //gets new info and updates the game ui

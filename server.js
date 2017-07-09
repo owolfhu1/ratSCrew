@@ -558,6 +558,12 @@ io.on('connection', socket => {
         }
     });
     
+    socket.on('lobby_me', () => {
+        lobby[userId] = user.name;
+        for (let player in lobby)
+            io.to(player).emit('lobby', tables);
+    });
+    
 });
 
 const takePile = (tableId, player) => {

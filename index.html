@@ -100,22 +100,6 @@
     const ID = id => document.getElementById(id);
     const click = (id, event) => ID(id).addEventListener('click', event );
     const style = id => document.getElementById(id).style;
-    //grab the DOM
-                    //chat = ID('chat');
-                 //scores = ID('scores');
-                //ratings = ID('ratings');
-                //timeout = ID('timeout');
-              //game_body = ID('game_body');
-             // slap_info = ID('slap_info');
-             // chat_body = ID('chat_body');
-           //   time_left = ID('time_left');
-          //   chat_input = ID('chat_input');
-         //  search_input = ID('search_input');
-         // close_ratings = ID('close_ratings');
-        //  search_result = ID('search_result');
-          //search_button = ID('search_button');
-        // remove_timeout = ID('remove_timeout');
-
     //miss-slap timeout functions:
     socket.on('timeout', time => {
         console.log('timeout emit: ' + time);
@@ -431,9 +415,11 @@
             <div class="player_pile" id="player4"></div>
             <div class="play_pile" id="play_pile"></div>
             <button id="slaps_button" class="btn btn-success"
-            style="position: absolute; top: 10px; left: 10px;">slaps</button>
+            style="position: absolute; top: 2%; left: 4%; width: 25%; height: 10%;">slaps</button>
             <button id="rules_button" class="btn btn-info"
-            style="position: absolute; top: 10px; right: 10px;">rules</button>
+            style="position: absolute; top: 2%; right: 4%; width: 25%; height: 10%;">rules</button>
+            <button id="quit_button" class="btn btn-danger"
+            style="position: absolute; bottom: 2%; left: 4%; width: 25%; height: 10%;">quit</button>
         `;
 
 
@@ -443,18 +429,19 @@
         click('slaps_button', () => {
             socket.emit('slaps_button');
         });
+        click('quit_button', () => {
+            if (confirm('Are you sure you want to quit?'))
+                socket.emit('quit_button');
+        });
 
 
+        //TO here
+        //TO here
+        //TO here
+        //TO here
+        //TO here
+        //TO here
 
-
-
-
-
-        //get doc elements
-        //player1 = ID('player1');
-        //player2 = ID('player2');
-        //player3 = ID('player3');
-        //player4 = ID('player4');
         play_pile = ID('play_pile');
         player_info = ID('player_info');
         //add slap event listener

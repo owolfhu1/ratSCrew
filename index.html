@@ -356,12 +356,12 @@
             if (table[p] !== null) {
                 if (p === playerNumber) {
                     players.innerHTML += `
-<p>${i}) ${table[p].name} <button id="ready_button" class="btn btn-xs btn-success">${table[p].ready}</button> &nbsp;
-                     <button id="leave" class="btn btn-sm btn-danger">Leave</button></p>`;
+<p>${i}) ${table[p].name} <button id="ready_button" class="btn btn-xs btn-success">&nbsp;${table[p].ready}&nbsp;</button> &nbsp;
+                     <button id="leave" class="btn btn-xs btn-danger">&nbsp;Leave&nbsp;</button></p>`;
                 } else {
                     let kick = '';
                     if (playerNumber === 'player1')
-                        kick = `<button id="kick_${p}" class="btn btn-xs btn-danger">Kick</button>`;
+                        kick = `<button id="kick_${p}" class="btn btn-xs btn-danger">&nbsp;Kick&nbsp;</button>`;
                     players.innerHTML += `
 <p>${i}) ${table[p].name} ${table[p].ready} &nbsp; ${kick} </p>`;
                     if (kick !== '')

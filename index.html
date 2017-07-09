@@ -49,10 +49,6 @@
 
     </style>
     <script>
-        let $help = `
-            <p><b>$rules:</b> Tells you the current game rules.</p>
-            <p><b>$slaps:</b> Tells you how many slaps everyone in your game has.</p>
-        `;
         let playerNumber, player1, player2, player3, player4, play_pile, slap_info, game_body;
             player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST', time_left, remove_timeout,
             ratings, close_ratings, scores, search_result, search_input, search_button, timeout, timeout_time;
@@ -63,9 +59,7 @@
     <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"></image>
 </div>
 <div id="chat" class="chat">
-    <div id="chat_body" class="chat_body">
-            <p>For help enter '$help'. Enjoy! </p>
-        </div>
+    <div id="chat_body" class="chat_body"></div>
     <input title="chat_input" id="chat_input" class="chat_input" placeholder="type chat here..."/>
     <button id="highscores_button" class="btn btn-xs btn-warning" style="position: absolute; top: 3px; right: 3px;">high scores</button>
 </div>
@@ -161,10 +155,7 @@
         if (event.keyCode === 13) {
             let text = chat_input.value;
             chat_input.value = '';
-            if (text.indexOf("$help") !== -1) {
-                chat_body.innerHTML += $help;
-                chat_body.scrollTop = chat_body.scrollHeight;
-            } else socket.emit('chat', `<p>${name}: ${text}</p>`);
+            socket.emit('chat', `<p>${name}: ${text}</p>`);
         }
     });
 

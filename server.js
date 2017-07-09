@@ -80,18 +80,7 @@ io.on('connection', socket => {
     
     //handles chat and $commands
     socket.on('chat', text => {
-        if (text.indexOf('$slaps') !== -1 && user.tableId in games) {
-            let game = games[user.tableId];
-            let msg = `<p>total slaps: ${game.slaps}</p>`;
-            for (let i = 1; i < 5; i++)
-                if (`player${i}slaps` in game) {
-                    let player = game[`player${i}slaps`];
-                    msg += `<p>${player.name} got ${player.slaps} slaps</p>`;
-                }
-            io.to(userId).emit('chat',msg);
-        } else if (text.indexOf('$rules') !== -1 && user.tableId in games) {
-            io.to(userId).emit('chat', htmlRules(user.tableId));
-        } else io.sockets.emit('chat',text);
+        io.sockets.emit('chat',text);
     });
     
     socket.on('login', loginInfo => {

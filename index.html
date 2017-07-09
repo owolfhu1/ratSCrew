@@ -13,7 +13,7 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
-        .well { border: 1px solid slategray; border-radius: 10px;}
+        .well { border: 1px solid slategray; border-radius: 15px;}
         .btn { border-radius: 10px; }
         .container .jumbotron { border-radius: 15px; }
         .form-control { border-radius: 10px; }
@@ -243,7 +243,7 @@
             counter++;
             let table = tables[tableId];
             body += '<div class="well">';
-            body += `<h3>table ${counter}: <button class="btn btn-success" id="${tableId}">Join Table</button></h3>`;
+            body += `<h3>table ${counter}: &#160; <button class="btn btn-success" id="${tableId}">Join Table</button></h3>`;
             body += '<p>Players at table:</p><p>|';
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;

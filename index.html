@@ -357,12 +357,27 @@
             if (table[p] !== null) {
                 //if it is the player, give them a ready button
                 if (p === playerNumber) {
+
+
                     players.innerHTML += `
-<h2>${table[p].name} <button id="ready_button" class="btn btn-info">${table[p].ready}</button></h2>`;
+<h2>${table[p].name} <button id="ready_button" class="btn btn-info">${table[p].ready}</button> &nbsp;
+                     <button id="leave" class="btn btn-danger">Leave</button></h2>`;
+
+                    click('leave', () => socket.emit('leave', p) );
+
                 } else {
+                    let kick = '';
+                    if (playerNumber === 'player1')
+                        kick = `<button id="kick_${p}" class="btn btn-danger">Kick</button>`;
+
                     //else just display name and if they are ready
                     players.innerHTML += `
-<h2> ${table[p].name} ${table[p].ready} </h2>`;
+<h2> ${table[p].name} ${table[p].ready} &nbsp; ${kick} </h2>`;
+
+                    if (kick !== '')
+                        click(`kick_${p}`, () => socket.emit('kick', p) );
+
+
                 }
             }
         }

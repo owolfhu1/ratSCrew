@@ -564,6 +564,25 @@ io.on('connection', socket => {
             io.to(player).emit('lobby', tables);
     });
     
+    socket.on('leave', p => {
+        tables[user.tableId][p] = null;
+        user.tableId = 'none';
+        
+        lobby[userId] = user.name;
+        
+        for (let player in lobby)
+            io.to(player).emit('lobby', tables);
+    });
+    
+    socket.on('kick', p => {
+        let table = tables[user.tableId];
+        lobby[table[p].userId] = table[p].name;
+        table[p] = null;
+        for (let player in lobby)
+            io.to(player).emit('lobby', tables);
+    });
+    
+    
 });
 
 const takePile = (tableId, player) => {

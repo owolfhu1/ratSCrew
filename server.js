@@ -536,6 +536,27 @@ io.on('connection', socket => {
         io.to(userId).emit('chat',msg);
     });
     
+    socket.on('quit', () => {
+        
+        if (user.tableId in games) {
+            let game = games[user.tableId];
+            for (let i = 1; i < 5; i++) {
+                let p = 'player' + i;
+                if (game[p] !== null) {
+                    if (game[p].userId === userId)
+                        removeFromGame(user.tableId, p);
+                }
+            }
+            
+            user.tableId = 'none';
+            lobby[userId] = user.name;
+            
+            for (let player in lobby)
+                io.to(player).emit('lobby', tables);
+    
+        }
+    });
+    
 });
 
 const takePile = (tableId, player) => {
@@ -858,8 +879,6 @@ const removeFromGame = (tableId, player) => {
                 for (let i = 1; i < 5; i++) {
             
                     let p = 'player' + i;
-            
-                    console.log("this card is: " + cards[0]);
             
                     if (game.quit === 'distribute')
                         if (cards.length !== 0)

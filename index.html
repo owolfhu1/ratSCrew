@@ -431,16 +431,8 @@
         });
         click('quit_button', () => {
             if (confirm('Are you sure you want to quit?'))
-                socket.emit('quit_button');
+                socket.emit('quit');
         });
-
-
-        //TO here
-        //TO here
-        //TO here
-        //TO here
-        //TO here
-        //TO here
 
         play_pile = ID('play_pile');
         player_info = ID('player_info');

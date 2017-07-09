@@ -51,7 +51,7 @@
             <p><b>$scores:</b> High scores popup.</p>
             <p><b></b></p>
         `;
-        let playerNumber, player1, player2, player3, player4, play_pile, slap_info, slap_info_content, game_body;
+        let playerNumber, player1, player2, player3, player4, play_pile, slap_info, game_body;
             player_info, rules, players,  chat_body, chat_input, chat, name = 'GUEST', time_left, remove_timeout,
             ratings, close_ratings, scores, search_result, search_input, search_button, timeout, timeout_time;
     </script>
@@ -117,7 +117,6 @@
     ;      search_result = ID('search_result')
     ;      search_button = ID('search_button')
     ;     remove_timeout = ID('remove_timeout')
-    ;  slap_info_content = ID('slap_info_content')
     ;
     //miss-slap timeout functions:
     socket.on('timeout', time => {
@@ -425,7 +424,7 @@
         //game_body.style.width = "400px";
         //game_body.style.height = "600px";
         game_body.innerHTML = `
-<img src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png" height="100%" width="100%">
+<img src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png" style="top: 0; bottom: 0; right: 0; left: 0;" height="100%" width="100%">
             <div class="player_info" id="player_info"></div>
             <div class="player_pile" id="player1"></div>
             <div class="player_pile" id="player2"></div>
@@ -494,7 +493,8 @@
             //player3.style.left = '325px';   player3.style.top = '200px';
         }
 
-        chat.style.top = '55%';
+        chat.style.top = '50%';
+        chat.style.height = '25%';
         chat.style.display = 'inherit';
     });
 

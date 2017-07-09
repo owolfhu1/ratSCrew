@@ -532,6 +532,14 @@ io.on('connection', socket => {
         io.to(userId).emit('ratings', topFive());
     });
     
+    socket.on('highscores', () => {
+        io.to(userId).emit('ratings', topFive());
+    });
+    
+    socket.on('highscores', () => {
+        io.to(userId).emit('ratings', topFive());
+    });
+    
 });
 
 const takePile = (tableId, player) => {

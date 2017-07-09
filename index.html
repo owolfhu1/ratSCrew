@@ -439,17 +439,13 @@
             <div class="player_pile" id="player3"></div>
             <div class="player_pile" id="player4"></div>
             <div class="play_pile" id="play_pile"></div>
-        `;
-        ID('chat').innerHTML += `
-            <button id="slaps_button" class="btn btn-xs btn-success"
+            <button id="slaps_button" class="btn btn-success"
             style="position: absolute; top: 30px; right: 3px;">slaps</button>
-            <button id="rules_button" class="btn btn-xs btn-primary"
+            <button id="rules_button" class="btn btn-primary"
             style="position: absolute; top: 58px; right: 3px;">rules</button>
         `;
 
-        ID('highscores_button').addEventListener('click', () => {
-            socket.emit('highscores');
-        });
+
         ID('rules_button').addEventListener('click', () => {
             socket.emit('rules');
         });

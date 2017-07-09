@@ -869,7 +869,6 @@ const removeFromGame = (tableId, player) => {
         nextPlayer(tableId);
     
     game[player] = null;
-    console.log(cards);
     
     if (game.quit !== 'end') {
     
@@ -896,14 +895,7 @@ const removeFromGame = (tableId, player) => {
                 }
         
             }
-            for (let i = 1; i < 5; i++) {
-                let p = 'player' + i;
-                if (game[p] !== null) {
-                    console.log(game[p].name);
-                    console.dir(game[p].cards);
-                }
-            }
-            console.dir(game)
+            
         }
         
     } else endGame(tableId);

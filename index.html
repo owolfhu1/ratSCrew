@@ -351,6 +351,9 @@
         let table = data[0];
         playerNumber = data[1];
         players.innerHTML = '';
+
+        let kickArray[];
+
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
             if (table[p] !== null) {
@@ -364,11 +367,19 @@
                         kick = `<button id="kick_${p}" class="btn btn-xs btn-danger">&nbsp;Kick&nbsp;</button>`;
                     players.innerHTML += `
 <p>${i}) ${table[p].name} ${table[p].ready} &nbsp; ${kick} </p>`;
-                    if (kick !== '')
-                        click(`kick_${p}`, () => socket.emit('kick', p) );
+                    if (kick !== '') {
+                        kickArray.push(p);
+                    }
                 }
             }
         }
+
+        if (playerNumber === 'player1')
+            for (let i = 0; i < kickArray.length; i++)
+                click(`kick_${kickArray[i]}`, () => socket.emit('kick', kickArray[i]));
+
+
+
 
         click('leave', () => socket.emit('leave', playerNumber) );
 

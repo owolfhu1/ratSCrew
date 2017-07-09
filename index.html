@@ -347,9 +347,9 @@
         players = ID('players');
     });
 
-    //
-    socket.on('table', table => {
-
+    socket.on('table', data => {
+        let table = data[0];
+        playerNumber = data[1];
         players.innerHTML = '';
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;

@@ -147,7 +147,7 @@ io.on('connection', socket => {
                     for (let i = 1; i < 5; i++) {
                         let p = 'player' + i;
                         if (table[p] !== null)
-                            io.to(table[p].userId).emit('table', table);
+                            io.to(table[p].userId).emit('table', [table, p]);
                     }
                 }
                 for (let key in lobby) io.to(key).emit('lobby', tables );
@@ -199,7 +199,7 @@ io.on('connection', socket => {
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
                 if (table[p] !== null)
-                    io.to(table[p].userId).emit('table', table);
+                    io.to(table[p].userId).emit('table', [table, p]);
             }
         } else {
             //join existing table
@@ -228,7 +228,7 @@ io.on('connection', socket => {
                 for (let i = 1; i < 5; i++) {
                     let p = 'player' + i;
                     if (table[p] !== null)
-                        io.to(table[p].userId).emit('table', table);
+                        io.to(table[p].userId).emit('table', [table, p]);
                 }
                 //remove from lobby and update lobby for lobby recipients
                 delete lobby[userId];
@@ -248,7 +248,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++) {
             let p = 'player' + i;
             if (table[p] !== null)
-                io.to(table[p].userId).emit('table', table);
+                io.to(table[p].userId).emit('table', [table, p]);
         }
         //check if all players are ready
         let ready = 0;
@@ -576,7 +576,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null) {
-                io.to(table[x].userId).emit('table', table);
+                io.to(table[x].userId).emit('table', [table, x]);
                 count++
             }
         }
@@ -596,7 +596,7 @@ io.on('connection', socket => {
         for (let i = 1; i < 5; i++){
             let x = 'player' + i;
             if (table[x] !== null)
-                io.to(table[x].userId).emit('table', table);
+                io.to(table[x].userId).emit('table', [table, x]);
         }
         
         

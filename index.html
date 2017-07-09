@@ -34,17 +34,14 @@
             z-index: 1;
             display: none;
         }
-        .slap_image { position: absolute; top: 84px;  left: 73px;}
-        .slap_info_content { margin: auto; padding: 5px; background-color: transparent;
-            width: 100%; height: 100%; color: #f51300; }
-        .slap_info{ display: none; position: absolute; z-index: 1;  width: 100%;  height: 100%;
-            top: 0; right: 0; overflow: hidden; }
-        .player_info{ position: absolute;  top: 500px; left: 245px; color: whitesmoke; }
+        .slap_image { position: absolute; top: 15%;  left: 25%; width: 50%; height: 40%;}
+        .slap_info{ display: block; position: absolute; z-index: 1;
+            width: 100%;  height: 100%; top: 0; right: 0; overflow: hidden; }
+        .player_info{ position: absolute; height: 17%; width: 36%; right: 0; bottom: 0; color: whitesmoke; }
         .game_body{ width: 100%; height: 100%; padding: 7%; position: absolute; }
         .player_pile{ text-align: center;  position: absolute; height: 20%; color: whitesmoke; }
         .lobby{ position: absolute; top: 10%; left: 10%; border-radius: 20px; background: rgba(190, 49, 59, 0.74); padding: 20px; }
-        .play_pile{ width: 150px; height: 100px; position: absolute; top: 210px;  left: 175px;
-            margin-top: -50px;  margin-left: -50px; }​
+        .play_pile{ position: absolute; height: 17%; width: 36%; left: 32%; top: 25%; }​
 
     </style>
     <script>
@@ -61,9 +58,7 @@
 </head>
 <body style="background: #fdffdc">
 <div id="slap_info" class="slap_info">
-    <div id="slap_info_content" class="slap_info_content">
-        <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"></image>
-    </div>
+    <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"></image>
 </div>
 <div id="chat" class="chat">
         <div id="chat_body" class="chat_body">
@@ -425,10 +420,11 @@
 
     //sets up the game ui
     socket.on('setup_game', () => {
-        game_body.style.backgroundImage = "url('http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png')";
-        game_body.style.width = "400px";
-        game_body.style.height = "600px";
+        //game_body.style.backgroundImage = "url('http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png')";
+        //game_body.style.width = "400px";
+        //game_body.style.height = "600px";
         game_body.innerHTML = `
+<img src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png" height="100%" width="100%">
             <div class="player_info" id="player_info"></div>
             <div class="player_pile" id="player1"></div>
             <div class="player_pile" id="player2"></div>
@@ -446,31 +442,58 @@
         //add slap event listener
         play_pile.addEventListener('mousedown', () =>{ socket.emit('slap'); });
         //position player_pile divs
+        player1.style.height = '17%';   player1.style.width = '18%';
+        player2.style.height = '17%';   player2.style.width = '18%';
+        player3.style.height = '17%';   player3.style.width = '18%';
+        player4.style.height = '17%';   player4.style.width = '18%';
+
         if (playerNumber === 'player1') {
-            player1.style.left = '160px';   player1.style.top = '500px';
-            player2.style.left = '0'    ;   player2.style.top = '200px';
-            player3.style.left = '160px';   player3.style.top = '0'    ;
-            player4.style.left = '325px';   player4.style.top = '200px';
+
+            player1.style.left  = '42%';   player1.style.bottom = '0';
+            player2.style.left  = '0';     player2.style.top    = '33%';
+            player3.style.right = '0';     player3.style.top    = '33%';
+            player4.style.left  = '42%';   player4.style.top    = '0';
+
+            //player1.style.left = '160px';   player1.style.top = '500px';
+            //player2.style.left = '0'    ;   player2.style.top = '200px';
+            //player3.style.left = '160px';   player3.style.top = '0'    ;
+            //player4.style.left = '325px';   player4.style.top = '200px';
         } else if (playerNumber === 'player2') {
-            player2.style.left = '160px';   player2.style.top = '500px';
-            player3.style.left = '0'    ;   player3.style.top = '200px';
-            player4.style.left = '160px';   player4.style.top = '0'    ;
-            player1.style.left = '325px';   player1.style.top = '200px';
+
+            player2.style.left  = '42%';   player2.style.bottom = '0';
+            player3.style.left  = '0';     player3.style.top    = '33%';
+            player4.style.right = '0';     player4.style.top    = '33%';
+            player1.style.left  = '42%';   player1.style.top    = '0';
+
+            //player2.style.left = '160px';   player2.style.top = '500px';
+            //player3.style.left = '0'    ;   player3.style.top = '200px';
+            //player4.style.left = '160px';   player4.style.top = '0'    ;
+            //player1.style.left = '325px';   player1.style.top = '200px';
         } else if (playerNumber === 'player3') {
-            player3.style.left = '160px';   player3.style.top = '500px';
-            player4.style.left = '0'    ;   player4.style.top = '200px';
-            player1.style.left = '160px';   player1.style.top = '0'    ;
-            player2.style.left = '325px';   player2.style.top = '200px';
+
+            player3.style.left  = '42%';   player3.style.bottom = '0';
+            player4.style.left  = '0';     player4.style.top    = '33%';
+            player1.style.right = '0';     player1.style.top    = '33%';
+            player2.style.left  = '42%';   player2.style.top    = '0';
+
+            //player3.style.left = '160px';   player3.style.top = '500px';
+            //player4.style.left = '0'    ;   player4.style.top = '200px';
+            //player1.style.left = '160px';   player1.style.top = '0'    ;
+            //player2.style.left = '325px';   player2.style.top = '200px';
         } else if (playerNumber === 'player4') {
-            player4.style.left = '160px';   player4.style.top = '500px';
-            player1.style.left = '0'    ;   player1.style.top = '200px';
-            player2.style.left = '160px';   player2.style.top = '0'    ;
-            player3.style.left = '325px';   player3.style.top = '200px';
+
+            player4.style.left  = '42%';   player4.style.bottom = '0';
+            player1.style.left  = '0';     player1.style.top    = '33%';
+            player2.style.right = '0';     player2.style.top    = '33%';
+            player3.style.left  = '42%';   player3.style.top    = '0';
+
+            //player4.style.left = '160px';   player4.style.top = '500px';
+            //player1.style.left = '0'    ;   player1.style.top = '200px';
+            //player2.style.left = '160px';   player2.style.top = '0'    ;
+            //player3.style.left = '325px';   player3.style.top = '200px';
         }
-        chat.style.width = '300px';
-        chat.style.height = '150px';
-        chat.style.top = '320px';
-        chat.style.left = '50px';
+
+        chat.style.top = '55%';
         chat.style.display = 'inherit';
     });
 
@@ -516,27 +539,27 @@
     });
 
     //print functions:
-    const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="width: 75px; height: 100px;">`;
+    const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="width: 100%; height: 100%;">`;
     const printActiveBack = () =>
-        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="width: 75px; height: 100px;">`;
-    const printNoCard = () => `<img src= "Oh_Hell_solo/img/play_area.png" style="width: 75px; height: 100px;">`;
-    const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="width: 75px; height: 100px;">`;
+        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="width: 100%; height: 100%;">`;
+    const printNoCard = () => `<img src= "Oh_Hell_solo/img/play_area.png" style="width: 100%; height: 100%;">`;
+    const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="width: 100%; height: 100%;">`;
     const printCard = (card, position) =>
         `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card${card[1]}${card[0]}.png" style="${position}">`;
 
     const printPile = cards => {
         let pile = '';
         if (cards.length > 3) {
-            pile += printCard(cards[cards.length - 4], 'position: absolute; left: 0; width: 75px; height: 100px;');
+            pile += printCard(cards[cards.length - 4], 'position: absolute; left: 0; height: 100%; width: 50%;');
         }
         if (cards.length > 2) {
-            pile += printCard(cards[cards.length - 3], 'position: absolute; left: 25px; width: 75px; height: 100px;');
+            pile += printCard(cards[cards.length - 3], 'position: absolute; left: 18%; height: 100%; width: 50%;');
         }
         if (cards.length > 1) {
-            pile += printCard(cards[cards.length - 2], 'position: absolute; left: 50px; width: 75px; height: 100px;');
+            pile += printCard(cards[cards.length - 2], 'position: absolute; left: 36%; height: 100%; width: 50%;');
         }
         if (cards.length > 0) {
-            pile += printCard(cards[cards.length - 1], 'position: absolute; left: 75px; width: 75px; height: 100px;');
+            pile += printCard(cards[cards.length - 1], 'position: absolute; left: 54%; height: 100%; width: 50%;');
         }
         return pile;
     };

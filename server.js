@@ -978,10 +978,8 @@ const calcRatings = (game, winner) => {
     //maybe one day i will understand why for (i in players) doesn't work ....
     for (let x = 0; x < players.length; x++) {
         let i = players[x];
-        console.log(`player${i}slaps`);
         game['R' + i] = Math.pow( 10, game[`player${i}slaps`].rating/400 );
         expectedDivisor += game['R' + i];
-        console.log(game['R' + i]);
     }
     expectedDivisor = expectedDivisor/(players.length/2);
     io.sockets.emit('chat', `Congratulations ${game[winner].name} for winning a game with ${game.slaps} slaps`);

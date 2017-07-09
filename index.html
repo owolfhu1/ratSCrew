@@ -393,7 +393,7 @@
                 ID(key + table[key]).checked = true;
         }
         //when a change is made to the form, send the form to the server
-        $("#rules").on("change", function() {
+        $('#rules').on('change', fuck => {
             let emit = [
                 rules.sandwich.value,   //0
                 rules.run.value,        //1
@@ -436,7 +436,6 @@
             style="position: absolute; top: 10px; right: 10px;">rules</button>
         `;
 
-
         click('rules_button', () => {
             socket.emit('rules_button');
         });
@@ -444,20 +443,6 @@
             socket.emit('slaps_button');
         });
 
-
-
-
-
-
-
-        //get doc elements
-        //player1 = ID('player1');
-        //player2 = ID('player2');
-        //player3 = ID('player3');
-        //player4 = ID('player4');
-        //play_pile = ID('play_pile');
-        //player_info = ID('player_info');
-        //add slap event listener
         ID('play_pile').addEventListener('mousedown', () =>{ socket.emit('slap'); });
 
         if (playerNumber === 'player1') {

@@ -539,27 +539,27 @@
     });
 
     //print functions:
-    const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="width: 100%; height: 100%;">`;
+    const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height: 100%;">`;
     const printActiveBack = () =>
-        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="width: 100%; height: 100%;">`;
-    const printNoCard = () => `<img src= "Oh_Hell_solo/img/play_area.png" style="width: 100%; height: 100%;">`;
-    const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style="width: 100%; height: 100%;">`;
+        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height: 100%;">`;
+    const printNoCard = () => `<img src= "Oh_Hell_solo/img/play_area.png" style=" height: 100%;">`;
+    const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style=" height: 100%;">`;
     const printCard = (card, position) =>
         `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card${card[1]}${card[0]}.png" style="${position}">`;
 
     const printPile = cards => {
         let pile = '';
         if (cards.length > 3) {
-            pile += printCard(cards[cards.length - 4], 'position: absolute; left: 0; height: 100%; width: 50%;');
+            pile += printCard(cards[cards.length - 4], 'position: absolute; left: 0; height: 100%;');
         }
         if (cards.length > 2) {
-            pile += printCard(cards[cards.length - 3], 'position: absolute; left: 18%; height: 100%; width: 50%;');
+            pile += printCard(cards[cards.length - 3], 'position: absolute; left: 18%; height: 100%; ');
         }
         if (cards.length > 1) {
-            pile += printCard(cards[cards.length - 2], 'position: absolute; left: 36%; height: 100%; width: 50%;');
+            pile += printCard(cards[cards.length - 2], 'position: absolute; left: 36%; height: 100%; ');
         }
         if (cards.length > 0) {
-            pile += printCard(cards[cards.length - 1], 'position: absolute; left: 54%; height: 100%; width: 50%;');
+            pile += printCard(cards[cards.length - 1], 'position: absolute; left: 54%; height: 100%; ');
         }
         return pile;
     };

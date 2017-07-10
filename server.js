@@ -538,21 +538,35 @@ io.on('connection', socket => {
     
     socket.on('quit', () => {
         if (user.tableId in games) {
+            let tableId = user.tableId;
             let game = games[user.tableId];
             for (let i = 1; i < 5; i++) {
                 let p = 'player' + i;
                 if (game[p] !== null)
                     if (game[p].userId === userId) {
                         removeFromGame(user.tableId, p);
+                        user.tableId = 'none';
+                        lobby[userId] = user.name;
+    
+                        let count = 0;
                         for (let x = 1; x < 5; x++) {
                             let y = 'player' + x;
                             if (game[y] !== null)
-                                io.to(game[y].userId).emit('game_info', game);
+                                if (game[y].cards.length > 0)
+                                    count++;
                         }
-                        user.tableId = 'none';
-                        lobby[userId] = user.name;
-                        for (let player in lobby)
-                            io.to(player).emit('lobby', tables);
+                        
+                        if (count < 2)
+                            endGame(tableId);
+                        else {
+                            for (let x = 1; x < 5; x++) {
+                                let y = 'player' + x;
+                                if (game[y] !== null)
+                                    io.to(game[y].userId).emit('game_info', game);
+                            }
+                            for (let player in lobby)
+                                io.to(player).emit('lobby', tables);
+                        }
                     }
             }
         }
@@ -793,9 +807,15 @@ const endGame = tableId => {
             lobby[id] = game[p].name;
         }
     }
+    
+    console.dir(game);
+    console.log(winner);
+    
     calcRatings(game, winner);
     delete games[tableId];
-    for (let key in lobby) io.to(key).emit('lobby', tables );
+    
+    for (let key in lobby)
+        io.to(key).emit('lobby', tables );
     
     
 };

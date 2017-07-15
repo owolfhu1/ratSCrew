@@ -1085,11 +1085,28 @@ const calcRatings = (game, winner) => {
 };
 
 const topFive = () => {
-    let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
+    //let order = Object.keys(ratingMap).sort(((a, b) => ratingMap[a] < ratingMap[b]));
+    
+    //put all keys in array
+    let order = [];
+    for (let key in ratingMap)
+        order.push(key);
+    
+    //sort the list by rating
+    for (let i = 0; i < order.length; i++)
+        for (let j = i+1; j < order.length; j++)
+            if (ratingMap[order[i]] < ratingMap[order[j]]) {
+                let temp = order[i];
+                order[i] = order[j];
+                order[j] = temp;
+            }
+    
     //remove players who have not played!
     for (let i = order.length - 1; i >= 0; i--)
         if (gamesCountMap[order[i]] === 0)
             order.splice(i, 1);
+    
+    //build table
     let table = `
         <table class="table">
             <tr>

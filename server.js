@@ -1094,7 +1094,7 @@ const topFive = () => {
     
     //sort the list by rating
     for (let i = 0; i < order.length; i++)
-        for (let j = i+1; j < order.length; j++)
+        for (let j = i + 1; j < order.length; j++)
             if (ratingMap[order[i]] < ratingMap[order[j]]) {
                 let temp = order[i];
                 order[i] = order[j];

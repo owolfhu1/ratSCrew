@@ -3,7 +3,9 @@
  */
 
 //server
-let app = require('express')();
+const express = require('express');
+const app = express();
+app.use(express.static(__dirname + '/images'));
 let http = require('http').Server(app);
 let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
@@ -25,8 +27,10 @@ let slapsMap = {};
 let tables = {};
 let games = {};
 let online = [];
+
 //ELO K value
 const K = 40;
+
 //get users info
 client.query('SELECT * FROM users;').on('row', row => {
     passwordMap[row.name] = row.pass;
@@ -1149,5 +1153,4 @@ const sliceAnDice = string => {
     }
     return hash + "";
 };
-
 

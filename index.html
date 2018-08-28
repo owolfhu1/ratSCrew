@@ -19,7 +19,6 @@
         .container .jumbotron { border-radius: 15px; }
         .form-control { border-radius: 10px; }
         .chat_body::-webkit-scrollbar { display: none; }
-
         .chat { display: none; position: absolute;  top: 0;  left: 0;  z-index: 1;  width: 100%; height: 30%; }
         .chat_body{ position: absolute; width: 100%; height: 80%; background: rgba(0, 75, 250, 0.55);
              overflow-y: scroll; padding-left: 5px; padding-right: 15px; color: whitesmoke; top: 0;}
@@ -52,7 +51,7 @@
 </head>
 <body style="background: #f8ffea">
 <div id="slap_info" class="slap_info">
-    <image class="slap_image" src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.png"></image>
+    <image class="slap_image" src="slap.png"></image>
 </div>
 <div id="chat" class="chat">
     <div id="chat_body" class="chat_body"><p>Welcome!!</p></div>
@@ -88,8 +87,8 @@
     <button class="form-control" id="remove_timeout">Check / Remove Timeout</button>
 </div>
 <script>
-    const SLAP = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/slap.mp3');
-    const alertSound = new Audio('http://owolfhu1.x10host.com/Oh_Hell_solo/img/sound.mp3');
+    const SLAP = new Audio('slap.mp3');
+    const alertSound = new Audio('sound.mp3');
 
     let socket = io();
 
@@ -156,7 +155,7 @@
     socket.on('setup_login', () => {
         //setup game_body to have login fields
         ID('game_body').innerHTML = `<div class="container">
-    <div class="jumbotron" style="color: whitesmoke; background-image:url(http://owolfhu1.x10host.com/Oh_Hell_solo/img/ratimg.jpg); background-size:100%;">
+    <div class="jumbotron" style="color: whitesmoke; background-image:url(ratimg.jpg); background-size:100%;">
     <h1><div style="text-align: center;">Orion's Rat Screw!</div></h1></div>
     <div class="form-horizontal">
         <div class="form-group">
@@ -422,7 +421,7 @@
     socket.on('setup_game', () => {
         style('game_body').padding = "0";
         ID('game_body').innerHTML = `
-<img src="http://owolfhu1.x10host.com/Oh_Hell_solo/img/felt.png" height="100%" width="100%">
+<img src="felt.png" height="100%" width="100%">
             <div class="player_info" id="player_info"></div>
             <div class="player_pile" id="player1"></div>
             <div class="player_pile" id="player2"></div>
@@ -535,13 +534,13 @@
     });
 
     //print functions:
-    const printTurnBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height: 100%;">`;
+    const printTurnBack = () => `<img src= "cardbackred.png" style="height: 100%;">`;
     const printActiveBack = () =>
-        `<img id="clickable" src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/cardbackred.png" style="height: 100%;">`;
-    const printNoCard = () => `<img src= "Oh_Hell_solo/img/play_area.png" style=" height: 100%;">`;
-    const printCardBack = () => `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card_back.png" style=" height: 100%;">`;
+        `<img id="clickable" src= "cardbackred.png" style="height: 100%;">`;
+    const prinplay_area.png" style=" height: 100%;">`;
+    const printCardBack = () => `<img src= "card_back.png" style=" height: 100%;">`;
     const printCard = (card, position) =>
-        `<img src= "http://owolfhu1.x10host.com/Oh_Hell_solo/img/card${card[1]}${card[0]}.png" style="${position}">`;
+        `<img src= "card${card[1]}${card[0]}.png" style="${position}">`;
 
     const printPile = cards => {
         let pile = '';
